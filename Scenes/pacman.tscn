@@ -23,10 +23,9 @@ animations = [ {
 radius = 7.10982
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-script = ExtResource( 2 )
-speed = 37.152
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
 frames = SubResource( 3 )
