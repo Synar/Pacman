@@ -30,4 +30,5 @@ func _process(delta):
     if Input.is_action_pressed("move_down"):
         current_dir = Vector2(0, 1)
 
+    rotation = current_dir.angle()
     position += current_dir * speed * delta
