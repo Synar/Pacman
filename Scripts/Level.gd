@@ -9,6 +9,7 @@ var tilemap
 var pacmanScene = load("res://Scenes/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
     tilemap = get_node("TileMap")
