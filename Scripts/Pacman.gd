@@ -1,18 +1,27 @@
-extends Node2D
+extends KinematicBody2D 
 
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+onready var pickup = get_node("/root/Node2D/pickup")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    #pickup.connect("body_entered", self, "_on_pickup_body_entered")
     pass # Replace with function body.
+
+#func _on_pickup_body_entered(body):
+    #print("tiggered,b")
+    #queue_free()
 
 export(float) var speed = 0
 var current_dir = Vector2(0, 0)
 
+
+func _on_pickup_body_entered(body):
+    print("ahah-pac")
+    pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
