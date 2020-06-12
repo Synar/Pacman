@@ -4,12 +4,13 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var Pacman = get_node("/root/Node2D/Pacman")
+#onready var Pacman = get_node("/root/Node2D/Lvl1/Pacman")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    
+    pass
     self.connect("body_entered", self, "_on_pickup_body_entered")
+    self.connect("body_entered", GlobalPlayer.Player, "_on_pickup_body_entered")
 
 #func _on_pickup_body_entered(body):
     #print("tiggered")

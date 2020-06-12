@@ -1,5 +1,30 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/pickup/pickup.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Sprites/SpriteMap.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/pickup/Coin.gd" type="Script" id=3]
 
-[node name="coin" instance=ExtResource( 1 )]
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.10422
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Coin" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="CoArea" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="1"]
+position = Vector2( 0.661278, -0.377872 )
+frames = SubResource( 3 )

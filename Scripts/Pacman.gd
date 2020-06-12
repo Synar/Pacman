@@ -4,11 +4,15 @@ extends KinematicBody2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var pickup = get_node("/root/Node2D/pickup")
+#onready var pickup = get_node("/root/Node2D/Coin")
+#GlobalPlayer.Player=self
+#onready var player = get_node("/root/GlobalPlayer")
+var score = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    #pickup.connect("body_entered", self, "_on_pickup_body_entered")
+    GlobalPlayer.Player=self
+    #player.Player = self
     pass # Replace with function body.
 
 #func _on_pickup_body_entered(body):
@@ -20,7 +24,9 @@ var current_dir = Vector2(0, 0)
 
 
 func _on_pickup_body_entered(body):
-    print("ahah-pac")
+    score+=1
+    print("Score : ",score," !")
+    #print(get_node("/root/Node2D/Coin").get_overlapping_bodies())
     pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

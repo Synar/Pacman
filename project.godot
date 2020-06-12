@@ -19,6 +19,10 @@ config/name="Pacman"
 run/main_scene="res://Scenes/main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GlobalPlayer="*res://Scripts/GlobalPlayer.gd"
+
 [display]
 
 window/size/width=224
