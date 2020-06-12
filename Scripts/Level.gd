@@ -7,7 +7,7 @@ extends Node2D
 
 var tilemap
 var pacmanScene = load("res://Scenes/pacman.tscn")
-var CoinScene = load("res://Scenes/pickup/Coin.tscn")
+var coinScene = load("res://Scenes/pickup/coin.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,7 +23,7 @@ func _ready():
     for pos in tilemap.get_used_cells_by_id(1):
         var atlasPos = tilemap.get_cell_autotile_coord(pos.x, pos.y)
         if atlasPos == Vector2(1, 0): # dot
-            var coin = CoinScene.instance()
+            var coin = coinScene.instance()
             add_child(coin)
             coin.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
             tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))

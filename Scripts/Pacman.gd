@@ -21,7 +21,7 @@ func _ready():
 
 export(float) var speed = 0
 var current_dir = Vector2(0, 0)
-
+var wanted_dir = Vector2(0, 0)
 
 func _on_pickup_body_entered(body):
     score+=1
@@ -29,21 +29,25 @@ func _on_pickup_body_entered(body):
     #print(get_node("/root/Node2D/Coin").get_overlapping_bodies())
     pass
 
+func try_dir(wanted_dir):
+    return wanted_dir
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 
     if Input.is_action_pressed("move_left"):
-        current_dir = Vector2(-1, 0)
+        wanted_dir = Vector2(-1, 0)
 
     if Input.is_action_pressed("move_right"):
-        current_dir = Vector2(1, 0)
+        wanted_dir = Vector2(1, 0)
 
     if Input.is_action_pressed("move_up"):
-        current_dir = Vector2(0, -1)
+        wanted_dir = Vector2(0, -1)
 
 
     if Input.is_action_pressed("move_down"):
-        current_dir = Vector2(0, 1)
+        wanted_dir = Vector2(0, 1)
 
+    current_dir=try_dir(wanted_dir)
     rotation = current_dir.angle()
     position += current_dir * speed * delta
