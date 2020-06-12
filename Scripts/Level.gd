@@ -7,7 +7,7 @@ extends Node2D
 
 var tilemap
 var pacmanScene = load("res://Scenes/pacman.tscn")
-var CoinScene = load("res://Scenes/pickup/Coin.tscn")
+var CoinScene = load("res://Scenes/pickup/coin.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
