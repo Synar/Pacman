@@ -18,14 +18,14 @@ func _ready():
             var pacman = pacmanScene.instance()
             add_child(pacman)
             pacman.speed = 50
-            pacman.position = tilemap.map_to_world(pos) + tilemap.position
+            pacman.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
             tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
     for pos in tilemap.get_used_cells_by_id(1):
         var atlasPos = tilemap.get_cell_autotile_coord(pos.x, pos.y)
         if atlasPos == Vector2(1, 0): # dot
             var coin = CoinScene.instance()
             add_child(coin)
-            coin.position = tilemap.map_to_world(pos) + tilemap.position
+            coin.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
             tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
 
 
