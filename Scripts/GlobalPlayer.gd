@@ -2,7 +2,7 @@ extends Node
 
 var Player
 var levelTilemap
-#var score
+var score
 
 # Declare member variables here. Examples:
 # var a = 2

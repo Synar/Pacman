@@ -1,33 +1,43 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/HUD.gd" type="Script" id=1]
 
 [node name="HUD" type="CanvasLayer"]
+script = ExtResource( 1 )
 
 [node name="ScoreBox" type="MarginContainer" parent="."]
-anchor_right = 1.0
-margin_bottom = 14.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -512.0
+margin_right = 512.0
+margin_bottom = 54.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="ScoreBox"]
-margin_left = 20.0
 margin_top = 20.0
-margin_right = 1004.0
+margin_right = 1024.0
 margin_bottom = 34.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScoreBox"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1004.0
-margin_bottom = 34.0
-alignment = 2
+margin_right = 1024.0
+margin_bottom = 54.0
+alignment = 1
 
 [node name="Label" type="Label" parent="ScoreBox/HBoxContainer"]
-margin_left = 960.0
-margin_right = 984.0
-margin_bottom = 14.0
+margin_left = 476.0
+margin_top = 20.0
+margin_right = 519.0
+margin_bottom = 34.0
+text = "Score :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="ScoreBox/HBoxContainer"]
+margin_left = 523.0
+margin_top = 20.0
+margin_right = 547.0
+margin_bottom = 34.0
 text = "100"
