@@ -38,6 +38,11 @@ animations = [ {
 "name": "normal_up",
 "speed": 5.0
 }, {
+"frames": [  ],
+"loop": true,
+"name": "New Anim",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "normal_right",
@@ -46,11 +51,6 @@ animations = [ {
 "frames": [ SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "normal_left",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "New Anim",
 "speed": 5.0
 } ]
 
