@@ -43,7 +43,7 @@ func pick_wanted_dir(delta):
         wanted_dir = [Vector2(-1, 0),Vector2(1, 0),Vector2(0, -1),Vector2(0, 1)][randi()%4]
 
     else :
-        var potentialDir = [Vector2(-1, 0),Vector2(1, 0),Vector2(0, -1),Vector2(0, 1)]
+        var potentialDir = [Vector2(0, 1),Vector2(-1, 0),Vector2(0, -1),Vector2(1, 0)]
         potentialDir.erase(-current_dir)
         for dir in potentialDir.duplicate():
             if tile_is_wall(position + 16*dir):
