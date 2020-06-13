@@ -29,7 +29,7 @@ func try_dir(wanted_dir, delta):
     return (new_pos - new_pos_adj).length() <= speed * delta
 
 
-func adjust_pos(pos, direction):
+func adjust_pos(pos, direction=Vector2(1,1)):
     var size_adjust = 8
     if direction.x != 0:
         pos.y = stepify(pos.y - GlobalPlayer.levelTilemap.position.y - size_adjust, 16) + GlobalPlayer.levelTilemap.position.y + size_adjust
@@ -39,13 +39,13 @@ func adjust_pos(pos, direction):
 
     return pos
 
-func pick_wanted_dir():
+func pick_wanted_dir(delta):
     pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 
-    pick_wanted_dir()
+    pick_wanted_dir(delta)
 
     if try_dir(wanted_dir, delta):
         current_dir = wanted_dir

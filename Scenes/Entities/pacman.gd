@@ -13,7 +13,7 @@ func _on_pickup_body_entered(body):
 func entity_rotate():
     rotation = past_dir.angle()
 
-func pick_wanted_dir():
+func pick_wanted_dir(delta):
     if Input.is_action_pressed("move_left"):
         wanted_dir = Vector2(-1, 0)
 
