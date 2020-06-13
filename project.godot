@@ -25,10 +25,8 @@ GlobalPlayer="*res://Scripts/GlobalPlayer.gd"
 
 [display]
 
-window/size/width=224
-window/size/height=248
-window/size/test_width=448
-window/size/test_height=496
+window/size/test_width=522
+window/size/test_height=622
 
 [input]
 
