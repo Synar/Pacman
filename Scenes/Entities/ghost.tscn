@@ -55,6 +55,8 @@ animations = [ {
 } ]
 
 [node name="ghost" instance=ExtResource( 1 )]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource( 2 )
 speed = 50.0
 
@@ -64,5 +66,4 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 8 )
 animation = "normal_up"
-frame = 1
 offset = Vector2( 0, 0 )
