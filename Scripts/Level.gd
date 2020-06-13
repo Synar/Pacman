@@ -15,6 +15,8 @@ func tilemap_to_map(tile,coord):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    #OS.set_window_position(screen_size*0.5 - window_size*0.5)
+
     tilemap = get_node("TileMap")
     GlobalPlayer.levelTilemap = tilemap
     for pos in tilemap.get_used_cells_by_id(1):

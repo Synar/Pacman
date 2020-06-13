@@ -58,5 +58,6 @@ position = Vector2( 317.291, 325.649 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 252.914, 299.568 )
+current = true
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]
