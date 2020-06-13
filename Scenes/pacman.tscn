@@ -23,6 +23,8 @@ animations = [ {
 } ]
 
 [node name="Pacman" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 12
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -30,6 +32,5 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-frame = 1
 playing = true
 offset = Vector2( -0.5, 0.5 )
