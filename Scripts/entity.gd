@@ -11,6 +11,7 @@ var past_dir = Vector2(0, 0)
 
     #print(get_node("/root/Node2D/Coin").get_overlapping_bodies())
 
+
 func tile_is_wall(pos):
     var tilemap = GlobalPlayer.levelTilemap
     pos = pos - tilemap.position
