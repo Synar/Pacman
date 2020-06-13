@@ -6,7 +6,7 @@ extends Node2D
 # var b = "text"
 
 var tilemap
-var pacmanScene = load("res://Scenes/pacman.tscn")
+var pacmanScene = load("res://Scenes/entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 
 
