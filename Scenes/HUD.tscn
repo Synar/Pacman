@@ -1,3 +1,33 @@
 [gd_scene format=2]
 
 [node name="HUD" type="CanvasLayer"]
+
+[node name="ScoreBox" type="MarginContainer" parent="."]
+anchor_right = 1.0
+margin_bottom = 14.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ScoreBox"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 34.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScoreBox"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 34.0
+alignment = 2
+
+[node name="Label" type="Label" parent="ScoreBox/HBoxContainer"]
+margin_left = 960.0
+margin_right = 984.0
+margin_bottom = 14.0
+text = "100"
