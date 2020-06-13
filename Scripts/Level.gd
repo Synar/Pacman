@@ -13,6 +13,7 @@ var coinScene = load("res://Scenes/pickup/coin.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
     tilemap = get_node("TileMap")
+    GlobalPlayer.levelTilemap = tilemap
     for pos in tilemap.get_used_cells_by_id(1):
         var atlasPos = tilemap.get_cell_autotile_coord(pos.x, pos.y)
         if atlasPos == Vector2(2, 0):
