@@ -1,4 +1,4 @@
-extends "res://Scripts/Pacman.gd"
+extends "res://Scripts/entity.gd"
 
 
 # Declare member variables here. Examples:
