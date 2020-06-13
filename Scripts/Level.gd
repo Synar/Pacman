@@ -6,15 +6,24 @@ extends Node2D
 # var b = "text"
 
 var tilemap
+var virtual_map = {}
+
 var pacmanScene = load("res://Scenes/entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 
+var tilemap_to_map_dict = {[1,Vector2(0,2)]:"pacman_origin",[1,Vector2(0,1)]:"coin",
+                            [1,Vector2(1,0)]:"wall",[1,Vector2(0,0)]:"ground"}
+func tilemap_to_map(tile,coord):
+    if [tile,coord] in tilemap_to_map_dict:
+        return tilemap_to_map_dict[[tile,coord]]
+    return str([tile,coord])
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     tilemap = get_node("TileMap")
     GlobalPlayer.levelTilemap = tilemap
     for pos in tilemap.get_used_cells_by_id(1):
+        virtual_map[pos] = tilemap_to_map(1,tilemap.get_cell_autotile_coord(pos.x, pos.y))
         var atlasPos = tilemap.get_cell_autotile_coord(pos.x, pos.y)
         if atlasPos == Vector2(2, 0):
             var pacman = pacmanScene.instance()
