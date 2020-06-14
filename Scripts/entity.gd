@@ -7,7 +7,8 @@ export(float) var speed = 20
 var current_dir = Vector2(0, 0)
 var wanted_dir = Vector2(0, 0)
 var past_dir = Vector2(0, 0)
-var tilemap
+
+var teleported = false
 
     #print(get_node("/root/Node2D/Coin").get_overlapping_bodies())
 #func _ready():
@@ -16,13 +17,24 @@ var tilemap
     #print(tilemap)
     #print(GlobalPlayer.levelTilemap.position)
 
+func get_tile_coord(pos): #position_to_pos_on_grid
+    return GlobalPlayer.level.pos_to_pos_on_grid(pos - GlobalPlayer.level.grid_pos)
+    
+func get_tile_name(pos):
+    var L = GlobalPlayer.level
+    var pos_on_grid = get_tile_coord(pos)
+    if pos_on_grid in L.virtual_map:
+        return L.virtual_map[pos_on_grid]
+    else :
+        return "ground" #"empty"?
+
 func tile_is_wall(pos):
     #print("là")
     #print(GlobalPlayer.levelTilemap.position)
     #tilemap = GlobalPlayer.levelTilemap
-    var L = GlobalPlayer.level
-    var pos_on_grid = L.pos_to_pos_on_grid(pos - L.grid_pos)
-    return pos_on_grid in L.virtual_map and L.virtual_map[pos_on_grid]=="wall"
+    #var L = GlobalPlayer.level
+    #var pos_on_grid = get_tile_coord(pos)
+    return get_tile_name(pos)=="wall"
 
 
 func try_dir(wanted_dir, delta):
@@ -47,6 +59,15 @@ func adjust_pos(pos, direction=Vector2(1,1)):
 func pick_wanted_dir(delta):
     pass
 
+func teleport():
+    if get_tile_name(position)=="teleport":
+        if teleported == false:
+            position+=16*(GlobalPlayer.level.tp_dict[get_tile_coord(position)]-get_tile_coord(position))
+            teleported = true
+    else:
+        teleported = false
+        
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 
@@ -67,6 +88,8 @@ func _process(delta):
     position += current_dir * speed * delta
 
     position = adjust_pos(position, current_dir)
+    
+    teleport()
 
 
 func entity_rotate():
