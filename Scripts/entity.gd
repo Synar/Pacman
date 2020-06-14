@@ -7,13 +7,17 @@ export(float) var speed = 20
 var current_dir = Vector2(0, 0)
 var wanted_dir = Vector2(0, 0)
 var past_dir = Vector2(0, 0)
-
+onready var tilemap
 
     #print(get_node("/root/Node2D/Coin").get_overlapping_bodies())
-
+func _ready():
+    print("ici")
+    tilemap = GlobalPlayer.levelTilemap
 
 func tile_is_wall(pos):
-    var tilemap = GlobalPlayer.levelTilemap
+    print(GlobalPlayer.levelTilemap)
+    print("là")
+    tilemap = GlobalPlayer.levelTilemap.position
     pos = pos - tilemap.position
     var tilemap_pos = tilemap.world_to_map(pos)
     if tilemap.get_cellv(tilemap_pos)!=1:
