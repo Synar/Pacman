@@ -1,7 +1,8 @@
 extends Node
 
 var Player
-var levelTilemap
+var level
+#var levelTilemap
 var score
 
 # Called when the node enters the scene tree for the first time.

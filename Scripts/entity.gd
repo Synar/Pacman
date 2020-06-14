@@ -1,28 +1,28 @@
 extends KinematicBody2D
 
-
+export(int) var test_id = 0
 export(bool) var smooth_game_control = true
 
 export(float) var speed = 20
 var current_dir = Vector2(0, 0)
 var wanted_dir = Vector2(0, 0)
 var past_dir = Vector2(0, 0)
-onready var tilemap
+var tilemap
 
     #print(get_node("/root/Node2D/Coin").get_overlapping_bodies())
-func _ready():
-    print("ici")
-    tilemap = GlobalPlayer.levelTilemap
+#func _ready():
+    #print("ici",test_id)
+    #tilemap = GlobalPlayer.levelTilemap
+    #print(tilemap)
+    #print(GlobalPlayer.levelTilemap.position)
 
 func tile_is_wall(pos):
-    print(GlobalPlayer.levelTilemap)
-    print("là")
-    tilemap = GlobalPlayer.levelTilemap.position
-    pos = pos - tilemap.position
-    var tilemap_pos = tilemap.world_to_map(pos)
-    if tilemap.get_cellv(tilemap_pos)!=1:
-        return false
-    return tilemap.get_cell_autotile_coord(tilemap_pos.x,tilemap_pos.y)==Vector2(0,1)
+    #print("là")
+    #print(GlobalPlayer.levelTilemap.position)
+    #tilemap = GlobalPlayer.levelTilemap
+    var L = GlobalPlayer.level
+    var pos_on_grid = L.pos_to_pos_on_grid(pos - L.grid_pos)
+    return pos_on_grid in L.virtual_map and L.virtual_map[pos_on_grid]=="wall"
 
 
 func try_dir(wanted_dir, delta):
@@ -37,10 +37,10 @@ func try_dir(wanted_dir, delta):
 func adjust_pos(pos, direction=Vector2(1,1)):
     var size_adjust = 8
     if direction.x != 0:
-        pos.y = stepify(pos.y - GlobalPlayer.levelTilemap.position.y - size_adjust, 16) + GlobalPlayer.levelTilemap.position.y + size_adjust
+        pos.y = stepify(pos.y - GlobalPlayer.level.grid_pos.y - size_adjust, 16) + GlobalPlayer.level.grid_pos.y + size_adjust
 
     if direction.y != 0:
-        pos.x = stepify(pos.x - GlobalPlayer.levelTilemap.position.x - size_adjust, 16) + GlobalPlayer.levelTilemap.position.x + size_adjust
+        pos.x = stepify(pos.x - GlobalPlayer.level.grid_pos.x - size_adjust, 16) + GlobalPlayer.level.grid_pos.x + size_adjust
 
     return pos
 

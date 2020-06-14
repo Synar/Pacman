@@ -3,6 +3,7 @@ extends Node2D
 var tilemap
 var virtual_map = {}
 var tp_dict = {}
+var grid_pos = 0
 
 var pacmanScene = load("res://Scenes/entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
@@ -17,12 +18,17 @@ func tilemap_coord_to_name(tile,coord):
         return tilemap_coord_to_name_dict[[tile,coord]]
     return str([tile,coord])
 
+func pos_to_pos_on_grid(pos):
+    return tilemap.world_to_map(pos)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
     #OS.set_window_position(screen_size*0.5 - window_size*0.5)
-
+    print("mais")
     tilemap = get_node("TileMap")
-    GlobalPlayer.levelTilemap = tilemap
+    grid_pos = tilemap.position
+    GlobalPlayer.level = self
+    print("si")
     for pos in tilemap.get_used_cells_by_id(1):
         virtual_map[pos] = tilemap_coord_to_name(1,tilemap.get_cell_autotile_coord(pos.x, pos.y))
         var atlasPos = tilemap.get_cell_autotile_coord(pos.x, pos.y)
