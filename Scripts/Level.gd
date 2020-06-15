@@ -3,10 +3,12 @@ extends Node2D
 var tilemap
 var virtual_map = {}
 var tp_dict = {}
+var tp_exit_list = []
 var grid_pos = 0
 
 var pacmanScene = load("res://Scenes/entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
+var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
 
 var tilemap_coord_to_name_dict = {[1,Vector2(0,0)]:"ground",[1,Vector2(1,0)]:"coin",[1,Vector2(2,0)]:"pacman_origin",
                             [1,Vector2(0,1)]:"wall",[1,Vector2(1,1)]:"teleport",[1,Vector2(2,1)]:"no_up",
@@ -40,17 +42,26 @@ func _ready():
             pacman.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
             tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
             
+        if tilemap_coord_to_name(1,atlasPos) == "red_placeholder":
+            var tp = darkTileScene.instance()
+            add_child(tp)
+            tp.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+            tp_exit_list.append(pos)
+            
     for pos in tilemap.get_used_cells_by_id(1):
         var atlasPos = tilemap.get_cell_autotile_coord(pos.x, pos.y)
         if tilemap_coord_to_name(1,atlasPos) == "coin":
             var coin = coinScene.instance()
             add_child(coin)
             coin.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+
         if tilemap_coord_to_name(1,atlasPos) == "teleport":
-            for tps in tp_dict:
-                if (tps.x==pos.x or tps.y==pos.y) and tps!=pos:
+            var tp = darkTileScene.instance()
+            add_child(tp)
+            tp.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+            for tps in tp_exit_list:
+                if (tps.x==pos.x or tps.y==pos.y) and tps.distance_to(pos)>2:
                     tp_dict[pos]=tps
-                    tp_dict[tps]=pos
             if not pos in tp_dict:
                 tp_dict[pos]=pos
                     

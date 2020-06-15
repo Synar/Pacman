@@ -58,6 +58,7 @@ func pick_wanted_dir(delta):
 func teleport():
     if get_tile_name(position)=="teleport":
         if teleported == false:
+            print("tp",GlobalPlayer.level.tp_dict)
             position+=16*(GlobalPlayer.level.tp_dict[get_tile_coord(position)]-get_tile_coord(position))
             teleported = true
     else:

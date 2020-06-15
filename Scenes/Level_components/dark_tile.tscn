@@ -1,3 +1,10 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Tiles/LevelMapEdit.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Level_components/dark_tile.gd" type="Script" id=2]
 
 [node name="Sprite" type="Sprite"]
+texture = ExtResource( 1 )
+vframes = 4
+hframes = 4
+script = ExtResource( 2 )
