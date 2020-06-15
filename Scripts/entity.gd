@@ -12,10 +12,6 @@ var teleported = false
 
     #print(get_node("/root/Node2D/Coin").get_overlapping_bodies())
 #func _ready():
-    #print("ici",test_id)
-    #tilemap = GlobalPlayer.levelTilemap
-    #print(tilemap)
-    #print(GlobalPlayer.levelTilemap.position)
 
 func get_tile_coord(pos): #position_to_pos_on_grid
     return GlobalPlayer.level.pos_to_pos_on_grid(pos - GlobalPlayer.level.grid_pos)

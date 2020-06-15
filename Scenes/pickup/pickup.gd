@@ -1,6 +1,7 @@
 extends Node2D
 
 
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -8,7 +9,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    pass
+    z_index = 1
     self.connect("body_entered", self, "_on_pickup_body_entered")
     self.connect("body_entered", GlobalPlayer.Player, "_on_pickup_body_entered")
 
