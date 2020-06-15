@@ -20,3 +20,7 @@ func _ready():
 
 func _on_LinkButton_pressed():
     get_tree().change_scene("res://Scenes/Level1.tscn")
+
+
+func _on_LinkButton2_pressed():
+    pass # Replace with function body.
