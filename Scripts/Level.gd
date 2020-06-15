@@ -14,6 +14,14 @@ var tilemap_coord_to_name_dict = {[1,Vector2(0,0)]:"ground",[1,Vector2(1,0)]:"co
                             [1,Vector2(0,1)]:"wall",[1,Vector2(1,1)]:"teleport",[1,Vector2(2,1)]:"no_up",
                             [1,Vector2(0,2)]:"house_barrier",[1,Vector2(1,2)]:"pellet", [1,Vector2(2,2)]:"slow",
                             [1,Vector2(3,0)]:"ghost_origin",[1,Vector2(3,1)]:"red_placeholder", [1,Vector2(3,2)]:"cherry_origin"}
+
+func get_tilemaps():
+    var L=[]
+    for node in get_children():
+        if node is TileMap:
+            L.append(node)
+    return L
+    
                             
 func tilemap_coord_to_name(tile,coord):
     if [tile,coord] in tilemap_coord_to_name_dict:
@@ -28,6 +36,8 @@ func _ready():
     OS.set_window_size(Vector2(520, 610))
     VisualServer.set_default_clear_color(000000)
     #OS.set_window_position(screen_size*0.5 - window_size*0.5)
+    print(get_tilemaps())
+    
     print("mais")
     tilemap = get_node("TileMap")
     grid_pos = tilemap.position
