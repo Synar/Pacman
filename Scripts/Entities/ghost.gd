@@ -1,7 +1,7 @@
-extends "res://Scripts/entity.gd"
+extends "res://Scripts/Entities/entity.gd"
 
 
-var target_pos = Vector2(0,0)
+var target_pos = Vector2(-10,5)
 var not_snapped = true
 var mode = "scatter" #"chase" "dead" "frightened" "lockedIn" #"init"?
 var reverse_upon_leaving = [false,Vector2(0,0)]

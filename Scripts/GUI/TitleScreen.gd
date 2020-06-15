@@ -1,0 +1,22 @@
+extends CanvasLayer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+    OS.set_window_size(Vector2(640, 480))
+    VisualServer.set_default_clear_color(000000)
+    pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#    pass
+
+
+func _on_LinkButton_pressed():
+    get_tree().change_scene("res://Scenes/Level1.tscn")

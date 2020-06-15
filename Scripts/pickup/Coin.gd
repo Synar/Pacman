@@ -1,4 +1,4 @@
-extends "res://Scenes/pickup/pickup.gd"
+extends "res://Scripts/pickup/pickup.gd"
 
 
 # Declare member variables here. Examples:

@@ -1,4 +1,4 @@
-extends "res://Scripts/entity.gd"
+extends "res://Scripts/Entities/entity.gd"
 
 var score = 0
 
