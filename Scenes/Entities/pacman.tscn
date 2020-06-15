@@ -4,8 +4,6 @@
 [ext_resource path="res://Assets/Sprites/BigSpriteSheet.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Entities/pacman.gd" type="Script" id=3]
 
-
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 7.10982
 

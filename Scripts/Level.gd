@@ -6,7 +6,7 @@ var tp_dict = {}
 var tp_exit_list = []
 var grid_pos = 0
 
-var pacmanScene = load("res://Scenes/entities/pacman.tscn")
+var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
 
