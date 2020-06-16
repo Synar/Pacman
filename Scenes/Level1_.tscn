@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Tiles/red_28_16.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tiles/LevelMapEdit.png" type="Texture" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/Entities/ghost.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/GUI/HUD.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Level_components/entities_controller.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/pickup/Fruit.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Sprites/BigSpriteSheet.png" type="Texture" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "red_28_16.png 0"
@@ -45,6 +45,31 @@
 1/shapes = [  ]
 1/z_index = 0
 
+[sub_resource type="TileSet" id=2]
+0/name = "BigSpriteSheet.png 0"
+0/texture = ExtResource( 7 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 336, 62, 17, 24 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 0
+0/autotile/bitmask_flags = [  ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 8, 8 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
 [node name="Level1" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -73,5 +98,6 @@ test_id = 2
 
 [node name="entities_controller" parent="." instance=ExtResource( 6 )]
 
-[node name="Fruit" parent="." instance=ExtResource( 7 )]
-position = Vector2( 28.4211, -156.842 )
+[node name="TileMap3" type="TileMap" parent="."]
+tile_set = SubResource( 2 )
+format = 1

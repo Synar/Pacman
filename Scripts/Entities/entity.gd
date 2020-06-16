@@ -6,7 +6,7 @@ export(bool) var smooth_game_control = true
 export(float) var speed = 20
 var current_dir = Vector2(0, 0)
 var wanted_dir = Vector2(0, 0)
-var past_dir = Vector2(0, 0)
+var past_dir = Vector2(1, 0)
 var vect_to_dir = {Vector2(1, 0):"right",Vector2(0, -1):"up",Vector2(-1, 0):"left",Vector2(0, 1):"down"}
 
 var teleported = false
@@ -73,6 +73,8 @@ func _process(delta):
 
     if try_dir(wanted_dir, delta):
         current_dir = wanted_dir
+    
+    if current_dir!=Vector2(0,0):
         past_dir = current_dir
 
     if !smooth_game_control:

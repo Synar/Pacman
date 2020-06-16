@@ -8,6 +8,7 @@ var grid_pos = 0
 
 var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
+var fruitScene = load("res://Scenes/pickup/fruit.tscn")
 var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
 
 var tilemap_coord_to_name_dict = {[1,Vector2(0,0)]:"ground",[1,Vector2(1,0)]:"coin",[1,Vector2(2,0)]:"pacman_origin",
@@ -78,6 +79,14 @@ func _ready():
                     
         if not tilemap_coord_to_name(1,atlasPos) in ["ground","wall"] :
             tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
+    
+    var fruit = fruitScene.instance()
+    fruit.position = tilemap.map_to_world(Vector2(5,-2)) + tilemap.position 
+    fruit.fruit = "bell"
+    print(fruit.z_index)
+    add_child(fruit)
+    print(fruit.z_index,fruit.fruit,fruit.position)
+    
     
     print(tp_dict)
     #print(virtual_map)
