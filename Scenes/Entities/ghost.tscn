@@ -4,8 +4,6 @@
 [ext_resource path="res://Scripts/Entities/ghost.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Sprites/BigSpriteSheet.png" type="Texture" id=3]
 
-
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.96275
 
@@ -35,6 +33,11 @@ region = Rect2( 352, 80, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "New Anim",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "normal_up",
@@ -48,11 +51,6 @@ animations = [ {
 "frames": [ SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "normal_right",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "New Anim",
 "speed": 5.0
 } ]
 

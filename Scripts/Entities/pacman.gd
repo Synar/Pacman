@@ -15,7 +15,13 @@ func _on_pickup_body_entered(body):
     print("Score : ",score," !")
 
 func entity_rotate():
-    rotation = past_dir.angle()
+    if past_dir in vect_to_dir:
+        $AnimatedSprite.play(vect_to_dir[past_dir])
+        rotation = Vector2(1,0).angle()
+    else :
+        $AnimatedSprite.play("right")
+        rotation = past_dir.angle()
+        print("WTF")
 
 func pick_wanted_dir(delta):
     if Input.is_action_pressed("move_left"):

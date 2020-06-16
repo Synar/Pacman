@@ -8,6 +8,9 @@ export_presets.cfg
 Pacman.exe
 Pacman.pck
 
+#Game saves
+SaveFiles/
+
 # Imported translations (automatically generated from CSV files)
 *.translation
 
