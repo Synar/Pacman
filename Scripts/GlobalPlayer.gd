@@ -4,6 +4,7 @@ var Player
 var level
 #var levelTilemap
 var score
+var e_controller
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
