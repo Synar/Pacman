@@ -12,23 +12,12 @@ var fruitScene = load("res://Scenes/pickup/fruit.tscn")
 var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
 
 
-var tilemap_coord_to_name_dict = {[1,Vector2(0,0)]:"ground",[1,Vector2(1,0)]:"coin",[1,Vector2(2,0)]:"pacman_origin",
-                            [1,Vector2(0,1)]:"wall",[1,Vector2(1,1)]:"teleport",[1,Vector2(2,1)]:"no_up",
-                            [1,Vector2(0,2)]:"house_barrier",[1,Vector2(1,2)]:"pellet", [1,Vector2(2,2)]:"slow",
-                            [1,Vector2(3,0)]:"ghost_origin",[1,Vector2(3,1)]:"red_placeholder", [1,Vector2(3,2)]:"cherry_origin"}
-
 func get_tilemaps():
     var L=[]
     for node in get_children():
         if node is TileMap:
             L.append(node)
     return L
-    
-                            
-func tilemap_coord_to_name(tile,coord):
-    if [tile,coord] in tilemap_coord_to_name_dict:
-        return tilemap_coord_to_name_dict[[tile,coord]]
-    return str([tile,coord])
 
 func pos_to_pos_on_grid(pos):
     return tilemap.world_to_map(pos)
@@ -45,39 +34,47 @@ func _ready():
     grid_pos = tilemap.position
     GlobalPlayer.level = self
     print("si")
-    
-    
+    print(($"Background"))
+    for tilemap in get_tilemaps():
+        read_tilemap(tilemap)
+
+func read_tilemap(tilemap):
     var ts = tilemap.get_tileset()
-    
-    
-    for tilemap in tilemaps:
-        for pos in tilemap.get_used_cells():
-            print("pos",pos)
-            virtual_map[pos] = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
-            print(virtual_map[pos])
-            var atlasPos = tilemap.get_cell_autotile_coord(pos.x, pos.y)
-            if atlasPos == Vector2(2, 0):
+    for pos in tilemap.get_used_cells():
+            var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
+            virtual_map[pos] = tile
+            #print(virtual_map[pos])
+            if tile=="pacman":
+                print("nice")
                 var pacman = pacmanScene.instance()
                 add_child(pacman)
                 pacman.speed = 50
                 pacman.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
-                tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
-                
-            if tilemap_coord_to_name(1,atlasPos) == "red_placeholder":
+
+            if tile=="tp_exit":
                 var tp = darkTileScene.instance()
                 add_child(tp)
                 tp.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
                 tp_exit_list.append(pos)
-                
-func dont():             
-        for pos in tilemap.get_used_cells_by_id(1):
-            var atlasPos = tilemap.get_cell_autotile_coord(pos.x, pos.y)
-            if tilemap_coord_to_name(1,atlasPos) == "coin":
+
+            if tile=="fruit":
+                var fruit = fruitScene.instance()
+                fruit.position = tilemap.map_to_world(Vector2(5,-2)) + tilemap.position
+                fruit.fruit = "bell"
+                print(fruit.z_index)
+                add_child(fruit)
+                print(fruit.z_index,fruit.fruit,fruit.position)
+
+    for pos in tilemap.get_used_cells():
+            var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
+            virtual_map[pos] = tile
+            #print(virtual_map[pos])
+            if tile=="coin":
                 var coin = coinScene.instance()
                 add_child(coin)
                 coin.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
-    
-            if tilemap_coord_to_name(1,atlasPos) == "teleport":
+
+            if tile=="teleport":
                 var tp = darkTileScene.instance()
                 add_child(tp)
                 tp.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
@@ -86,22 +83,14 @@ func dont():
                         tp_dict[pos]=tps
                 if not pos in tp_dict:
                     tp_dict[pos]=pos
-                        
-            if not tilemap_coord_to_name(1,atlasPos) in ["ground","wall"] :
+
+            if not tile in ["ground","wall"] :
                 tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
-    
-    
-        var fruit = fruitScene.instance()
-        fruit.position = tilemap.map_to_world(Vector2(5,-2)) + tilemap.position 
-        fruit.fruit = "bell"
-        print(fruit.z_index)
-        add_child(fruit)
-        print(fruit.z_index,fruit.fruit,fruit.position)
-    
-    
-        print(tp_dict)
+
+
+    print(tp_dict)
     #print(virtual_map)
-    
+
 
 #func _process(delta):
 #    pass

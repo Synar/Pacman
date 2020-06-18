@@ -16,7 +16,7 @@ var teleported = false
 
 func get_tile_coord(pos): #position_to_pos_on_grid
     return GlobalPlayer.level.pos_to_pos_on_grid(pos - GlobalPlayer.level.grid_pos)
-    
+
 func get_tile_name(pos):
     var L = GlobalPlayer.level
     var pos_on_grid = get_tile_coord(pos)
@@ -64,7 +64,7 @@ func teleport():
             teleported = true
     else:
         teleported = false
-        
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -73,7 +73,7 @@ func _process(delta):
 
     if try_dir(wanted_dir, delta):
         current_dir = wanted_dir
-    
+
     if current_dir!=Vector2(0,0):
         past_dir = current_dir
 
@@ -88,7 +88,7 @@ func _process(delta):
     position += current_dir * speed * delta
 
     position = adjust_pos(position, current_dir)
-    
+
     teleport()
 
 

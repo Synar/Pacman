@@ -33,11 +33,6 @@ region = Rect2( 352, 80, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "New Anim",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "normal_up",
@@ -51,6 +46,11 @@ animations = [ {
 "frames": [ SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "normal_right",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "New Anim",
 "speed": 5.0
 } ]
 
@@ -66,5 +66,4 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 8 )
 animation = "normal_up"
-frame = 1
 offset = Vector2( 0, 0 )
