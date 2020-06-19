@@ -75,6 +75,12 @@ func read_tilemap(tilemap,entities_controller):
                 print("nice")
                 entities_controller.pacman_spawn = pos_on_grid_to_center_pos(pos,tilemap)
             
+            if tile=="ghostspawn":
+                entities_controller.ghost_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+                
+            if tile=="fruit":
+                entities_controller.fruit_spawn.append(pos_on_grid_to_center_pos(pos,tilemap)) 
+            
             if tile=="invisible_wall":
                 virtual_map[pos] = "wall"
                 add_black_foreground(pos,tilemap)
@@ -83,13 +89,7 @@ func read_tilemap(tilemap,entities_controller):
                 tp_exit_list.append(pos)
                 add_black_foreground(pos,tilemap)
 
-            if tile=="fruit":
-                var fruit = fruitScene.instance()
-                fruit.position = pos_on_grid_to_center_pos(pos,tilemap)
-                fruit.fruit = "bell"
-                print(fruit.z_index)
-                add_child(fruit)
-                print(fruit.z_index,fruit.fruit,fruit.position)
+
 
     for pos in tilemap.get_used_cells():
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))

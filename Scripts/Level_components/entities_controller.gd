@@ -20,6 +20,12 @@ func _on_map_loaded():
     add_child(pacman)
     pacman.speed = 50
     pacman.position = pacman_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+    
+    for fruit_spawn_pos in fruit_spawn:
+        var fruit = fruitScene.instance()
+        fruit.position = fruit_spawn_pos
+        fruit.fruit = fruit.fruit_from_level(level_prog)
+        add_child(fruit)
 
 func _on_pickup_body_entered(_body, score_value, pellet):
     score+=score_value
