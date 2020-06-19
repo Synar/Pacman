@@ -3,6 +3,7 @@ var score = 0
 var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
+var ghostScene = load("res://Scenes/Entities/ghost.tscn")
 
 var pacman_spawn = Vector2(0,0)
 var ghost_spawn = Vector2(0,0)
@@ -20,6 +21,11 @@ func _on_map_loaded():
     add_child(pacman)
     pacman.speed = 50
     pacman.position = pacman_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+    
+    var ghost = ghostScene.instance()
+    add_child(ghost)
+    ghost.position = ghost_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+    
     
     for fruit_spawn_pos in fruit_spawn:
         var fruit = fruitScene.instance()
