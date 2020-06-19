@@ -53,7 +53,7 @@ func adjust_pos(pos, direction=Vector2(1,1)):
 
     return pos
 
-func pick_wanted_dir(delta):
+func pick_wanted_dir(_delta):
     pass
 
 func teleport():

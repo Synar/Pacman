@@ -5,6 +5,6 @@
 
 [node name="Sprite" type="Sprite"]
 texture = ExtResource( 1 )
-vframes = 4
-hframes = 4
+vframes = 8
+hframes = 8
 script = ExtResource( 2 )

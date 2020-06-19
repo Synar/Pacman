@@ -8,7 +8,7 @@ var grid_pos = 0
 
 var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
-var fruitScene = load("res://Scenes/pickup/fruit.tscn")
+var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
 var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
 
 
@@ -35,15 +35,17 @@ func _ready():
     GlobalPlayer.level = self
     print("si")
     print(($"Background"))
-    for tilemap in get_tilemaps():
+    for tilemap in get_tilemaps():#[$"Background"]:#
         read_tilemap(tilemap)
 
 func read_tilemap(tilemap):
     var ts = tilemap.get_tileset()
     for pos in tilemap.get_used_cells():
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
-            virtual_map[pos] = tile
-            #print(virtual_map[pos])
+            if tilemap!=get_node("Background"):
+                print(tilemap," ",pos," ",tile)
+            else :
+                virtual_map[pos] = tile
             if tile=="pacman":
                 print("nice")
                 var pacman = pacmanScene.instance()
@@ -59,7 +61,7 @@ func read_tilemap(tilemap):
 
             if tile=="fruit":
                 var fruit = fruitScene.instance()
-                fruit.position = tilemap.map_to_world(Vector2(5,-2)) + tilemap.position
+                fruit.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
                 fruit.fruit = "bell"
                 print(fruit.z_index)
                 add_child(fruit)
@@ -67,7 +69,6 @@ func read_tilemap(tilemap):
 
     for pos in tilemap.get_used_cells():
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
-            virtual_map[pos] = tile
             #print(virtual_map[pos])
             if tile=="coin":
                 var coin = coinScene.instance()
@@ -84,7 +85,7 @@ func read_tilemap(tilemap):
                 if not pos in tp_dict:
                     tp_dict[pos]=pos
 
-            if not tile in ["ground","wall"] :
+            if not tile in ["ground","wall"] :  
                 tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
 
 

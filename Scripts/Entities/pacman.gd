@@ -9,7 +9,7 @@ func _ready():
     GlobalPlayer.Player=self
     GlobalPlayer.score=0
 
-func _on_pickup_body_entered(body):
+func _on_pickup_body_entered(_body):
     score+=1
     GlobalPlayer.score+=1
     print("Score : ",score," !")
@@ -23,7 +23,7 @@ func entity_rotate():
         rotation = past_dir.angle()
         print("WTF")
 
-func pick_wanted_dir(delta):
+func pick_wanted_dir(_delta):
     if Input.is_action_pressed("move_left"):
         wanted_dir = Vector2(-1, 0)
 
