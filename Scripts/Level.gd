@@ -44,7 +44,7 @@ func read_tilemap(tilemap):
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
             if tilemap!=get_node("Background"):
                 print(tilemap," ",pos," ",tile)
-            else :
+            if true : #else :
                 virtual_map[pos] = tile
             if tile=="pacman":
                 print("nice")
@@ -52,6 +52,12 @@ func read_tilemap(tilemap):
                 add_child(pacman)
                 pacman.speed = 50
                 pacman.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+            
+            if tile=="invisible_wall":
+                virtual_map[pos] = "wall"
+                var tp = darkTileScene.instance()
+                add_child(tp)
+                tp.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
 
             if tile=="tp_exit":
                 var tp = darkTileScene.instance()
