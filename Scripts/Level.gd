@@ -10,7 +10,12 @@ var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
 var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
+var entitiesControllerScene = load("res://Scenes/Level_components/entities_controller.tscn")
 
+onready var main_tilemap = $"Background"
+var entities_controller
+#onready var entities_controller = $"entities_controller"
+#signal map_loaded
 
 func get_tilemaps():
     var L=[]
@@ -19,8 +24,6 @@ func get_tilemaps():
             L.append(node)
     return L
 
-func pos_to_pos_on_grid(pos):
-    return tilemap.world_to_map(pos)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,10 +38,26 @@ func _ready():
     GlobalPlayer.level = self
     print("si")
     print(($"Background"))
+    
+    entities_controller = entitiesControllerScene.instance()
+    add_child(entities_controller)
+    
     for tilemap in get_tilemaps():#[$"Background"]:#
-        read_tilemap(tilemap)
+        read_tilemap(tilemap,entities_controller)
+  
 
-func read_tilemap(tilemap):
+func pos_to_pos_on_grid(pos):
+    return tilemap.world_to_map(pos - tilemap.position)
+
+func pos_on_grid_to_center_pos(pos, tilemap = main_tilemap):      
+    return tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+
+func add_black_foreground(pos, tilemap = main_tilemap):
+    var tp = darkTileScene.instance()
+    add_child(tp)
+    tp.position = pos_on_grid_to_center_pos(pos,tilemap)
+
+func read_tilemap(tilemap,entities_controller):
     var ts = tilemap.get_tileset()
     for pos in tilemap.get_used_cells():
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
@@ -51,23 +70,20 @@ func read_tilemap(tilemap):
                 var pacman = pacmanScene.instance()
                 add_child(pacman)
                 pacman.speed = 50
-                pacman.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+                pacman.position = pos_on_grid_to_center_pos(pos,tilemap)
+                entities_controller.pacman = pacman
             
             if tile=="invisible_wall":
                 virtual_map[pos] = "wall"
-                var tp = darkTileScene.instance()
-                add_child(tp)
-                tp.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+                add_black_foreground(pos,tilemap)
 
             if tile=="tp_exit":
-                var tp = darkTileScene.instance()
-                add_child(tp)
-                tp.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
                 tp_exit_list.append(pos)
+                add_black_foreground(pos,tilemap)
 
             if tile=="fruit":
                 var fruit = fruitScene.instance()
-                fruit.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+                fruit.position = pos_on_grid_to_center_pos(pos,tilemap)
                 fruit.fruit = "bell"
                 print(fruit.z_index)
                 add_child(fruit)
@@ -79,17 +95,15 @@ func read_tilemap(tilemap):
             if tile=="coin":
                 var coin = coinScene.instance()
                 add_child(coin)
-                coin.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+                coin.position = pos_on_grid_to_center_pos(pos,tilemap)
 
             if tile=="teleport":
-                var tp = darkTileScene.instance()
-                add_child(tp)
-                tp.position = tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
                 for tps in tp_exit_list:
                     if (tps.x==pos.x or tps.y==pos.y) and tps.distance_to(pos)>2:
                         tp_dict[pos]=tps
                 if not pos in tp_dict:
                     tp_dict[pos]=pos
+                add_black_foreground(pos,tilemap)
 
             if not tile in ["ground","wall"] :  
                 tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))

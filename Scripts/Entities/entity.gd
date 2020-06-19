@@ -15,7 +15,7 @@ var teleported = false
 #func _ready():
 
 func get_tile_coord(pos): #position_to_pos_on_grid
-    return GlobalPlayer.level.pos_to_pos_on_grid(pos - GlobalPlayer.level.grid_pos)
+    return GlobalPlayer.level.pos_to_pos_on_grid(pos)
 
 func get_tile_name(pos):
     var L = GlobalPlayer.level
