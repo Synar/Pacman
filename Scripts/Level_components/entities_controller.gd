@@ -1,7 +1,13 @@
 extends Node
 var score = 0
 var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
-var pacman
+var coinScene = load("res://Scenes/pickup/coin.tscn")
+var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
+
+var pacman_spawn = Vector2(0,0)
+var ghost_spawn = Vector2(0,0)
+var fruit_spawn = []
+var level_prog = 1
 
 func _ready():
     GlobalPlayer.e_controller=self
@@ -11,10 +17,9 @@ func _ready():
         
 func _on_map_loaded():
     var pacman = pacmanScene.instance()
-    if false:
-            add_child(pacman)
-            pacman.speed = 50
-            pacman.position = 0#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+    add_child(pacman)
+    pacman.speed = 50
+    pacman.position = pacman_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
 
 func _on_pickup_body_entered(_body, score_value, pellet):
     score+=score_value

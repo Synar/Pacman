@@ -6,6 +6,8 @@ var tp_dict = {}
 var tp_exit_list = []
 var grid_pos = 0
 
+export var level_prog = 1
+
 var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
@@ -40,10 +42,14 @@ func _ready():
     print(($"Background"))
     
     entities_controller = entitiesControllerScene.instance()
+    entities_controller.level_prog = level_prog
     add_child(entities_controller)
     
     for tilemap in get_tilemaps():#[$"Background"]:#
         read_tilemap(tilemap,entities_controller)
+    
+    entities_controller._on_map_loaded()
+        
   
 
 func pos_to_pos_on_grid(pos):
@@ -67,11 +73,7 @@ func read_tilemap(tilemap,entities_controller):
                 virtual_map[pos] = tile
             if tile=="pacman":
                 print("nice")
-                var pacman = pacmanScene.instance()
-                add_child(pacman)
-                pacman.speed = 50
-                pacman.position = pos_on_grid_to_center_pos(pos,tilemap)
-                entities_controller.pacman = pacman
+                entities_controller.pacman_spawn = pos_on_grid_to_center_pos(pos,tilemap)
             
             if tile=="invisible_wall":
                 virtual_map[pos] = "wall"
