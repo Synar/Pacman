@@ -40,22 +40,22 @@ func _ready():
     GlobalPlayer.level = self
     print("si")
     print(($"Background"))
-    
+
     entities_controller = entitiesControllerScene.instance()
     entities_controller.level_prog = level_prog
     add_child(entities_controller)
-    
+
     for tilemap in get_tilemaps():#[$"Background"]:#
         read_tilemap(tilemap,entities_controller)
-    
+
     entities_controller._on_map_loaded()
-        
-  
+
+
 
 func pos_to_pos_on_grid(pos):
     return tilemap.world_to_map(pos - tilemap.position)
 
-func pos_on_grid_to_center_pos(pos, tilemap = main_tilemap):      
+func pos_on_grid_to_center_pos(pos, tilemap = main_tilemap):
     return tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
 
 func add_black_foreground(pos, tilemap = main_tilemap):
@@ -74,13 +74,13 @@ func read_tilemap(tilemap,entities_controller):
             if tile=="pacman":
                 print("nice")
                 entities_controller.pacman_spawn = pos_on_grid_to_center_pos(pos,tilemap)
-            
+
             if tile=="ghostspawn":
                 entities_controller.ghost_spawn = pos_on_grid_to_center_pos(pos,tilemap)
-                
+
             if tile=="fruit":
-                entities_controller.fruit_spawn.append(pos_on_grid_to_center_pos(pos,tilemap)) 
-            
+                entities_controller.fruit_spawn.append(pos_on_grid_to_center_pos(pos,tilemap))
+
             if tile=="invisible_wall":
                 virtual_map[pos] = "wall"
                 add_black_foreground(pos,tilemap)
@@ -107,7 +107,7 @@ func read_tilemap(tilemap,entities_controller):
                     tp_dict[pos]=pos
                 add_black_foreground(pos,tilemap)
 
-            if not tile in ["ground","wall"] :  
+            if not tile in ["ground","wall"] :
                 tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
 
 

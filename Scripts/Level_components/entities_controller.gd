@@ -12,21 +12,21 @@ var level_prog = 1
 
 func _ready():
     GlobalPlayer.e_controller=self
-    pass    
+    pass
     var highscore_path = "res://SaveFiles/highscore.txt" #/SaveFiles
     var highscore_file = File.new()
-        
+
 func _on_map_loaded():
     var pacman = pacmanScene.instance()
     add_child(pacman)
     pacman.speed = 50
     pacman.position = pacman_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
-    
+
     var ghost = ghostScene.instance()
     add_child(ghost)
     ghost.position = ghost_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
-    
-    
+
+
     for fruit_spawn_pos in fruit_spawn:
         var fruit = fruitScene.instance()
         fruit.position = fruit_spawn_pos
@@ -42,10 +42,10 @@ func _on_pickup_body_entered(_body, score_value, pellet):
     if true: #not highscore_file.file_exists(highscore_path):
         print(highscore_path)
         highscore_file.open(highscore_path, File.WRITE)
-        #highscore_file.store_line(to_json("sd 23"))  
+        #highscore_file.store_line(to_json("sd 23"))
         highscore_file.close()
 
-    
+
 
 #func _process(delta):
 #    pass
