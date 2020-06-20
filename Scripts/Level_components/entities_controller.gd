@@ -10,6 +10,8 @@ var ghost_spawn = Vector2(0,0)
 var fruit_spawn = []
 var level_prog = 1
 
+var inky_spawn = Vector2(0,0)
+
 func _ready():
     GlobalPlayer.e_controller=self
     pass
@@ -26,6 +28,9 @@ func _on_map_loaded():
     add_child(ghost)
     ghost.position = ghost_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
 
+    var inky = ghostScene.instance()
+    add_child(inky)
+    inky.position = inky_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
 
     for fruit_spawn_pos in fruit_spawn:
         var fruit = fruitScene.instance()

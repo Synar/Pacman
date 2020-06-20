@@ -69,7 +69,7 @@ func read_tilemap(tilemap,entities_controller):
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
             if tilemap!=get_node("Background"):
                 print(tilemap," ",pos," ",tile)
-            if true : #else :
+            else :
                 virtual_map[pos] = tile
             if tile=="pacman":
                 print("nice")
@@ -77,6 +77,9 @@ func read_tilemap(tilemap,entities_controller):
 
             if tile=="ghostspawn":
                 entities_controller.ghost_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+
+            if tile=="inky":
+                entities_controller.inky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
             if tile=="fruit":
                 entities_controller.fruit_spawn.append(pos_on_grid_to_center_pos(pos,tilemap))
@@ -107,7 +110,7 @@ func read_tilemap(tilemap,entities_controller):
                     tp_dict[pos]=pos
                 add_black_foreground(pos,tilemap)
 
-            if not tile in ["ground","wall"] :
+            if not tile in ["ground","wall","gh_barrier"] :
                 tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
 
 
