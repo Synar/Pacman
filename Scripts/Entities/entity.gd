@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Node2D
 
 export(int) var test_id = 0
 export(bool) var smooth_game_control = true
