@@ -11,4 +11,5 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
     $ScoreBox/HBoxContainer/Score.text = str(GlobalPlayer.score)
+    $LivesBox/HBoxContainer/Score.text = str(GlobalPlayer.lives)
     pass
