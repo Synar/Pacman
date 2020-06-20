@@ -9,11 +9,6 @@ func _ready():
     GlobalPlayer.Player=self
     GlobalPlayer.score=0
 
-func _on_pickup_body_entered(_body):
-    score+=1
-    GlobalPlayer.score+=1
-    print("Score : ",score," !")
-
 func entity_rotate():
     if past_dir in vect_to_dir:
         $AnimatedSprite.play(vect_to_dir[past_dir])
