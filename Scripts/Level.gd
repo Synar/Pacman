@@ -11,6 +11,7 @@ export var level_prog = 1
 
 var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
+var pelletScene = load("res://Scenes/pickup/pellet.tscn")
 var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
 var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
 var entitiesControllerScene = load("res://Scenes/Level_components/entities_controller.tscn")
@@ -107,6 +108,11 @@ func read_tilemap(tilemap,entities_controller):
                 var coin = coinScene.instance()
                 add_child(coin)
                 coin.position = pos_on_grid_to_center_pos(pos,tilemap)
+
+            if tile=="pellet":
+                var pellet = pelletScene.instance()
+                add_child(pellet)
+                pellet.position = pos_on_grid_to_center_pos(pos,tilemap)
 
     for pos in tilemap.get_used_cells():
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
