@@ -26,7 +26,8 @@ func whatever():
 func _ready():
     z_index = 3
     randomize()
-    #whatever()
+    self.connect("body_entered", GlobalPlayer.e_controller, "_on_ghost_body_entered", [])
+
 
 func target_tile():
     match mode :

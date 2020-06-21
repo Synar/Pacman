@@ -41,3 +41,41 @@ margin_top = 20.0
 margin_right = 547.0
 margin_bottom = 34.0
 text = "100"
+
+[node name="LivesBox" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -512.0
+margin_top = 14.0
+margin_right = 512.0
+margin_bottom = 68.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="LivesBox"]
+margin_top = 20.0
+margin_right = 1024.0
+margin_bottom = 34.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LivesBox"]
+margin_right = 1024.0
+margin_bottom = 54.0
+alignment = 1
+
+[node name="Label" type="Label" parent="LivesBox/HBoxContainer"]
+margin_left = 477.0
+margin_top = 20.0
+margin_right = 518.0
+margin_bottom = 34.0
+text = "Lives :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="LivesBox/HBoxContainer"]
+margin_left = 522.0
+margin_top = 20.0
+margin_right = 546.0
+margin_bottom = 34.0
+text = "100"
