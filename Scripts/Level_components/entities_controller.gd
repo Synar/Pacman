@@ -17,6 +17,7 @@ var blinky_spawn = Vector2(0,0)
 var pinky_spawn = Vector2(0,0)
 
 var inky
+var ghosts = []
 
 func _ready():
     GlobalPlayer.e_controller=self
@@ -33,10 +34,12 @@ func _on_map_loaded():
     var ghost = ghostScene.instance()
     add_child(ghost)
     ghost.position = ghost_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+    #ghosts.append(ghost)
 
     inky = ghostScene.instance()
     add_child(inky)
     inky.position = inky_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+    ghosts.append(inky)
 
     var blinky = ghostScene.instance()
     add_child(blinky)
@@ -60,6 +63,13 @@ func _on_pickup_body_entered(_body, score_value, pellet):
         #highscore_file.store_line(to_json("sd 23"))
         highscore_file.close()
 
+    if pellet :
+        print(ghosts)
+        for ghost in ghosts:
+            print ("ghost ", ghost)
+            ghost.frighten()
+
+
 var timer = 0
 
 func _process(delta):
@@ -67,5 +77,5 @@ func _process(delta):
         timer += delta
     if timer > 3:
         timer = -1
-        inky.free()
+        inky.liberate()
 

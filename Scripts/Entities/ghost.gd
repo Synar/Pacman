@@ -17,6 +17,9 @@ func whatever():
     chase_scatter_times = new_chase_scatter_times
 
 
+func frighten():
+    pass
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
     z_index = 3
@@ -28,7 +31,7 @@ func target_tile():
 
 var frame_count_post_turn = 0
 
-func free():
+func liberate():
     pass
 
 func chase_target():
