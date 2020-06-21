@@ -9,6 +9,7 @@ var reverse_upon_leaving = [false,Vector2(0,0)]
 var scatter_timer = 0
 
 var chase_scatter_times = [7,20,7,20,5,20,5,-1]
+var fright_time = 6
 
 func whatever():
     var new_chase_scatter_times = [chase_scatter_times[0]]
@@ -17,8 +18,6 @@ func whatever():
     chase_scatter_times = new_chase_scatter_times
 
 
-func frighten():
-    pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,11 +33,17 @@ var frame_count_post_turn = 0
 func liberate():
     pass
 
+
+
 func chase_target():
     return adjust_pos(GlobalPlayer.Player.position)
 
 var chase_or_scatter_timer = chase_scatter_times[0]
 var chase_or_scatter_index = 0
+
+func pls_reverse_upon_leaving():
+    reverse_upon_leaving = [true, adjust_pos(position)]
+
 func chase_or_scatter(delta):
     if chase_or_scatter_timer == -1 :
         return
@@ -46,20 +51,31 @@ func chase_or_scatter(delta):
     if chase_or_scatter_timer < 0 :
         chase_or_scatter_index += 1
         chase_or_scatter_timer = chase_scatter_times[chase_or_scatter_index]
-        var nmode = "chase" if mode == "scatter" else "scatter"
+        mode = "chase" if mode == "scatter" else "scatter"
+        print("mc 1 : ",mode)
+        pls_reverse_upon_leaving()
 
+var frightened_timer = -1
 
-
+func frighten():
+    if mode != "frightened":
+        pls_reverse_upon_leaving()
+    mode = "frightened"
+    print("mc 2 : ",mode)
+    frightened_timer = fright_time
 
 func update_mode(delta):
-    if mode == "scatter" or mode == "frightened":
-        scatter_timer+=delta
+    if mode == "scatter" or mode == "chase":
+        chase_or_scatter(delta)
 
-    if fmod(scatter_timer,16.0)>=8.0:
-        scatter_timer=0
-        mode = "frightened" if mode == "scatter" else "scatter"
-        reverse_upon_leaving = [true, adjust_pos(position)]
-        print(mode)
+    if mode == "frightened":
+        print(frightened_timer,delta)
+        frightened_timer -= delta
+        if frightened_timer < 0 :
+            mode = "chase" if chase_or_scatter_index%2 == 1 else "scatter"
+            print("mc 3 : ",mode)
+
+
 
 func pick_wanted_dir(delta):
     #if not_snapped:

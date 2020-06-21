@@ -5,19 +5,19 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
-region = Rect2( 400, 80, 16, 16 )
+region = Rect2( 368, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
-region = Rect2( 416, 80, 16, 16 )
+region = Rect2( 384, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
-region = Rect2( 368, 80, 16, 16 )
+region = Rect2( 400, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
-region = Rect2( 384, 80, 16, 16 )
+region = Rect2( 416, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
@@ -29,19 +29,19 @@ region = Rect2( 352, 80, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "normal_left",
+"speed": 5.0
+}, {
 "frames": [  ],
 "loop": true,
 "name": "New Anim",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
-"loop": true,
-"name": "normal_up",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
-"name": "normal_left",
+"name": "normal_up",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 5 ), SubResource( 6 ) ],
@@ -54,4 +54,3 @@ animations = [ {
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 7 )
-frame = 0
