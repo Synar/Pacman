@@ -8,21 +8,20 @@ var mode = "scatter" #"chase" "dead" "frightened" "lockedIn" #"init"?
 var reverse_upon_leaving = [false,Vector2(0,0)]
 var scatter_timer = 0
 
-var chase_scatter_times = [7,20,7,20,5,20,5]
+var chase_scatter_times = [7,20,7,20,5,20,5,-1]
 
 func whatever():
     var new_chase_scatter_times = [chase_scatter_times[0]]
     for i in range(1,chase_scatter_times.size()):
         new_chase_scatter_times.append(chase_scatter_times[i]+new_chase_scatter_times[i-1])
     chase_scatter_times = new_chase_scatter_times
-    print(chase_scatter_times)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     z_index = 3
     randomize()
-    whatever()
+    #whatever()
 
 func target_tile():
     pass
@@ -35,10 +34,18 @@ func free():
 func chase_target():
     return adjust_pos(GlobalPlayer.Player.position)
 
-var chase_or_scatter_timer = 0
+var chase_or_scatter_timer = chase_scatter_times[0]
+var chase_or_scatter_index = 0
 func chase_or_scatter(delta):
-    chase_or_scatter_timer += delta
-    var nmode = "0cahse"
+    if chase_or_scatter_timer == -1 :
+        return
+    chase_or_scatter_timer -= delta
+    if chase_or_scatter_timer < 0 :
+        chase_or_scatter_index += 1
+        chase_or_scatter_timer = chase_scatter_times[chase_or_scatter_index]
+        var nmode = "chase" if mode == "scatter" else "scatter"
+
+
 
 
 func update_mode(delta):
@@ -83,6 +90,7 @@ func pick_wanted_dir(delta):
 
     if wanted_dir != current_dir:
         frame_count_post_turn += 1
+
 
 
 
