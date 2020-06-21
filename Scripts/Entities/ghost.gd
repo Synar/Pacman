@@ -68,6 +68,7 @@ func frighten():
     if mode != Mode.frightened:
         pls_reverse_upon_leaving()
     mode = Mode.frightened
+
     print("mc 2 : ",mode)
     frightened_timer = fright_time
 
@@ -79,6 +80,7 @@ func update_mode(delta):
         frightened_timer -= delta
         if frightened_timer < 0 :
             mode = Mode.chase if chase_or_scatter_index%2 == 1 else Mode.scatter
+
             print("mc 3 : ",mode)
 
 
