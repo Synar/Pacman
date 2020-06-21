@@ -4,6 +4,7 @@ var fruit="cherries"
 
 func set_attributes():
     score_value = {"cherries":100,"strawberry":300,"peach":500,"grapes":700,"galaxian":1000,"bell":3000,"key":5000}[fruit]
+    pickup_type = Type.fruit
 
 func fruit_from_level(level_prog):
     if level_prog>5 :

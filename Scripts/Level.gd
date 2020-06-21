@@ -29,7 +29,7 @@ func get_tilemaps():
     return L
 
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
     OS.set_window_size(Vector2(520, 610))
     VisualServer.set_default_clear_color(000000)
@@ -93,7 +93,6 @@ func read_tilemap(tilemap,entities_controller):
                 "invisible_wall":
                     virtual_map[pos] = "wall"
                     tilemap.set_cellv(pos, 1)
-                    #add_black_foreground(pos,tilemap)
 
                 "tp_exit":
                     tp_exit_list.append(pos)
@@ -103,6 +102,7 @@ func read_tilemap(tilemap,entities_controller):
                     var coin = coinScene.instance()
                     add_child(coin)
                     coin.position = pos_on_grid_to_center_pos(pos,tilemap)
+                    entities_controller.coin_count += 1
 
                 "pellet":
                     var pellet = pelletScene.instance()
@@ -111,7 +111,6 @@ func read_tilemap(tilemap,entities_controller):
 
     for pos in tilemap.get_used_cells():
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
-            #print(virtual_map[pos])
 
             if tile=="teleport":
                 for tps in tp_exit_list:
@@ -125,7 +124,7 @@ func read_tilemap(tilemap,entities_controller):
                 tilemap.set_cellv(pos, 1)
 
 
-    print(tp_dict)
+    #print(tp_dict)
     #print(virtual_map)
 
 
