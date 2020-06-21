@@ -72,47 +72,42 @@ func read_tilemap(tilemap,entities_controller):
                 print(tilemap," ",pos," ",tile)
             if tile in ["ground","wall","slow","no_up","teleport","tp_exit"] :
                 virtual_map[pos] = tile
-            if tile == "gh_barrier" :
-                entities_controller.gh_barrier = pos_on_grid_to_center_pos(pos,tilemap)
-            if tile=="pacman":
-                print("nice")
-                entities_controller.pacman_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
-            if tile=="ghostspawn":
-                entities_controller.ghost_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+            match tile :
+                "gh_barrier": entities_controller.gh_barrier = pos_on_grid_to_center_pos(pos,tilemap)
 
-            if tile=="inky":
-                entities_controller.inky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+                "pacman": entities_controller.pacman_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
-            if tile=="blinky":
-                entities_controller.blinky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+                "ghostspawn": entities_controller.ghost_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
-            if tile=="clyde":
-                entities_controller.clyde_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+                "inky": entities_controller.inky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
-            if tile=="pinky":
-                entities_controller.pinky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+                "blinky": entities_controller.blinky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
-            if tile=="fruit":
-                entities_controller.fruit_spawn.append(pos_on_grid_to_center_pos(pos,tilemap))
+                "clyde": entities_controller.clyde_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
-            if tile=="invisible_wall":
-                virtual_map[pos] = "wall"
-                add_black_foreground(pos,tilemap)
+                "pinky": entities_controller.pinky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
-            if tile=="tp_exit":
-                tp_exit_list.append(pos)
-                add_black_foreground(pos,tilemap)
+                "fruit": entities_controller.fruit_spawn.append(pos_on_grid_to_center_pos(pos,tilemap))
 
-            if tile=="coin":
-                var coin = coinScene.instance()
-                add_child(coin)
-                coin.position = pos_on_grid_to_center_pos(pos,tilemap)
+                "invisible_wall":
+                    virtual_map[pos] = "wall"
+                    tilemap.set_cellv(pos, 1)
+                    #add_black_foreground(pos,tilemap)
 
-            if tile=="pellet":
-                var pellet = pelletScene.instance()
-                add_child(pellet)
-                pellet.position = pos_on_grid_to_center_pos(pos,tilemap)
+                "tp_exit":
+                    tp_exit_list.append(pos)
+                    add_black_foreground(pos,tilemap)
+
+                "coin":
+                    var coin = coinScene.instance()
+                    add_child(coin)
+                    coin.position = pos_on_grid_to_center_pos(pos,tilemap)
+
+                "pellet":
+                    var pellet = pelletScene.instance()
+                    add_child(pellet)
+                    pellet.position = pos_on_grid_to_center_pos(pos,tilemap)
 
     for pos in tilemap.get_used_cells():
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
@@ -127,7 +122,7 @@ func read_tilemap(tilemap,entities_controller):
                 add_black_foreground(pos,tilemap)
 
             if not tile in ["ground","wall","gh_barrier"] :
-                tilemap.set_cell(pos.x, pos.y, 1)
+                tilemap.set_cellv(pos, 1)
 
 
     print(tp_dict)

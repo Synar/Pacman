@@ -63,14 +63,14 @@ func _on_pickup_body_entered(_body, score_value, pellet):
         highscore_file.open(highscore_path, File.WRITE)
         #highscore_file.store_line(to_json("sd 23"))
         highscore_file.close()
-        
+
     if pellet :
         print(ghosts)
         for ghost in ghosts:
             print ("ghost ", ghost)
             ghost.frighten()
-            
-            
+
+
 func _on_ghost_body_entered(_body):
     print('loooooooooooooooooooooooooooooooooooooooooooool')
 
