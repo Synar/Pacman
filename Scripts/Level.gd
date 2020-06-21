@@ -2,6 +2,7 @@ extends Node2D
 
 var tilemap
 var virtual_map = {}
+var off_by_half_map = {}
 var tp_dict = {}
 var tp_exit_list = []
 var grid_pos = 0
@@ -39,7 +40,6 @@ func _ready():
     grid_pos = tilemap.position
     GlobalPlayer.level = self
     print("si")
-    print(($"Background"))
 
     entities_controller = entitiesControllerScene.instance()
     entities_controller.level_prog = level_prog
@@ -69,8 +69,10 @@ func read_tilemap(tilemap,entities_controller):
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
             if tilemap!=get_node("Background"):
                 print(tilemap," ",pos," ",tile)
-            else :
+            if tile in ["ground","wall","slow","no_up"] :
                 virtual_map[pos] = tile
+            if tile == "gh_barrier" :
+                entities_controller.gh_barrier = pos_on_grid_to_center_pos(pos,tilemap)
             if tile=="pacman":
                 print("nice")
                 entities_controller.pacman_spawn = pos_on_grid_to_center_pos(pos,tilemap)
@@ -80,6 +82,15 @@ func read_tilemap(tilemap,entities_controller):
 
             if tile=="inky":
                 entities_controller.inky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+
+            if tile=="blinky":
+                entities_controller.blinky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+
+            if tile=="clyde":
+                entities_controller.clyde_spawn = pos_on_grid_to_center_pos(pos,tilemap)
+
+            if tile=="pinky":
+                entities_controller.pinky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
             if tile=="fruit":
                 entities_controller.fruit_spawn.append(pos_on_grid_to_center_pos(pos,tilemap))
@@ -92,15 +103,14 @@ func read_tilemap(tilemap,entities_controller):
                 tp_exit_list.append(pos)
                 add_black_foreground(pos,tilemap)
 
-
-
-    for pos in tilemap.get_used_cells():
-            var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
-            #print(virtual_map[pos])
             if tile=="coin":
                 var coin = coinScene.instance()
                 add_child(coin)
                 coin.position = pos_on_grid_to_center_pos(pos,tilemap)
+
+    for pos in tilemap.get_used_cells():
+            var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
+            #print(virtual_map[pos])
 
             if tile=="teleport":
                 for tps in tp_exit_list:
@@ -111,7 +121,7 @@ func read_tilemap(tilemap,entities_controller):
                 add_black_foreground(pos,tilemap)
 
             if not tile in ["ground","wall","gh_barrier"] :
-                tilemap.set_cell(pos.x, pos.y, 1, false, false, false, Vector2(0, 0))
+                tilemap.set_cell(pos.x, pos.y, 1)
 
 
     print(tp_dict)

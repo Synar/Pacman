@@ -3,20 +3,42 @@ extends "res://Scripts/Entities/entity.gd"
 
 var target_pos = Vector2(-10,5)
 var not_snapped = true
+var state = "free"
 var mode = "scatter" #"chase" "dead" "frightened" "lockedIn" #"init"?
 var reverse_upon_leaving = [false,Vector2(0,0)]
 var scatter_timer = 0
+
+var chase_scatter_times = [7,20,7,20,5,20,5]
+
+func whatever():
+    var new_chase_scatter_times = [chase_scatter_times[0]]
+    for i in range(1,chase_scatter_times.size()):
+        new_chase_scatter_times.append(chase_scatter_times[i]+new_chase_scatter_times[i-1])
+    chase_scatter_times = new_chase_scatter_times
+    print(chase_scatter_times)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     z_index = 3
     randomize()
+    whatever()
 
 func target_tile():
     pass
 
 var frame_count_post_turn = 0
 
+func free():
+    pass
+
+func chase_target():
+    return adjust_pos(GlobalPlayer.Player.position)
+
+var chase_or_scatter_timer = 0
+func chase_or_scatter(delta):
+    chase_or_scatter_timer += delta
+    var nmode = "0cahse"
 
 
 func update_mode(delta):
@@ -30,9 +52,9 @@ func update_mode(delta):
         print(mode)
 
 func pick_wanted_dir(delta):
-    if not_snapped:
-        position = adjust_pos(position)
-        not_snapped = false
+    #if not_snapped:
+    #    position = adjust_pos(position)
+    #    not_snapped = false
 
     update_mode(delta)
 
