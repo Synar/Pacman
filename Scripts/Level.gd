@@ -69,7 +69,7 @@ func read_tilemap(tilemap,entities_controller):
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
             if tilemap!=get_node("Background"):
                 print(tilemap," ",pos," ",tile)
-            if tile in ["ground","wall","slow","no_up"] :
+            if tile in ["ground","wall","slow","no_up","teleport","tp_exit"] :
                 virtual_map[pos] = tile
             if tile == "gh_barrier" :
                 entities_controller.gh_barrier = pos_on_grid_to_center_pos(pos,tilemap)
