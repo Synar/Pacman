@@ -4,9 +4,10 @@ extends "res://Scripts/Entities/entity.gd"
 var target_pos = Vector2(-10,5)
 var scatter_target = Vector2(-10,5)
 var not_snapped = true
-var state = "free"
+enum State {free, lockedin, leavinggh, dead}
+var state = State.free
 enum Mode {scatter, chase, frightened}
-var mode = Mode.scatter#"scatter" #"chase" "dead" "frightened" "lockedIn" #"init"?
+var mode = Mode.scatter
 var reverse_upon_leaving = [false,Vector2(0,0)]
 var scatter_timer = 0
 
