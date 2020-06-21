@@ -43,7 +43,7 @@ func _on_map_loaded():
 
     var blinky = ghostScene.instance()
     add_child(blinky)
-    blinky.position = inky_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+    blinky.position = blinky_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
 
     for fruit_spawn_pos in fruit_spawn:
         var fruit = fruitScene.instance()
