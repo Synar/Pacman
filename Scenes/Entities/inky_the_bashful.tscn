@@ -151,3 +151,4 @@ animations = [ {
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 31 )
 animation = "normal_down"
+frame = 1

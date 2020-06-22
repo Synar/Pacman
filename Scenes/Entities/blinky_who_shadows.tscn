@@ -6,4 +6,3 @@
 
 [node name="AnimatedSprite" parent="." index="1"]
 animation = "normal_left"
-frame = 1
