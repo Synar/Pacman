@@ -72,19 +72,21 @@ func _on_map_loaded():
     for entity in entities:
         entity.level_prog = level_prog
 
-    _spawn_fruits()
+    for id in range(fruit_spawn.size()):
+        _spawn_fruit(id)
+        fruit_timer.append(-1)
 
     print("coin_count", coin_count)
 
-func _spawn_fruits():
-    for fruit_spawn_pos in fruit_spawn:
+func _spawn_fruit(id):
         var fruit = fruitScene.instance()
-        fruit.position = fruit_spawn_pos
+        fruit.position = fruit_spawn[id]
+        fruit.id = id
         fruit.fruit = fruit.fruit_from_level(level_prog)
         add_child(fruit)
 
 enum {generic_pickup, pellet, fruit, coin}
-func _on_pickup_body_entered(_body, score_value, pickup_type):
+func _on_pickup_body_entered(_body, score_value, pickup_type, id):
     score+=score_value
     GlobalPlayer.score+=score_value
     score_save()
@@ -95,7 +97,8 @@ func _on_pickup_body_entered(_body, score_value, pickup_type):
             coin_count-=1
             coins_eaten+=1
         fruit :
-            fruit_timer = rand_range(9,10)
+            fruit_timer[id] = rand_range(9,10)
+
 
 var frightened_timer = -1
 func frighten():
@@ -120,14 +123,15 @@ func _on_ghost_body_entered(_body):
 
 
 var timer = 0
-var fruit_timer = -1
+var fruit_timer = []
 
 func _process(delta):
-    if fruit_timer != -1 :
-        fruit_timer -= delta
-        if fruit_timer < 0 :
-            _spawn_fruits()
-            fruit_timer = -1
+    for id in range(fruit_spawn.size()):
+        if fruit_timer[id] != -1 :
+            fruit_timer[id] -= delta
+            if fruit_timer[id] < 0 :
+                _spawn_fruit(id)
+                fruit_timer[id] = -1
 
     if frightened_timer!=-1:
         frightened_timer -= delta
