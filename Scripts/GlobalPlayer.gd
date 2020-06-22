@@ -4,6 +4,7 @@ var Player
 var level
 #var levelTilemap
 var score
+var highscore
 var lives = 3
 var e_controller
 export var basespeed = 75
@@ -16,11 +17,9 @@ func _ready():
         dir.make_dir("res://SaveFiles")
     var highscore_path = highscore_dir + "/highscore.txt"
     var highscore_file = File.new()
-    if true: #not highscore_file.file_exists(highscore_path):
-        print(highscore_path)
-        highscore_file.open(highscore_path, File.WRITE)
-        highscore_file.store_line(to_json("sd 23"))
-        highscore_file.close()
+    highscore_file.open(highscore_path, File.READ)
+    highscore = int(highscore_file.get_as_text())
+    highscore_file.close()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
