@@ -4,6 +4,10 @@ var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
 var ghostScene = load("res://Scenes/Entities/ghost.tscn")
+var inkyScene = load("res://Scenes/Entities/inky_the_bashful.tscn")
+var pinkyScene = load("res://Scenes/Entities/pinky_the_ambusher.tscn")
+var blinkyScene = load("res://Scenes/Entities/blinky_who_shadows.tscn")
+var clydeScene = load("res://Scenes/Entities/clyde_who_feigns_ignorance.tscn")
 var level_prog = 1
 
 var pacman_spawn = Vector2(0,0)
@@ -16,6 +20,9 @@ var blinky_spawn = Vector2(0,0)
 var pinky_spawn = Vector2(0,0)
 
 var inky
+var blinky
+var pinky
+var clyde
 var ghosts = []
 var entities = []
 
@@ -40,15 +47,25 @@ func _on_map_loaded():
     ghost.position = ghost_spawn
     ghosts.append(ghost)
 
-    inky = ghostScene.instance()
+    inky = inkyScene.instance()
     add_child(inky)
     inky.position = inky_spawn
     ghosts.append(inky)
 
-    var blinky = ghostScene.instance()
+    blinky = blinkyScene.instance()
     add_child(blinky)
     blinky.position = blinky_spawn
     ghosts.append(blinky)
+
+    clyde = clydeScene.instance()
+    add_child(clyde)
+    clyde.position = clyde_spawn
+    ghosts.append(clyde)
+
+    pinky = pinkyScene.instance()
+    add_child(pinky)
+    pinky.position = pinky_spawn
+    ghosts.append(pinky)
 
     entities = ghosts + [pacman]
 
