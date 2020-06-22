@@ -6,6 +6,7 @@ var level
 var score
 var lives = 3
 var e_controller
+export var basespeed = 75
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

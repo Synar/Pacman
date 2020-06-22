@@ -2,6 +2,7 @@ extends Node2D
 
 export(int) var test_id = 0
 export(bool) var smooth_game_control = true
+var level_prog = 1
 
 export(float) var speed = 20
 var current_dir = Vector2(0, 0)
@@ -69,6 +70,8 @@ func teleport():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 
+    update_speed()
+
     pick_wanted_dir(delta)
 
     if try_dir(wanted_dir, delta):
@@ -91,6 +94,9 @@ func _process(delta):
 
     teleport()
 
+
+func update_speed():
+    pass
 
 func entity_rotate():
     pass

@@ -17,9 +17,12 @@ var pinky_spawn = Vector2(0,0)
 
 var inky
 var ghosts = []
+var entities = []
 
 var coin_count = 0 # set to 240 in base levels on ready
 var coins_eaten = 0
+
+var fright_time = 6
 
 func _ready():
     GlobalPlayer.e_controller=self
@@ -30,7 +33,6 @@ func _ready():
 func _on_map_loaded():
     var pacman = pacmanScene.instance()
     add_child(pacman)
-    pacman.speed = 50
     pacman.position = pacman_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
 
     var ghost = ghostScene.instance()
@@ -48,6 +50,11 @@ func _on_map_loaded():
     blinky.position = blinky_spawn
     ghosts.append(blinky)
 
+    entities = ghosts + [pacman]
+
+    for entity in entities:
+        entity.level_prog = level_prog
+
     for fruit_spawn_pos in fruit_spawn:
         var fruit = fruitScene.instance()
         fruit.position = fruit_spawn_pos
@@ -64,15 +71,19 @@ func _on_pickup_body_entered(_body, score_value, pickup_type):
     score_save()
     match pickup_type :
         pellet :
-            print(ghosts)
-            for ghost in ghosts:
-                print ("ghost ", ghost)
-                ghost.frighten()
+            frighten()
         coin :
             coin_count-=1
             coins_eaten+=1
         fruit :
             fruit_timer = rand_range(9,10)
+
+var frightened_timer = -1
+func frighten():
+    for entity in entities:
+        print ("entity ", entity)
+        entity.frighten()
+    frightened_timer = fright_time
 
 func score_save():
     #print("Score : ",score," !")
@@ -101,6 +112,13 @@ func _process(delta):
                     fruit.position = fruit_spawn_pos
                     fruit.fruit = fruit.fruit_from_level(level_prog)
                     add_child(fruit)
+
+    if frightened_timer!=-1:
+        frightened_timer -= delta
+        if frightened_timer < 0 :
+                for entity in entities:
+                    entity.calm()
+                frightened_timer = -1
     if timer != -1:
         timer += delta
     if timer > 3:

@@ -1,6 +1,7 @@
 extends "res://Scripts/Entities/entity.gd"
 
 var score = 0
+var ghosts_frightened = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +31,26 @@ func pick_wanted_dir(_delta):
 
     if Input.is_action_pressed("move_down"):
         wanted_dir = Vector2(0, 1)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+func update_speed():
+    if level_prog == 1:
+        if ghosts_frightened:
+            speed = 0.9*GlobalPlayer.basespeed
+        else :
+            speed = 0.8*GlobalPlayer.basespeed
+    elif 4<level_prog<21:
+        if ghosts_frightened:
+            speed = 0.95*GlobalPlayer.basespeed
+        else :
+            speed = 0.9*GlobalPlayer.basespeed
+    else :
+        speed = GlobalPlayer.basespeed
+
+func frighten():
+    ghosts_frightened = true
+
+func calm():
+    ghosts_frightened = false
+
 #func _process(delta):
-#    pass
+

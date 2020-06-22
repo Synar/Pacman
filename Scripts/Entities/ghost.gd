@@ -71,18 +71,14 @@ func frighten():
         pls_reverse_upon_leaving()
     mode = Mode.frightened
     print("mc 2 : ",mode)
-    frightened_timer = fright_time
+
+func calm():
+    mode = Mode.chase if chase_or_scatter_index%2 == 1 else Mode.scatter
+    print("mc 3 : ",mode)
 
 func update_mode(delta):
     if mode == Mode.scatter or mode == Mode.chase:
         chase_or_scatter(delta)
-
-    if mode == Mode.frightened:
-        frightened_timer -= delta
-        if frightened_timer < 0 :
-            mode = Mode.chase if chase_or_scatter_index%2 == 1 else Mode.scatter
-            print("mc 3 : ",mode)
-
 
 
 func pick_wanted_dir(delta):
@@ -125,3 +121,27 @@ func pick_wanted_dir(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #    pass
+
+
+func update_speed():
+    if level_prog == 1:
+        if get_tile_name(position) in ["slow","teleport","tp_exit"]:
+            speed = 0.5*GlobalPlayer.basespeed
+        elif mode == Mode.frightened:
+            speed = 0.4*GlobalPlayer.basespeed
+        else :
+            speed = 0.75*GlobalPlayer.basespeed
+    elif 4<level_prog:
+        if get_tile_name(position) in ["slow","teleport","tp_exit"]:
+            speed = 0.55*GlobalPlayer.basespeed
+        elif mode == Mode.frightened:
+            speed = 0.45*GlobalPlayer.basespeed
+        else :
+            speed = 0.85*GlobalPlayer.basespeed
+    else :
+        if get_tile_name(position) in ["slow","teleport","tp_exit"]:
+            speed = 0.6*GlobalPlayer.basespeed
+        elif mode == Mode.frightened:
+            speed = 0.5*GlobalPlayer.basespeed
+        else :
+            speed = 0.95*GlobalPlayer.basespeed
