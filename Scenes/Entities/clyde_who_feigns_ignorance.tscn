@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scenes/Entities/ghost.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/BigSpriteSheet.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Entities/clyde_who_feigns_ignorance.gd" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
@@ -147,7 +148,10 @@ animations = [ {
 } ]
 
 [node name="clyde" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+speed = 20.0
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 31 )
 animation = "normal_right"
+frame = 1

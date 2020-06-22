@@ -14,13 +14,6 @@ var scatter_timer = 0
 var chase_scatter_times = [7,20,7,20,5,20,5,-1]
 var fright_time = 6
 
-func whatever():
-    var new_chase_scatter_times = [chase_scatter_times[0]]
-    for i in range(1,chase_scatter_times.size()):
-        new_chase_scatter_times.append(chase_scatter_times[i]+new_chase_scatter_times[i-1])
-    chase_scatter_times = new_chase_scatter_times
-
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -47,15 +47,16 @@ func _on_map_loaded():
     ghost.position = ghost_spawn
     ghosts.append(ghost)
 
-    inky = inkyScene.instance()
-    add_child(inky)
-    inky.position = inky_spawn
-    ghosts.append(inky)
-
     blinky = blinkyScene.instance()
     add_child(blinky)
     blinky.position = blinky_spawn
     ghosts.append(blinky)
+
+    inky = inkyScene.instance()
+    add_child(inky)
+    inky.position = inky_spawn
+    inky.blinky = blinky
+    ghosts.append(inky)
 
     clyde = clydeScene.instance()
     add_child(clyde)

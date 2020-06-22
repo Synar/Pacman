@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/jack/pac man tiles/background2.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Sprites/BigSpriteSheet.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/BigSpriteSheet.png" type="Texture" id=1]
+[ext_resource path="res://Assets/jack/pac man tiles/background2.png" type="Texture" id=2]
 
 [sub_resource type="TileSet" id=1]
 0/name = "background2.png 0"
-0/texture = ExtResource( 1 )
+0/texture = ExtResource( 2 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 160, 128 )
@@ -30,7 +30,7 @@
 
 [sub_resource type="TileSet" id=2]
 0/name = "BigSpriteSheet.png 0"
-0/texture = ExtResource( 2 )
+0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 180, 164, 8, 8 )
