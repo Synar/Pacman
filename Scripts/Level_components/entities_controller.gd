@@ -19,6 +19,8 @@ var clyde_spawn = Vector2(0,0)
 var blinky_spawn = Vector2(0,0)
 var pinky_spawn = Vector2(0,0)
 
+var highscore_path = "res://SaveFiles/highscore.txt"
+
 var inky
 var blinky
 var pinky
@@ -34,8 +36,6 @@ var fright_time = 6
 func _ready():
     GlobalPlayer.e_controller=self
     randomize()
-    var highscore_path = "res://SaveFiles/highscore.txt" #/SaveFiles
-    var highscore_file = File.new()
 
 func _on_map_loaded():
     var pacman = pacmanScene.instance()
@@ -109,15 +109,14 @@ func frighten():
     frightened_timer = fright_time
 
 func score_save():
-    #print("Score : ",score," !")
-    var highscore_path = "res://SaveFiles/highscore.txt" #/SaveFiles
-    var highscore_file = File.new()
-    if true: #not highscore_file.file_exists(highscore_path):
-        #print(highscore_path)
-        highscore_file.open(highscore_path, File.WRITE)
-        #highscore_file.store_line(to_json("sd 23"))
+    if score > GlobalPlayer.highscore:
+        GlobalPlayer.highscore = score
+        var highscore_file = File.new()
+        var err = highscore_file.open(highscore_path, File.WRITE)
+        if err != OK:
+            return
+        highscore_file.store_string(str(score))
         highscore_file.close()
-
 
 func _on_ghost_body_entered(_body):
     print('loooooooooooooooooooooooooooooooooooooooooooool')
