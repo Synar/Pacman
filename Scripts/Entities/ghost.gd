@@ -145,3 +145,26 @@ func update_speed():
             speed = 0.5*GlobalPlayer.basespeed
         else :
             speed = 0.95*GlobalPlayer.basespeed
+
+func entity_rotate():
+    var anim_name_start
+    var anim_name_end
+    if past_dir in vect_to_dir:
+        anim_name_end = (vect_to_dir[past_dir])
+        rotation = Vector2(1,0).angle()
+    else :
+        anim_name_end = ("right")
+        rotation = past_dir.angle()
+        print("WTF")
+    if state == State.dead:
+        anim_name_start = "dead"
+    elif mode == Mode.frightened:
+        anim_name_start = "fright"    #needs flashing before return to normal
+    else :
+        anim_name_start = "normal"
+
+    $AnimatedSprite.play(anim_name_start+"_"+anim_name_end)
+
+
+
+
