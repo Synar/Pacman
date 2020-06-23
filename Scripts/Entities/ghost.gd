@@ -119,25 +119,26 @@ func pick_wanted_dir(delta):
 func update_speed():
     if level_prog == 1:
         if get_tile_name(position) in ["slow","teleport","tp_exit"]:
-            speed = 0.5*GlobalPlayer.basespeed
-        elif mode == Mode.frightened:
             speed = 0.4*GlobalPlayer.basespeed
+        elif mode == Mode.frightened:
+            speed = 0.5*GlobalPlayer.basespeed
         else :
             speed = 0.75*GlobalPlayer.basespeed
     elif 4<level_prog:
         if get_tile_name(position) in ["slow","teleport","tp_exit"]:
-            speed = 0.55*GlobalPlayer.basespeed
-        elif mode == Mode.frightened:
             speed = 0.45*GlobalPlayer.basespeed
+        elif mode == Mode.frightened:
+            speed = 0.55*GlobalPlayer.basespeed
         else :
             speed = 0.85*GlobalPlayer.basespeed
     else :
         if get_tile_name(position) in ["slow","teleport","tp_exit"]:
-            speed = 0.6*GlobalPlayer.basespeed
-        elif mode == Mode.frightened:
             speed = 0.5*GlobalPlayer.basespeed
+        elif mode == Mode.frightened:
+            speed = 0.6*GlobalPlayer.basespeed
         else :
             speed = 0.95*GlobalPlayer.basespeed
+
 
 func entity_rotate():
     var anim_name_start
