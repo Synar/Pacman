@@ -7,7 +7,7 @@ func set_attributes():
     pickup_type = Type.fruit
 
 func fruit_from_level(level_prog):
-    if level_prog>5 :
+    if level_prog > 5 :
         return "key"
     return ["peach","cherries","cherries","strawberry","strawberry"][level_prog-1]
 
