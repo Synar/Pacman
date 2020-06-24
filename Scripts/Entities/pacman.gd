@@ -1,6 +1,5 @@
 extends "res://Scripts/Entities/entity.gd"
 
-var score = 0
 var ghosts_frightened = false
 
 # Called when the node enters the scene tree for the first time.
@@ -8,7 +7,6 @@ func _ready():
     test_id = 1
     z_index = 2
     GlobalPlayer.Player=self
-    GlobalPlayer.score=0
 
 func entity_rotate():
     if past_dir in vect_to_dir:
@@ -38,7 +36,7 @@ func update_speed():
             speed = 0.9*GlobalPlayer.basespeed
         else :
             speed = 0.8*GlobalPlayer.basespeed
-    elif 4<level_prog<21:
+    elif 4 < level_prog and level_prog < 21:
         if ghosts_frightened:
             speed = 0.95*GlobalPlayer.basespeed
         else :

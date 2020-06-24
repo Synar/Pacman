@@ -1,5 +1,5 @@
 extends Node
-var score = 0
+
 var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
@@ -8,7 +8,7 @@ var inkyScene = load("res://Scenes/Entities/inky_the_bashful.tscn")
 var pinkyScene = load("res://Scenes/Entities/pinky_the_ambusher.tscn")
 var blinkyScene = load("res://Scenes/Entities/blinky_who_shadows.tscn")
 var clydeScene = load("res://Scenes/Entities/clyde_who_feigns_ignorance.tscn")
-var level_prog = 1
+var level_prog
 
 var pacman_spawn = Vector2(0,0)
 var ghost_spawn = Vector2(0,0)
@@ -35,6 +35,7 @@ var fright_time = 6
 
 func _ready():
     GlobalPlayer.e_controller=self
+    level_prog = GlobalPlayer.level_prog
     randomize()
 
 func _on_map_loaded():
@@ -88,7 +89,6 @@ func _spawn_fruit(id):
 
 enum {generic_pickup, pellet, fruit, coin}
 func _on_pickup_body_entered(_body, score_value, pickup_type, id):
-    score+=score_value
     GlobalPlayer.score+=score_value
     score_save()
     match pickup_type :
@@ -96,10 +96,16 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
             frighten()
         coin :
             coin_count-=1
+            if coin_count == 0:
+                _next_leve()
             coins_eaten+=1
         fruit :
             fruit_timer[id] = rand_range(9,10)
 
+
+func _next_leve():
+    GlobalPlayer.level_prog += 1
+    get_tree().change_scene("res://Scenes/Level1.tscn")
 
 var frightened_timer = -1
 func frighten():
@@ -109,13 +115,13 @@ func frighten():
     frightened_timer = fright_time
 
 func score_save():
-    if score > GlobalPlayer.highscore:
-        GlobalPlayer.highscore = score
+    if GlobalPlayer.score > GlobalPlayer.highscore:
+        GlobalPlayer.highscore = GlobalPlayer.score
         var highscore_file = File.new()
         var err = highscore_file.open(highscore_path, File.WRITE)
         if err != OK:
             return
-        highscore_file.store_string(str(score))
+        highscore_file.store_string(str(GlobalPlayer.score))
         highscore_file.close()
 
 func _on_ghost_body_entered(_body):
@@ -144,4 +150,3 @@ func _process(delta):
     if timer > 3:
         timer = -1
         inky.liberate()
-
