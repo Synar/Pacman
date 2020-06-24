@@ -18,6 +18,8 @@ var inky_spawn = Vector2(0,0)
 var clyde_spawn = Vector2(0,0)
 var blinky_spawn = Vector2(0,0)
 var pinky_spawn = Vector2(0,0)
+var gh_1 = Vector2(0,0)
+var gh_entrance = Vector2(0,0)
 
 var inky
 var blinky
@@ -69,6 +71,10 @@ func _on_map_loaded():
     ghosts.append(pinky)
 
     entities = ghosts + [pacman]
+
+    for ghost in ghosts:
+        ghost.gh_1 = gh_1
+        ghost.gh_entrance = gh_entrance
 
     for entity in entities:
         entity.level_prog = level_prog
@@ -140,9 +146,12 @@ func _process(delta):
             for entity in entities:
                 entity.calm()
             frightened_timer = -1
+
     if timer != -1:
         timer += delta
     if timer > 3:
         timer = -1
         inky.liberate()
 
+func liberate_trigger():
+    pass

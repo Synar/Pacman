@@ -15,14 +15,14 @@ var teleported = false
     #print(get_node("/root/Node2D/Coin").get_overlapping_bodies())
 #func _ready():
 
-func get_tile_coord(pos): #position_to_pos_on_grid
-    return GlobalPlayer.level.pos_to_pos_on_grid(pos)
+func get_tile_coord(pos,tilemap=GlobalPlayer.level.main_tilemap): #position_to_pos_on_grid
+    return GlobalPlayer.level.pos_to_pos_on_grid(pos,tilemap)
 
-func get_tile_name(pos):
-    var L = GlobalPlayer.level
-    var pos_on_grid = get_tile_coord(pos)
-    if pos_on_grid in L.virtual_map:
-        return L.virtual_map[pos_on_grid]
+func get_tile_name(pos,vmap=GlobalPlayer.level.virtual_map,tilemap=GlobalPlayer.level.main_tilemap):
+    #var L = GlobalPlayer.level
+    var pos_on_grid = get_tile_coord(pos,tilemap)
+    if pos_on_grid in vmap:
+        return vmap[pos_on_grid]
     else :
         return "ground" #"empty"?
 
@@ -32,7 +32,7 @@ func tile_is_wall(pos):
     #tilemap = GlobalPlayer.levelTilemap
     #var L = GlobalPlayer.level
     #var pos_on_grid = get_tile_coord(pos)
-    return get_tile_name(pos)=="wall"
+    return get_tile_name(pos) in ["wall","gh_barrier"]
 
 
 func try_dir(wanted_dir, delta):

@@ -4,12 +4,14 @@ extends "res://Scripts/Entities/entity.gd"
 var target_pos = Vector2(-10,5)
 var scatter_target = Vector2(-10,5)
 var not_snapped = true
-enum State {free, lockedin, leavinggh, dead}
-var state = State.free
+enum State {free, lockedin, leavinggh_1, leavinggh_2, dead}
+var state = State.lockedin
 enum Mode {scatter, chase, frightened}
 var mode = Mode.scatter
 var reverse_upon_leaving = [false,Vector2(0,0)]
 var scatter_timer = 0
+var gh_1 = Vector2(0,0)
+var gh_entrance = Vector2(0,0)
 
 var chase_scatter_times = [7,20,7,20,5,20,5,-1]
 var fright_time = 6
@@ -23,19 +25,29 @@ func _ready():
 
 
 func target_tile():
-    match mode :
-        Mode.chase:
-            target_pos = chase_target()
-        Mode.scatter:
-            target_pos = scatter_target
-
+    match state :
+        State.free :
+            match mode :
+                Mode.chase:
+                    target_pos = chase_target()
+                Mode.scatter:
+                    target_pos = scatter_target
+        State.leavinggh_1 :
+                target_pos = gh_entrance
+        State.leavinggh_2 :
+                target_pos = gh_1
 
 var frame_count_post_turn = 0
 
 func liberate():
-    pass
+    if state == State.lockedin:
+        state = State.leavinggh_1
 
-
+func tile_is_wall(pos):
+    if state == State.free:
+        return get_tile_name(pos) in ["wall","gh_barrier"]
+    else :
+        return get_tile_name(pos) == "wall"
 
 func chase_target():
     return adjust_pos(GlobalPlayer.Player.position)
@@ -72,6 +84,10 @@ func calm():
 func update_mode(delta):
     if mode == Mode.scatter or mode == Mode.chase:
         chase_or_scatter(delta)
+    if state == State.leavinggh_1:
+        if get_tile_name(position,GlobalPlayer.level.off_by_half_map,GlobalPlayer.level.off_by_half_tilemap)=="red_placeholder":
+            state = State.leavinggh_2
+            print("wesh ça marche du premier coup")
 
 
 func pick_wanted_dir(delta):

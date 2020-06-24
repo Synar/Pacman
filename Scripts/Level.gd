@@ -17,6 +17,7 @@ var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
 var entitiesControllerScene = load("res://Scenes/Level_components/entities_controller.tscn")
 
 onready var main_tilemap = $"Background"
+onready var off_by_half_tilemap = $"Offbyhalf"
 var entities_controller
 #onready var entities_controller = $"entities_controller"
 #signal map_loaded
@@ -53,7 +54,7 @@ func _ready():
 
 
 
-func pos_to_pos_on_grid(pos):
+func pos_to_pos_on_grid(pos, tilemap = main_tilemap):
     return tilemap.world_to_map(pos - tilemap.position)
 
 func pos_on_grid_to_center_pos(pos, tilemap = main_tilemap):
@@ -70,7 +71,7 @@ func read_tilemap(tilemap,entities_controller):
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
             if tilemap!=get_node("Background"):
                 print(tilemap," ",pos," ",tile)
-            if tile in ["ground","wall","slow","no_up","teleport","tp_exit"] :
+            if tile in ["ground","wall","slow","no_up","teleport","tp_exit","gh_barrier"] :
                 virtual_map[pos] = tile
 
             match tile :
@@ -108,6 +109,16 @@ func read_tilemap(tilemap,entities_controller):
                     var pellet = pelletScene.instance()
                     add_child(pellet)
                     pellet.position = pos_on_grid_to_center_pos(pos,tilemap)
+
+                "red_placeholder":
+                    entities_controller.gh_entrance = pos_on_grid_to_center_pos(pos,tilemap)
+
+                "gh_1":
+                    entities_controller.gh_1 = pos_on_grid_to_center_pos(pos,tilemap)
+
+            if tile in ["red_placeholder","gh_1","gh_2"] :
+                off_by_half_map[pos] = tile
+
 
     for pos in tilemap.get_used_cells():
             var tile = ts.tile_get_name(tilemap.get_cell(pos.x, pos.y))
