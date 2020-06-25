@@ -6,6 +6,7 @@ var off_by_half_map = {}
 var tp_dict = {}
 var tp_exit_list = []
 var grid_pos = 0
+var grid_pos_half = 0
 
 export var level_prog = 1
 
@@ -38,8 +39,8 @@ func _ready():
     print(get_tilemaps())
     var tilemaps=get_tilemaps()
     print("mais")
-    tilemap = get_node("Background")
-    grid_pos = tilemap.position
+    grid_pos = main_tilemap.position
+    grid_pos_half = off_by_half_tilemap.position
     GlobalPlayer.level = self
     print("si")
 

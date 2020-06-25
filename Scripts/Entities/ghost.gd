@@ -39,6 +39,9 @@ func target_tile():
 
 var frame_count_post_turn = 0
 
+func adjust_by_half():
+    return state == State.lockedin or state == State.leavinggh_1 or state == State.leavinggh_2
+
 func liberate():
     if state == State.lockedin:
         state = State.leavinggh_1
@@ -88,6 +91,9 @@ func update_mode(delta):
         if get_tile_name(position,GlobalPlayer.level.off_by_half_map,GlobalPlayer.level.off_by_half_tilemap)=="red_placeholder":
             state = State.leavinggh_2
             print("wesh ça marche du premier coup")
+    if state == State.leavinggh_2:
+        if get_tile_name(position,GlobalPlayer.level.off_by_half_map,GlobalPlayer.level.off_by_half_tilemap)=="gh_1":
+            state = State.free
 
 
 func pick_wanted_dir(delta):

@@ -46,13 +46,18 @@ func try_dir(wanted_dir, delta):
 
 func adjust_pos(pos, direction=Vector2(1,1)):
     var size_adjust = 8
+    #pos = GlobalPlayer.level.pos_on_grid_to_center_pos(GlobalPlayer.level.pos_to_pos_on_grid(pos,tilemap))
+    var grid_pos = GlobalPlayer.level.grid_pos_half if adjust_by_half() else GlobalPlayer.level.grid_pos
     if direction.x != 0:
-        pos.y = stepify(pos.y - GlobalPlayer.level.grid_pos.y - size_adjust, 16) + GlobalPlayer.level.grid_pos.y + size_adjust
+        pos.y = stepify(pos.y - grid_pos.y - size_adjust, 16) + grid_pos.y + size_adjust
 
     if direction.y != 0:
-        pos.x = stepify(pos.x - GlobalPlayer.level.grid_pos.x - size_adjust, 16) + GlobalPlayer.level.grid_pos.x + size_adjust
+        pos.x = stepify(pos.x - grid_pos.x - size_adjust, 16) + grid_pos.x + size_adjust
 
     return pos
+
+func adjust_by_half():
+    return false
 
 func pick_wanted_dir(_delta):
     pass

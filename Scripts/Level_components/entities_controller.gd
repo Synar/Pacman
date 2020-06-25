@@ -48,6 +48,7 @@ func _on_map_loaded():
     var ghost = ghostScene.instance()
     add_child(ghost)
     ghost.position = ghost_spawn
+    ghost.state = 0
     ghosts.append(ghost)
 
     blinky = blinkyScene.instance()
