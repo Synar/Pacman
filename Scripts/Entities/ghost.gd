@@ -13,7 +13,7 @@ var scatter_timer = 0
 var gh_1 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
 
-var chase_scatter_times = [7,20,7,20,5,20,5,-1]
+var chase_scatter_times = [7,20,7,20,5,20,5,-1] #[1,1,70,20,5,20,5,-1]
 var fright_time = 6
 
 

@@ -18,6 +18,10 @@ var inky_spawn = Vector2(0,0)
 var clyde_spawn = Vector2(0,0)
 var blinky_spawn = Vector2(0,0)
 var pinky_spawn = Vector2(0,0)
+var inky_target = Vector2(0,0)
+var clyde_target = Vector2(0,0)
+var blinky_target = Vector2(0,0)
+var pinky_target = Vector2(0,0)
 var gh_1 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
 
@@ -54,22 +58,26 @@ func _on_map_loaded():
     blinky = blinkyScene.instance()
     add_child(blinky)
     blinky.position = blinky_spawn
+    blinky.scatter_target = blinky_target
     ghosts.append(blinky)
 
     inky = inkyScene.instance()
     add_child(inky)
     inky.position = inky_spawn
     inky.blinky = blinky
+    inky.scatter_target = inky_target
     ghosts.append(inky)
 
     clyde = clydeScene.instance()
     add_child(clyde)
     clyde.position = clyde_spawn
+    clyde.scatter_target = clyde_target
     ghosts.append(clyde)
 
     pinky = pinkyScene.instance()
     add_child(pinky)
     pinky.position = pinky_spawn
+    pinky.scatter_target = pinky_target
     ghosts.append(pinky)
 
     entities = ghosts + [pacman]
@@ -134,6 +142,8 @@ func _on_ghost_body_entered(_body):
 
 var timer = 0
 var fruit_timer = []
+
+var time_since_dot_eaten = 0
 
 func _process(delta):
     for id in range(fruit_spawn.size()):

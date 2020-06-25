@@ -90,6 +90,14 @@ func read_tilemap(tilemap,entities_controller):
 
                 "pinky": entities_controller.pinky_spawn = pos_on_grid_to_center_pos(pos,tilemap)
 
+                "inky_target": entities_controller.inky_target = pos_on_grid_to_center_pos(pos,tilemap)
+
+                "blinky_target": entities_controller.blinky_target = pos_on_grid_to_center_pos(pos,tilemap)
+
+                "clyde_target": entities_controller.clyde_target = pos_on_grid_to_center_pos(pos,tilemap)
+
+                "pinky_target": entities_controller.pinky_target = pos_on_grid_to_center_pos(pos,tilemap)
+
                 "fruit": entities_controller.fruit_spawn.append(pos_on_grid_to_center_pos(pos,tilemap))
 
                 "invisible_wall":
