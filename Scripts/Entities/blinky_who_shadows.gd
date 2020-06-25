@@ -7,7 +7,7 @@ func _on_elroy_1():
     pass
 
 func _ready():
-    pass
+    state = State.free
 
 
 func target_tile():

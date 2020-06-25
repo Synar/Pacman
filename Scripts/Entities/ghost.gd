@@ -44,7 +44,7 @@ func liberate():
         state = State.leavinggh_1
 
 func tile_is_wall(pos):
-    if state == State.free:
+    if state == State.free or state == State.lockedin:
         return get_tile_name(pos) in ["wall","gh_barrier"]
     else :
         return get_tile_name(pos) == "wall"
@@ -98,31 +98,40 @@ func pick_wanted_dir(delta):
     update_mode(delta)
     target_tile()
 
-    if frame_count_post_turn != 0:
-        frame_count_post_turn = (frame_count_post_turn + 1) % 10
-        return
-
-    if reverse_upon_leaving[0] and reverse_upon_leaving[1]!=adjust_pos(position):
-        wanted_dir = - current_dir
-        reverse_upon_leaving = [false,Vector2(0,0)]
+    if state == State.lockedin:
+            var potentialDir = [Vector2(0, 1),Vector2(0, -1)]
+            if not current_dir in potentialDir:
+                wanted_dir = potentialDir[0]
+            if tile_is_wall(position + 8*wanted_dir):
+                wanted_dir = -wanted_dir
 
 
     else :
-        var potentialDir = [Vector2(0, 1),Vector2(-1, 0),Vector2(0, -1),Vector2(1, 0)]
-        potentialDir.erase(-current_dir)
-        for dir in potentialDir.duplicate():
-            if tile_is_wall(position + 16*dir):
-                potentialDir.erase(dir)
-        if mode == Mode.frightened and potentialDir.size() > 1:
-            wanted_dir = potentialDir[randi()%potentialDir.size()]
-        else :
-            wanted_dir = potentialDir[0]
-            for dir in potentialDir:
-                if (position+dir).distance_to(target_pos) < (position+wanted_dir).distance_to(target_pos):
-                    wanted_dir = dir
+        if frame_count_post_turn != 0:
+            frame_count_post_turn = (frame_count_post_turn + 1) % 10
+            return
 
-    if wanted_dir != current_dir:
-        frame_count_post_turn += 1
+        if reverse_upon_leaving[0] and reverse_upon_leaving[1]!=adjust_pos(position):
+            wanted_dir = - current_dir
+            reverse_upon_leaving = [false,Vector2(0,0)]
+
+
+        else :
+            var potentialDir = [Vector2(0, 1),Vector2(-1, 0),Vector2(0, -1),Vector2(1, 0)]
+            potentialDir.erase(-current_dir)
+            for dir in potentialDir.duplicate():
+                if tile_is_wall(position + 16*dir):
+                    potentialDir.erase(dir)
+            if mode == Mode.frightened and potentialDir.size() > 1:
+                wanted_dir = potentialDir[randi()%potentialDir.size()]
+            else :
+                wanted_dir = potentialDir[0]
+                for dir in potentialDir:
+                    if (position+dir).distance_to(target_pos) < (position+wanted_dir).distance_to(target_pos):
+                        wanted_dir = dir
+
+        if wanted_dir != current_dir:
+            frame_count_post_turn += 1
 
 
 
