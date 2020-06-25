@@ -125,6 +125,8 @@ func pick_wanted_dir(delta):
         else :
             var potentialDir = [Vector2(0, 1),Vector2(-1, 0),Vector2(0, -1),Vector2(1, 0)]
             potentialDir.erase(-current_dir)
+            if get_tile_name(position) == "no_up":
+                potentialDir.erase(Vector2(0, -1))
             for dir in potentialDir.duplicate():
                 if tile_is_wall(position + 16*dir):
                     potentialDir.erase(dir)
