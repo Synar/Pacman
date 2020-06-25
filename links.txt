@@ -1,1 +1,7 @@
 https://www.spriters-resource.com/arcade/pacman
+https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673
+https://www.gamasutra.com/db_area/images/feature/3938/tablea1.png
+https://www.gamasutra.com/view/feature/3938/the_pacman_dossier.php?print=1
+https://www.piskelapp.com/p/agxzfnBpc2tlbC1hcHByEwsSBlBpc2tlbBiAgKDD7vXpCww/edit
+https://github.com/Synar/Pacman/issues/1
+https://www.youtube.com/watch?v=AuoH0vz3Mqk
