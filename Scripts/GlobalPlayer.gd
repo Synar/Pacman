@@ -10,6 +10,10 @@ var e_controller
 export var basespeed = 75
 var level_prog = 1
 
+func next_level():
+    level_prog += 1
+    get_tree().change_scene("res://Scenes/Level1.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
     var highscore_dir = "res://SaveFiles"

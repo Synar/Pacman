@@ -103,15 +103,12 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
         coin :
             coin_count-=1
             if coin_count == 0:
-                _next_leve()
+                GlobalPlayer.next_level()
             coins_eaten+=1
         fruit :
             fruit_timer[id] = rand_range(9,10)
 
 
-func _next_leve():
-    GlobalPlayer.level_prog += 1
-    get_tree().change_scene("res://Scenes/Level1.tscn")
 
 var frightened_timer = -1
 func frighten():
