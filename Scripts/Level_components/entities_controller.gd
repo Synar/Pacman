@@ -39,7 +39,7 @@ var entities = []
 var coins_remaining = 0 # set to 240 in base levels on ready
 var coins_eaten = 0
 
-var fright_time = 6
+var fright_time
 var frightened_timer = -1
 
 var timer = 0
@@ -47,11 +47,12 @@ var fruit_timer = []
 
 func _ready():
     GlobalPlayer.e_controller = self
-    level_prog = GlobalPlayer.level_prog
     randomize()
 
 
 func _on_map_loaded():
+    fright_time = [6, 5, 4, 3, 2, 5, 2, 2, 1, 5, 2, 1, 1, 3, 1, 1, 0, 1][level_prog] if level_prog < 19 else 0
+
     var pacman = pacmanScene.instance()
     add_child(pacman)
     pacman.position = pacman_spawn #tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
