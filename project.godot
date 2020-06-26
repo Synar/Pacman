@@ -8,9 +8,32 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Entity",
+"language": "GDScript",
+"path": "res://Scripts/Entities/entity.gd"
+}, {
+"base": "Entity",
+"class": "Ghost",
+"language": "GDScript",
+"path": "res://Scripts/Entities/ghost.gd"
+}, {
+"base": "Entity",
+"class": "Pacman",
+"language": "GDScript",
+"path": "res://Scripts/Entities/pacman.gd"
+}, {
+"base": "Node2D",
+"class": "Pickup",
+"language": "GDScript",
+"path": "res://Scripts/pickup/pickup.gd"
+} ]
 _global_script_class_icons={
-
+"Entity": "",
+"Ghost": "",
+"Pacman": "",
+"Pickup": ""
 }
 
 [application]
