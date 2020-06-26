@@ -1,7 +1,7 @@
 extends Ghost
 
-var elroy1 = false
-var elroy2 = false
+var elroy1 := false
+var elroy2 := false
 
 
 func _on_elroy_1():

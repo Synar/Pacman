@@ -11,22 +11,22 @@ var clydeScene = load("res://Scenes/Entities/clyde_who_feigns_ignorance.tscn")
 
 var level_prog
 
-var pacman_spawn = Vector2(0,0)
-var ghost_spawn = Vector2(0,0)
-var gh_barrier = Vector2(0,0)
+var pacman_spawn := Vector2(0,0)
+var ghost_spawn := Vector2(0,0)
+var gh_barrier := Vector2(0,0)
 var fruit_spawn = []
-var inky_spawn = Vector2(0,0)
-var clyde_spawn = Vector2(0,0)
-var blinky_spawn = Vector2(0,0)
-var pinky_spawn = Vector2(0,0)
-var inky_target = Vector2(0,0)
-var clyde_target = Vector2(0,0)
-var blinky_target = Vector2(0,0)
-var pinky_target = Vector2(0,0)
-var gh_1 = Vector2(0,0)
-var gh_entrance = Vector2(0,0)
+var inky_spawn := Vector2(0,0)
+var clyde_spawn := Vector2(0,0)
+var blinky_spawn := Vector2(0,0)
+var pinky_spawn := Vector2(0,0)
+var inky_target := Vector2(0,0)
+var clyde_target := Vector2(0,0)
+var blinky_target := Vector2(0,0)
+var pinky_target := Vector2(0,0)
+var gh_1 := Vector2(0,0)
+var gh_entrance := Vector2(0,0)
 
-var highscore_path = "res://SaveFiles/highscore.txt"
+var highscore_path := "res://SaveFiles/highscore.txt"
 enum State {free, lockedin, leavinggh_1, leavinggh_2, dead}
 
 var inky
@@ -36,14 +36,14 @@ var clyde
 var ghosts = []
 var entities = []
 
-var coins_remaining = 0 # set to 240 in base levels on ready
-var coins_eaten = 0
+var coins_remaining := 0 # set to 240 in base levels on ready
+var coins_eaten := 0
 
-var fright_time = 6
-var frightened_timer = -1
+var fright_time := 6
+var frightened_timer := -1
 
-var timer = 0
-var fruit_timer = []
+var timer := 0
+var fruit_timer := []
 
 func _ready():
     GlobalPlayer.e_controller = self
@@ -168,12 +168,13 @@ func _process(delta):
 
     liberate_trigger(delta)
 
-var time_since_dot_eaten = 0
-var dots_eaten_since_death = 0
-var dots_eaten_since_ghost_activated = [0, 0, 0]
-var global_counter_activated = false
-var ghost_activated = 0
-var ghosts_activation_thresholds = [0, 30, 60]
+
+var time_since_dot_eaten := 0
+var dots_eaten_since_death := 0
+var dots_eaten_since_ghost_activated := [0, 0, 0]
+var global_counter_activated := false
+var ghost_activated := 0
+var ghosts_activation_thresholds := [0, 30, 60]
 
 
 func dot_eaten_lib():

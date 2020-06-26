@@ -1,7 +1,7 @@
 class_name Pacman
 extends Entity
 
-var ghosts_frightened = false
+var ghosts_frightened := false
 
 
 func _ready():

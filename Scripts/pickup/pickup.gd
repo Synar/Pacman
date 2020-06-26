@@ -1,8 +1,8 @@
 class_name Pickup
 extends Node2D
 
-var score_value = 3
-var id = -1
+var score_value := 3
+var id := -1
 
 enum Type {generic_pickup, pellet, fruit, coin}
 var pickup_type = Type.generic_pickup

@@ -2,12 +2,12 @@ extends Node
 
 var Player
 var level
-var score = 0
+var score := 0
 var highscore
-var lives = 3
+var lives := 3
 var e_controller
-export var basespeed = 75
-var level_prog = 1
+export var basespeed := 75
+var level_prog := 1
 
 
 func next_level():
