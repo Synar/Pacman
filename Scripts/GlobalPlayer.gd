@@ -2,7 +2,6 @@ extends Node
 
 var Player
 var level
-#var levelTilemap
 var score = 0
 var highscore
 var lives = 3
@@ -10,11 +9,12 @@ var e_controller
 export var basespeed = 75
 var level_prog = 1
 
+
 func next_level():
     level_prog += 1
     get_tree().change_scene("res://Scenes/Level1.tscn")
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
     var highscore_dir = "res://SaveFiles"
     var dir = Directory.new( )
@@ -27,6 +27,5 @@ func _ready():
     highscore_file.close()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #    pass

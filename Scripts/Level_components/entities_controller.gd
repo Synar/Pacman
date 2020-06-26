@@ -40,16 +40,21 @@ var coins_remaining = 0 # set to 240 in base levels on ready
 var coins_eaten = 0
 
 var fright_time = 6
+var frightened_timer = -1
+
+var timer = 0
+var fruit_timer = []
 
 func _ready():
-    GlobalPlayer.e_controller=self
+    GlobalPlayer.e_controller = self
     level_prog = GlobalPlayer.level_prog
     randomize()
+
 
 func _on_map_loaded():
     var pacman = pacmanScene.instance()
     add_child(pacman)
-    pacman.position = pacman_spawn#tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+    pacman.position = pacman_spawn #tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
 
     var ghost = ghostScene.instance()
     add_child(ghost)
@@ -97,6 +102,7 @@ func _on_map_loaded():
 
     print("coins_remaining", coins_remaining)
 
+
 func _spawn_fruit(id):
         var fruit = fruitScene.instance()
         fruit.position = fruit_spawn[id]
@@ -104,30 +110,30 @@ func _spawn_fruit(id):
         fruit.fruit = fruit.fruit_from_level(level_prog)
         add_child(fruit)
 
+
 enum {generic_pickup, pellet, fruit, coin}
 func _on_pickup_body_entered(_body, score_value, pickup_type, id):
-    GlobalPlayer.score+=score_value
+    GlobalPlayer.score += score_value
     score_save()
     match pickup_type :
         pellet :
             frighten()
         coin :
-            coins_remaining-=1
+            coins_remaining -= 1
             if coins_remaining == 0:
                 GlobalPlayer.next_level()
-            coins_eaten+=1
+            coins_eaten += 1
             dot_eaten_lib()
         fruit :
             fruit_timer[id] = rand_range(9,10)
 
 
-
-var frightened_timer = -1
 func frighten():
     for entity in entities:
         print ("entity ", entity)
         entity.frighten()
     frightened_timer = fright_time
+
 
 func score_save():
     if GlobalPlayer.score > GlobalPlayer.highscore:
@@ -139,13 +145,10 @@ func score_save():
         highscore_file.store_string(str(GlobalPlayer.score))
         highscore_file.close()
 
+
 func _on_ghost_body_entered(_body):
     print('loooooooooooooooooooooooooooooooooooooooooooool')
     #global_counter_activated
-
-var timer = 0
-var fruit_timer = []
-
 
 
 func _process(delta):
@@ -156,7 +159,7 @@ func _process(delta):
                 _spawn_fruit(id)
                 fruit_timer[id] = -1
 
-    if frightened_timer!=-1:
+    if frightened_timer != -1:
         frightened_timer -= delta
         if frightened_timer < 0 :
             for entity in entities:
@@ -165,12 +168,14 @@ func _process(delta):
 
     liberate_trigger(delta)
 
+
 var time_since_dot_eaten = 0
 var dots_eaten_since_death = 0
-var dots_eaten_since_ghost_activated = [0,0,0]
+var dots_eaten_since_ghost_activated = [0, 0, 0]
 var global_counter_activated = false
 var ghost_activated = 0
-var ghosts_activation_thresholds = [0,30,60]
+var ghosts_activation_thresholds = [0, 30, 60]
+
 
 func dot_eaten_lib():
     time_since_dot_eaten = 0
@@ -204,4 +209,3 @@ func liberate_trigger(delta):
             var ghost = [pinky,inky,clyde][i]
             if ghost.state == State.lockedin:
                 ghost.liberate()
-

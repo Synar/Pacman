@@ -1,4 +1,5 @@
-extends "res://Scripts/pickup/pickup.gd"
+extends Pickup
+
 
 func set_attributes():
     score_value = 100
