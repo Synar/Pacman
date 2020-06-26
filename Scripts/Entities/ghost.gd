@@ -1,4 +1,5 @@
-extends "res://Scripts/Entities/entity.gd"
+class_name Ghost
+extends Entity
 
 
 var target_pos = Vector2(-10,5)

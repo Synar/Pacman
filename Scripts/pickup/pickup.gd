@@ -1,3 +1,4 @@
+class_name Pickup
 extends Node2D
 
 var score_value = 3
