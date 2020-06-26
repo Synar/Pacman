@@ -7,7 +7,7 @@ var highscore
 var lives = 3
 var e_controller
 export var basespeed = 75
-var level_prog = 1
+var level_prog = 100
 
 
 func next_level():

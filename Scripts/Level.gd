@@ -8,7 +8,7 @@ var tp_exit_list = []
 var grid_pos = 0
 var grid_pos_half = 0
 
-export var level_prog = 1
+var level_prog
 
 var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
 var coinScene = load("res://Scenes/pickup/coin.tscn")
@@ -39,6 +39,7 @@ func _ready():
     grid_pos = main_tilemap.position
     grid_pos_half = off_by_half_tilemap.position
     GlobalPlayer.level = self
+    level_prog = GlobalPlayer.level_prog
 
     entities_controller = entitiesControllerScene.instance()
     entities_controller.level_prog = level_prog
