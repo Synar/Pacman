@@ -8,6 +8,7 @@ var inkyScene = load("res://Scenes/Entities/inky_the_bashful.tscn")
 var pinkyScene = load("res://Scenes/Entities/pinky_the_ambusher.tscn")
 var blinkyScene = load("res://Scenes/Entities/blinky_who_shadows.tscn")
 var clydeScene = load("res://Scenes/Entities/clyde_who_feigns_ignorance.tscn")
+
 var level_prog
 
 var pacman_spawn = Vector2(0,0)
@@ -26,6 +27,7 @@ var gh_1 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
 
 var highscore_path = "res://SaveFiles/highscore.txt"
+enum State {free, lockedin, leavinggh_1, leavinggh_2, dead}
 
 var inky
 var blinky
@@ -34,7 +36,7 @@ var clyde
 var ghosts = []
 var entities = []
 
-var coin_count = 0 # set to 240 in base levels on ready
+var coins_remaining = 0 # set to 240 in base levels on ready
 var coins_eaten = 0
 
 var fright_time = 6
@@ -52,7 +54,7 @@ func _on_map_loaded():
     var ghost = ghostScene.instance()
     add_child(ghost)
     ghost.position = ghost_spawn
-    ghost.state = 0
+    ghost.state = State.free
     ghosts.append(ghost)
 
     blinky = blinkyScene.instance()
@@ -93,7 +95,7 @@ func _on_map_loaded():
         _spawn_fruit(id)
         fruit_timer.append(-1)
 
-    print("coin_count", coin_count)
+    print("coins_remaining", coins_remaining)
 
 func _spawn_fruit(id):
         var fruit = fruitScene.instance()
@@ -110,10 +112,11 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
         pellet :
             frighten()
         coin :
-            coin_count-=1
-            if coin_count == 0:
+            coins_remaining-=1
+            if coins_remaining == 0:
                 GlobalPlayer.next_level()
             coins_eaten+=1
+            dot_eaten_lib()
         fruit :
             fruit_timer[id] = rand_range(9,10)
 
@@ -138,12 +141,12 @@ func score_save():
 
 func _on_ghost_body_entered(_body):
     print('loooooooooooooooooooooooooooooooooooooooooooool')
-
+    #global_counter_activated
 
 var timer = 0
 var fruit_timer = []
 
-var time_since_dot_eaten = 0
+
 
 func _process(delta):
     for id in range(fruit_spawn.size()):
@@ -160,11 +163,45 @@ func _process(delta):
                 entity.calm()
             frightened_timer = -1
 
-    if timer != -1:
-        timer += delta
-    if timer > 3:
-        timer = -1
-        inky.liberate()
+    liberate_trigger(delta)
 
-func liberate_trigger():
-    pass
+var time_since_dot_eaten = 0
+var dots_eaten_since_death = 0
+var dots_eaten_since_ghost_activated = [0,0,0]
+var global_counter_activated = false
+var ghost_activated = 0
+var ghosts_activation_thresholds = [0,30,60]
+
+func dot_eaten_lib():
+    time_since_dot_eaten = 0
+    if global_counter_activated:
+        dots_eaten_since_death += 1
+        if dots_eaten_since_death == 7:
+            pinky.liberate()
+        if dots_eaten_since_death == 17:
+            inky.liberate()
+        if dots_eaten_since_death == 32:
+            if clyde.state == State.lockedin:
+                ghost_activated = 0
+            clyde.liberate()
+    else:
+        if ghost_activated != 3:
+            dots_eaten_since_ghost_activated[ghost_activated] += 1
+            if dots_eaten_since_ghost_activated[ghost_activated] == ghosts_activation_thresholds[ghost_activated]:
+                ghost_activated += 1
+
+
+func liberate_trigger(delta):
+    time_since_dot_eaten += delta
+    if time_since_dot_eaten > 4:
+        for ghost in [pinky,inky,clyde]:
+            if ghost.state == State.lockedin:
+                ghost.liberate()
+                time_since_dot_eaten = 0
+                break
+    for i in range(3):
+        if dots_eaten_since_ghost_activated[i] >= ghosts_activation_thresholds[i]:
+            var ghost = [pinky,inky,clyde][i]
+            if ghost.state == State.lockedin:
+                ghost.liberate()
+

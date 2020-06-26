@@ -112,7 +112,7 @@ func read_tilemap(tilemap,entities_controller):
                     var coin = coinScene.instance()
                     add_child(coin)
                     coin.position = pos_on_grid_to_center_pos(pos,tilemap)
-                    entities_controller.coin_count += 1
+                    entities_controller.coins_remaining += 1
 
                 "pellet":
                     var pellet = pelletScene.instance()
