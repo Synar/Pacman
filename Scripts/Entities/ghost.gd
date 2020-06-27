@@ -23,6 +23,8 @@ func _ready():
     randomize()
     self.connect("body_entered", GlobalPlayer.e_controller, "_on_ghost_body_entered", [])
 
+func _process(delta):
+    shade(delta)
 
 func target_tile():
     match state :
@@ -182,3 +184,42 @@ func entity_rotate():
         anim_name_start = "normal"
 
     $AnimatedSprite.play(anim_name_start+"_"+anim_name_end)
+
+var not_shading = true
+func shade(delta):
+    if mode == Mode.frightened and not_shading:
+        not_shading = false
+        for i in 5:
+            $AnimatedSprite.material.set_shader_param("blink_shade", true)
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+            $AnimatedSprite.material.set_shader_param("blink_shade", false)
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+            yield(get_tree(), "idle_frame")
+        not_shading = true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
