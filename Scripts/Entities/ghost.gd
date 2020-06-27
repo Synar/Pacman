@@ -13,6 +13,7 @@ var reverse_upon_leaving = [false, Vector2(0,0)]
 var scatter_timer = 0
 var gh_1 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
+var blink_amount = 3
 
 var chase_scatter_times = [7, 20, 7, 20, 5, 20, 5, -1] #[1, 1, 70, 20, 5, 20, 5, -1]
 var fright_time = 6
@@ -81,18 +82,20 @@ func chase_or_scatter(delta):
         pls_reverse_upon_leaving()
 
 
-var frightened_timer = -1
+var blink_timer = -1
 
 
-func frighten():
+func frighten(fright_time):
     if mode != Mode.frightened:
         pls_reverse_upon_leaving()
     mode = Mode.frightened
+    blink_timer = fright_time #used for blinking,
     print("mc 2 : ",mode)
 
 
 func calm():
     mode = Mode.chase if chase_or_scatter_index%2 == 1 else Mode.scatter
+    blink_timer = -1
     print("mc 3 : ", mode)
 
 
@@ -185,41 +188,21 @@ func entity_rotate():
 
     $AnimatedSprite.play(anim_name_start+"_"+anim_name_end)
 
-var not_shading = true
+
+var blink_duration = 0.25#0.166
+var blinking = false
+
 func shade(delta):
-    if mode == Mode.frightened and not_shading:
-        not_shading = false
-        for i in 5:
-            $AnimatedSprite.material.set_shader_param("blink_shade", true)
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-            $AnimatedSprite.material.set_shader_param("blink_shade", false)
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-            yield(get_tree(), "idle_frame")
-        not_shading = true
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    blink_timer -= delta
+    if blink_timer != -1 and blink_timer < (2*blink_amount + 1) * blink_duration:
+        if fmod(blink_timer, (2*blink_duration)) > blink_duration:
+            if !blinking :
+                $AnimatedSprite.material.set_shader_param("blink_shade", true)
+                blinking = true
+        elif blinking :
+                $AnimatedSprite.material.set_shader_param("blink_shade", false)
+                blinking = false
+    #yield(get_tree(), "idle_frame")
 
 
 

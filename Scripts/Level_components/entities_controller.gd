@@ -40,6 +40,7 @@ var coins_remaining = 0 # set to 240 in base levels on ready
 var coins_eaten = 0
 
 var fright_time
+var blink_amount
 var frightened_timer = -1
 
 var timer = 0
@@ -52,6 +53,7 @@ func _ready():
 
 func _on_map_loaded():
     fright_time = [6, 5, 4, 3, 2, 5, 2, 2, 1, 5, 2, 1, 1, 3, 1, 1, 0, 1][level_prog] if level_prog < 19 else 0
+    blink_amount = 3 if fright_time==1 else 5
 
     var pacman = pacmanScene.instance()
     add_child(pacman)
@@ -93,6 +95,7 @@ func _on_map_loaded():
     for ghost in ghosts:
         ghost.gh_1 = gh_1
         ghost.gh_entrance = gh_entrance
+        ghost.blink_amount = blink_amount
 
     for entity in entities:
         entity.level_prog = level_prog
@@ -132,7 +135,7 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
 func frighten():
     for entity in entities:
         print ("entity ", entity)
-        entity.frighten()
+        entity.frighten(fright_time)
     frightened_timer = fright_time
 
 

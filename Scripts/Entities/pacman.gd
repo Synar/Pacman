@@ -50,7 +50,7 @@ func update_speed():
         speed = GlobalPlayer.basespeed
 
 
-func frighten():
+func frighten(_fright_time):
     ghosts_frightened = true
 
 
