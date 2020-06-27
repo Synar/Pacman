@@ -1,14 +1,16 @@
 extends Node
 
+export var basespeed = 75
+export var level_prog = 1
+export var lives = 3
+
+var e_controller
 var Player
 var level
+
 var score = 0
 var highscore
-var lives = 3
-var e_controller
-export var basespeed = 75
-var level_prog = 1
-
+var highscore_path = "res://SaveFiles/highscore.txt"
 
 func next_level():
     level_prog += 1
@@ -27,5 +29,13 @@ func _ready():
     highscore_file.close()
 
 
-#func _process(delta):
-#    pass
+func score_increase(score_value):
+    score += score_value
+    if score > highscore:
+        highscore = score
+        var highscore_file = File.new()
+        var err = highscore_file.open(highscore_path, File.WRITE)
+        if err != OK:
+            return
+        highscore_file.store_string(str(score))
+        highscore_file.close()

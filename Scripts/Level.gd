@@ -19,7 +19,6 @@ var entitiesControllerScene = load("res://Scenes/Level_components/entities_contr
 onready var main_tilemap = $"Background"
 onready var off_by_half_tilemap = $"Offbyhalf"
 var entities_controller
-#onready var entities_controller = $"entities_controller"
 
 
 func get_tilemaps():
@@ -48,8 +47,8 @@ func _ready():
     entities_controller.level_prog = level_prog
     add_child(entities_controller)
 
-    for tilemap in get_tilemaps(): # [$"Background"]:
-        read_tilemap(tilemap, entities_controller)
+    for tilemap in get_tilemaps():
+        read_tilemap(tilemap, entities_controller, virtual_map)
 
     entities_controller._on_map_loaded()
 
@@ -62,20 +61,31 @@ func pos_on_grid_to_center_pos(pos, _tilemap = main_tilemap):
     return _tilemap.map_to_world(pos) + _tilemap.position + Vector2(8, 8)
 
 
+func adjust_pos(pos, direction=Vector2(1, 1), adjust_by_half=false):
+    var size_adjust = 8
+    #pos = GlobalPlayer.level.pos_on_grid_to_center_pos(GlobalPlayer.level.pos_to_pos_on_grid(pos, tilemap))
+    var grid_pos = GlobalPlayer.level.grid_pos_half if adjust_by_half else GlobalPlayer.level.grid_pos
+    if direction.x != 0:
+        pos.y = stepify(pos.y - grid_pos.y - size_adjust, 16) + grid_pos.y + size_adjust
+    if direction.y != 0:
+        pos.x = stepify(pos.x - grid_pos.x - size_adjust, 16) + grid_pos.x + size_adjust
+    return pos
+
+
 func add_black_foreground(pos, _tilemap = main_tilemap):
     var tp = darkTileScene.instance()
     add_child(tp)
     tp.position = pos_on_grid_to_center_pos(pos, _tilemap)
 
 
-func read_tilemap(_tilemap, _entities_controller):
+func read_tilemap(_tilemap, _entities_controller, _virtual_map):
     var ts = _tilemap.get_tileset()
     for pos in _tilemap.get_used_cells():
         var tile = ts.tile_get_name(_tilemap.get_cell(pos.x, pos.y))
         if _tilemap != get_node("Background"):
             print(_tilemap, " ", pos, " ", tile)
         if tile in ["ground","wall","slow","no_up","teleport","tp_exit","gh_barrier"] :
-            virtual_map[pos] = tile
+            _virtual_map[pos] = tile
 
         match tile :
             "gh_barrier":

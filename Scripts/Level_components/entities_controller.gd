@@ -26,7 +26,6 @@ var pinky_target = Vector2(0,0)
 var gh_1 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
 
-var highscore_path = "res://SaveFiles/highscore.txt"
 enum State {free, lockedin, leavinggh_1, leavinggh_2, dead}
 
 var inky
@@ -125,8 +124,7 @@ func _spawn_fruit(id):
 
 enum {generic_pickup, pellet, fruit, coin}
 func _on_pickup_body_entered(_body, score_value, pickup_type, id):
-    GlobalPlayer.score += score_value
-    score_save()
+    GlobalPlayer.score_increase(score_value)
     match pickup_type :
         pellet :
             frighten()
@@ -146,16 +144,6 @@ func frighten():
         entity.frighten(fright_time)
     frightened_timer = fright_time
 
-
-func score_save():
-    if GlobalPlayer.score > GlobalPlayer.highscore:
-        GlobalPlayer.highscore = GlobalPlayer.score
-        var highscore_file = File.new()
-        var err = highscore_file.open(highscore_path, File.WRITE)
-        if err != OK:
-            return
-        highscore_file.store_string(str(GlobalPlayer.score))
-        highscore_file.close()
 
 
 func _on_ghost_body_entered(_body):

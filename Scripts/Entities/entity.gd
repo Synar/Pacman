@@ -24,7 +24,6 @@ func get_tile_coord(pos, tilemap=GlobalPlayer.level.main_tilemap): #position_to_
 
 
 func get_tile_name(pos, vmap=GlobalPlayer.level.virtual_map, tilemap=GlobalPlayer.level.main_tilemap):
-    #var L = GlobalPlayer.level
     var pos_on_grid = get_tile_coord(pos,tilemap)
     if pos_on_grid in vmap:
         return vmap[pos_on_grid]
@@ -33,9 +32,6 @@ func get_tile_name(pos, vmap=GlobalPlayer.level.virtual_map, tilemap=GlobalPlaye
 
 
 func tile_is_wall(pos):
-    #tilemap = GlobalPlayer.levelTilemap
-    #var L = GlobalPlayer.level
-    #var pos_on_grid = get_tile_coord(pos)
     return get_tile_name(pos) in ["wall","gh_barrier"]
 
 
