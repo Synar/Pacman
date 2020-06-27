@@ -17,9 +17,10 @@ func set_attributes():
 
 
 func fruit_from_level(level_prog):
-    if level_prog > 5 :
+    if level_prog > 12 :
         return "key"
-    return ["peach", "cherries", "cherries", "strawberry", "strawberry"][level_prog-1]
+    return ["cherries", "strawberry", "peach", "peach", "apple", "apple",
+              "grapes", "grapes", "galaxian", "galaxian", "bell", "bell"] [level_prog-1]
 
 
 func _ready():

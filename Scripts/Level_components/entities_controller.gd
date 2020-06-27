@@ -39,6 +39,9 @@ var entities = []
 var coins_remaining = 0 # set to 240 in base levels on ready
 var coins_eaten = 0
 
+var elroy1_coins
+var elroy2_coins
+
 var fright_time
 var blink_amount
 var frightened_timer = -1
@@ -52,8 +55,13 @@ func _ready():
 
 
 func _on_map_loaded():
-    fright_time = [6, 5, 4, 3, 2, 5, 2, 2, 1, 5, 2, 1, 1, 3, 1, 1, 0, 1][level_prog] if level_prog < 19 else 0
+    fright_time = [6, 5, 4, 3, 2, 5, 2, 2, 1, 5, 2, 1, 1, 3, 1, 1, 0, 1][level_prog-1] if level_prog < 19 else 0
     blink_amount = 3 if fright_time==1 else 5
+
+    elroy1_coins = [20, 30, 40, 40, 40, 50, 50, 50, 60, 60,
+                        60, 80, 80, 80, 100, 100, 100, 100] [level_prog-1] if level_prog < 19 else 120
+    elroy2_coins = [10, 15, 20, 20, 20, 25, 25, 25, 30, 30,
+                        30, 40, 40, 40, 50, 50, 50, 50] [level_prog-1] if level_prog < 19 else 60
 
     var pacman = pacmanScene.instance()
     add_child(pacman)

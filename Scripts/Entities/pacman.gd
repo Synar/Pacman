@@ -41,7 +41,7 @@ func update_speed():
         else:
             speed = 0.8*GlobalPlayer.basespeed
 
-    elif 4 < level_prog and level_prog < 21:
+    elif level_prog < 4 or level_prog > 21:
         if ghosts_frightened:
             speed = 0.95*GlobalPlayer.basespeed
         else:
