@@ -56,5 +56,3 @@ func frighten(_fright_time):
 
 func calm():
     ghosts_frightened = false
-
-#func _process(delta):

@@ -16,7 +16,7 @@ var gh_entrance = Vector2(0,0)
 var blink_amount = 3
 
 var chase_scatter_times = [7, 20, 7, 20, 5, 20, 5, -1] #[1, 1, 70, 20, 5, 20, 5, -1]
-var fright_time = 6
+
 
 
 func _ready():

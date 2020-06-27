@@ -1,6 +1,5 @@
 extends Node2D
 
-var tilemap
 var virtual_map = {}
 var off_by_half_map = {}
 var tp_dict = {}
@@ -10,7 +9,7 @@ var grid_pos_half = 0
 
 var level_prog
 
-var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
+var pacmanScene = Pacman
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 var pelletScene = load("res://Scenes/pickup/pellet.tscn")
 var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
@@ -31,11 +30,15 @@ func get_tilemaps():
     return L
 
 
-func _ready():
+func set_render_param():
     OS.set_window_size(Vector2(520, 610))
-    VisualServer.set_default_clear_color(000000)
     #OS.set_window_position(screen_size*0.5 - window_size*0.5)
-    print(get_tilemaps())
+    VisualServer.set_default_clear_color(000000)
+
+
+func _ready():
+    set_render_param()
+
     grid_pos = main_tilemap.position
     grid_pos_half = off_by_half_tilemap.position
     GlobalPlayer.level = self
@@ -141,6 +144,3 @@ func read_tilemap(_tilemap, _entities_controller):
         if not tile in ["ground","wall","gh_barrier"] :
             _tilemap.set_cellv(pos, 1)
 
-
-#func _process(delta):
-#    pass
