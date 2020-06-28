@@ -38,12 +38,6 @@ func _ready():
     highscore = _read_write_score(File.READ)
 
 
-func score_save():
-    if score > highscore:
-        highscore = score
-        _read_write_score(File.WRITE)
-
-
 func next_level():
     level_prog += 1
     get_tree().change_scene("res://Scenes/Level1.tscn")
