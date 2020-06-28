@@ -155,7 +155,6 @@ func frighten():
     frightened_timer = fright_time
 
 
-
 func _on_ghost_body_entered(_body):
     print('loooooooooooooooooooooooooooooooooooooooooooool')
     #global_counter_activated
