@@ -8,6 +8,11 @@ func _on_elroy_1():
     pass
 
 
+func _on_death():
+    elroy1 = false
+    elroy2 = false
+
+
 func _ready():
     state = State.free
 

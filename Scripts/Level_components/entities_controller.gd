@@ -88,6 +88,7 @@ func _on_map_loaded():
     clyde = clydeScene.instance()
     add_child(clyde)
     clyde.position = clyde_spawn
+    clyde.connect("clyde_liberated", self, "on_clyde_liberated")
     clyde.scatter_target = clyde_target
     ghosts.append(clyde)
 
@@ -130,8 +131,13 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
             frighten()
         coin :
             coins_remaining -= 1
-            if coins_remaining == 0:
-                GlobalPlayer.next_level()
+            match coins_remaining:
+                0:
+                    GlobalPlayer.next_level()
+                elroy1_coins :
+                    blinky.elroy1 = true
+                elroy2_coins :
+                    blinky.elroy2 = true
             coins_eaten += 1
             dot_eaten_lib()
         fruit :
@@ -209,3 +215,11 @@ func liberate_trigger(delta):
             var ghost = [pinky,inky,clyde][i]
             if ghost.state == State.lockedin:
                 ghost.liberate()
+
+
+func _on_clyde_liberated():
+    if coins_remaining > elroy2_coins:
+        blinky.elroy2 = true
+    elif coins_remaining > elroy1_coins:
+        blinky.elroy1 = true
+

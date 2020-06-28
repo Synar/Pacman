@@ -146,7 +146,7 @@ func pick_wanted_dir(delta):
             if mode == Mode.frightened and potentialDir.size() > 1:
                 wanted_dir = potentialDir[randi()%potentialDir.size()]
             else:
-                wanted_dir = potentialDir[0]
+                wanted_dir = potentialDir[0] #Bug!
                 for dir in potentialDir:
                     if (position+dir).distance_to(target_pos) < (position+wanted_dir).distance_to(target_pos):
                         wanted_dir = dir
