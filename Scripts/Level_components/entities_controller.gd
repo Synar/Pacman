@@ -1,7 +1,6 @@
 extends Node
 
 var pacmanScene = load("res://Scenes/Entities/pacman.tscn")
-var coinScene = load("res://Scenes/pickup/coin.tscn")
 var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
 var ghostScene = load("res://Scenes/Entities/ghost.tscn")
 var inkyScene = load("res://Scenes/Entities/inky_the_bashful.tscn")
@@ -45,12 +44,22 @@ var fright_time
 var blink_amount
 var frightened_timer = -1
 
-var timer = 0
-var fruit_timer = []
+var fruit_timer = -1
+
 
 func _ready():
     GlobalPlayer.e_controller = self
     randomize()
+
+
+func _spawn_ghost(_ghostScene,_ghost_spawn,_scatter_target = false):
+    var ghost = _ghostScene.instance()
+    add_child(ghost)
+    ghost.position = _ghost_spawn
+    if _scatter_target:
+        ghost.scatter_target = _scatter_target
+    ghosts.append(ghost)
+    return ghost
 
 
 func _on_map_loaded():
@@ -66,37 +75,18 @@ func _on_map_loaded():
     add_child(pacman)
     pacman.position = pacman_spawn #tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
 
-    var ghost = ghostScene.instance()
-    add_child(ghost)
-    ghost.position = ghost_spawn
+    var ghost = _spawn_ghost(ghostScene, ghost_spawn)
     ghost.state = State.free
-    ghosts.append(ghost)
 
-    blinky = blinkyScene.instance()
-    add_child(blinky)
-    blinky.position = blinky_spawn
-    blinky.scatter_target = blinky_target
-    ghosts.append(blinky)
+    blinky = _spawn_ghost(blinkyScene, blinky_spawn, blinky_target)
 
-    inky = inkyScene.instance()
-    add_child(inky)
-    inky.position = inky_spawn
+    inky = _spawn_ghost(inkyScene, inky_spawn, inky_target)
     inky.blinky = blinky
-    inky.scatter_target = inky_target
-    ghosts.append(inky)
 
-    clyde = clydeScene.instance()
-    add_child(clyde)
-    clyde.position = clyde_spawn
+    clyde = _spawn_ghost(clydeScene, clyde_spawn, clyde_target)
     clyde.connect("clyde_liberated", self, "_on_clyde_liberated")
-    clyde.scatter_target = clyde_target
-    ghosts.append(clyde)
 
-    pinky = pinkyScene.instance()
-    add_child(pinky)
-    pinky.position = pinky_spawn
-    pinky.scatter_target = pinky_target
-    ghosts.append(pinky)
+    pinky = _spawn_ghost(pinkyScene, pinky_spawn, pinky_target)
 
     entities = ghosts + [pacman]
 
@@ -112,19 +102,17 @@ func _on_map_loaded():
     for entity in entities:
         entity.level_prog = level_prog
 
-    for id in range(fruit_spawn.size()):
-        _spawn_fruit(id)
-        fruit_timer.append(-1)
-
     print("coins_remaining", coins_remaining)
 
 
-func _spawn_fruit(id):
-        var fruit = fruitScene.instance()
-        fruit.position = fruit_spawn[id]
-        fruit.id = id
-        fruit.fruit = fruit.fruit_from_level(level_prog)
-        add_child(fruit)
+func _spawn_fruits():
+        for id in fruit_spawn.size():
+            var fruit = fruitScene.instance()
+            fruit.position = fruit_spawn[id]
+            fruit.id = id
+            fruit.fruit = fruit.fruit_from_level(level_prog)
+            add_child(fruit)
+        fruit_timer = rand_range(9,10)
 
 
 enum {generic_pickup, pellet, fruit, coin}
@@ -136,16 +124,16 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
         coin :
             coins_remaining -= 1
             match coins_remaining:
-                0:
+                0 :
                     GlobalPlayer.next_level()
                 elroy1_coins :
                     blinky.elroy1 = true
                 elroy2_coins :
                     blinky.elroy2 = true
             coins_eaten += 1
+            if coins_eaten == 70 or coins_eaten == 170:
+                call_deferred ("_spawn_fruits")
             dot_eaten_lib()
-        fruit :
-            fruit_timer[id] = rand_range(9,10)
 
 
 func frighten():
@@ -162,12 +150,13 @@ func _on_ghost_body_entered(_body):
 
 
 func _process(delta):
-    for id in range(fruit_spawn.size()):
-        if fruit_timer[id] != -1 :
-            fruit_timer[id] -= delta
-            if fruit_timer[id] < 0 :
-                _spawn_fruit(id)
-                fruit_timer[id] = -1
+    if fruit_timer != -1 :
+        fruit_timer -= delta
+        if fruit_timer < 0 :
+            fruit_timer = -1
+            for node in get_children():
+                if(node is Fruit):
+                    node.free()
 
     if frightened_timer != -1:
         frightened_timer -= delta

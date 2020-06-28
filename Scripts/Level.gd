@@ -9,10 +9,8 @@ var grid_pos_half = 0
 
 var level_prog
 
-var pacmanScene = Pacman
 var coinScene = load("res://Scenes/pickup/coin.tscn")
 var pelletScene = load("res://Scenes/pickup/pellet.tscn")
-var fruitScene = load("res://Scenes/pickup/Fruit.tscn")
 var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
 var entitiesControllerScene = load("res://Scenes/Level_components/entities_controller.tscn")
 

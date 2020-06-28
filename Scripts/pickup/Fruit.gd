@@ -1,4 +1,5 @@
 extends Pickup
+class_name Fruit
 
 var fruit = "cherries"
 
