@@ -16,8 +16,6 @@ var vect_to_dir = {
     Vector2(0, 1): "down",
 }
 
-var teleported = false
-
 
 func get_tile_coord(pos, tilemap=GlobalPlayer.level.main_tilemap): #position_to_pos_on_grid
     return GlobalPlayer.level.pos_to_pos_on_grid(pos,tilemap)
@@ -67,12 +65,9 @@ func pick_wanted_dir(_delta):
 
 func teleport():
     if get_tile_name(position) == "teleport":
-        if teleported == false:
             print("tp",GlobalPlayer.level.tp_dict)
             position += 16*(GlobalPlayer.level.tp_dict[get_tile_coord(position)] - get_tile_coord(position))
-            teleported = true
-    else:
-        teleported = false
+
 
 
 func _process(delta):
