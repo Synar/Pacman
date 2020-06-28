@@ -22,6 +22,7 @@ func target_tile():
         target_pos = chase_target()
     elif mode == Mode.scatter:
         target_pos = scatter_target
+    #TODO : add behavior in other states
 
 
 func update_speed():

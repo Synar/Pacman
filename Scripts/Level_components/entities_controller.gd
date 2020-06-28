@@ -88,7 +88,7 @@ func _on_map_loaded():
     clyde = clydeScene.instance()
     add_child(clyde)
     clyde.position = clyde_spawn
-    clyde.connect("clyde_liberated", self, "on_clyde_liberated")
+    clyde.connect("clyde_liberated", self, "_on_clyde_liberated")
     clyde.scatter_target = clyde_target
     ghosts.append(clyde)
 
@@ -104,6 +104,10 @@ func _on_map_loaded():
         ghost.gh_1 = gh_1
         ghost.gh_entrance = gh_entrance
         ghost.blink_amount = blink_amount
+        match level_prog:
+            1 : ghost.chase_scatter_times = [7, 20, 7, 20, 5, 20, 5, -1]
+            2,3,4 : ghost.chase_scatter_times = [7, 20, 7, 20, 5, 1033, 1/60, -1]
+            _ : ghost.chase_scatter_times = [5, 20, 5, 20, 5, 1037, 1/60, -1]
 
     for entity in entities:
         entity.level_prog = level_prog
@@ -198,8 +202,6 @@ func dot_eaten_lib():
     else:
         if ghost_activated != 3:
             dots_eaten_since_ghost_activated[ghost_activated] += 1
-            if dots_eaten_since_ghost_activated[ghost_activated] == ghosts_activation_thresholds[ghost_activated]:
-                ghost_activated += 1
 
 
 func liberate_trigger(delta):
@@ -210,6 +212,11 @@ func liberate_trigger(delta):
                 ghost.liberate()
                 time_since_dot_eaten = 0
                 break
+
+    if ghost_activated != 3:
+        if dots_eaten_since_ghost_activated[ghost_activated] == ghosts_activation_thresholds[ghost_activated]:
+            ghost_activated += 1
+
     for i in range(3):
         if dots_eaten_since_ghost_activated[i] >= ghosts_activation_thresholds[i]:
             var ghost = [pinky,inky,clyde][i]
