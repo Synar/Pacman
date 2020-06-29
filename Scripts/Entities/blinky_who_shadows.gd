@@ -27,7 +27,7 @@ func target_tile():
 
 func update_speed():
     var level_multiplier = .0 if level_prog == 1 else 0.05 if level_prog < 4 else 0.1
-    if get_tile_name(position) in ["slow", "teleport", "tp_exit"]:
+    if Level.get_tile_name(position) in ["slow", "teleport", "tp_exit"]:
         speed = (0.4 + level_multiplier)*GlobalPlayer.basespeed
     elif mode == Mode.frightened:
         speed = (0.5 + level_multiplier)*GlobalPlayer.basespeed

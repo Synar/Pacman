@@ -1,11 +1,11 @@
 extends Node2D
 
-var virtual_map = {}
-var off_by_half_map = {}
+
 var tp_dict = {}
 var tp_exit_list = []
 var grid_pos = 0
 var grid_pos_half = 0
+var tile_size = 16
 
 var level_prog
 
@@ -16,6 +16,8 @@ var entitiesControllerScene = load("res://Scenes/Level_components/entities_contr
 
 onready var main_tilemap = $"Background"
 onready var off_by_half_tilemap = $"Offbyhalf"
+var virtual_map = {}
+var off_by_half_map = {}
 var entities_controller
 
 
@@ -59,14 +61,26 @@ func pos_on_grid_to_center_pos(pos, _tilemap = main_tilemap):
     return _tilemap.map_to_world(pos) + _tilemap.position + Vector2(8, 8)
 
 
-func adjust_pos(pos, direction=Vector2(1, 1), adjust_by_half=false):
-    var size_adjust = 8
-    #pos = GlobalPlayer.level.pos_on_grid_to_center_pos(GlobalPlayer.level.pos_to_pos_on_grid(pos, tilemap))
-    var grid_pos = GlobalPlayer.level.grid_pos_half if adjust_by_half else GlobalPlayer.level.grid_pos
+func get_tile_name(pos, half_offset = false, tile_wanted = Vector2(0,0)): #vmap=GlobalPlayer.level.virtual_map, tilemap=GlobalPlayer.level.main_tilemap):
+    var tilemap = off_by_half_tilemap if half_offset else main_tilemap
+    var vmap = off_by_half_map if half_offset else virtual_map
+
+    var pos_on_grid = pos_to_pos_on_grid(pos,tilemap) + tile_wanted
+    if pos_on_grid in vmap:
+        return vmap[pos_on_grid]
+    else :
+        return "ground" #"empty"?
+
+
+func adjust_pos(pos, direction=Vector2(1, 1), half_offset = false):
+    var tilemap = off_by_half_tilemap if half_offset else main_tilemap
+
+    var center_pos = GlobalPlayer.level.pos_on_grid_to_center_pos(GlobalPlayer.level.pos_to_pos_on_grid(pos, tilemap))
+
     if direction.x != 0:
-        pos.y = stepify(pos.y - grid_pos.y - size_adjust, 16) + grid_pos.y + size_adjust
+        pos.y = center_pos.y
     if direction.y != 0:
-        pos.x = stepify(pos.x - grid_pos.x - size_adjust, 16) + grid_pos.x + size_adjust
+        pos.x = center_pos.x
     return pos
 
 
@@ -74,6 +88,7 @@ func add_black_foreground(pos, _tilemap = main_tilemap):
     var tp = darkTileScene.instance()
     add_child(tp)
     tp.position = pos_on_grid_to_center_pos(pos, _tilemap)
+
 
 
 func read_tilemap(_tilemap, _entities_controller, _virtual_map):
