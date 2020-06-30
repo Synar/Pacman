@@ -22,6 +22,7 @@ func _ready():
         print (Vector2(0,0))
     if Vector2(1,0):
         print (Vector2(1,0))
+    print(Vector2(1,2)*Vector2(10,100))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

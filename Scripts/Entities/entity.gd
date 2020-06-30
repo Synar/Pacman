@@ -29,48 +29,48 @@ var vect_to_dir = {
 #    else :
 #        return "ground" #"empty"?
 
+func use_half_offset_map():
+    return false
 
-func tile_is_wall(pos):
-    return Level.get_tile_name(pos) in ["wall","gh_barrier"]
+
+func adjust_pos(pos, direction=Vector2(1, 1)):
+    return Level.adjust_pos(pos, direction, use_half_offset_map())
+
+
+func tile_is_wall(pos, tile_wanted = Vector2(0,0)):#, half_offset = false, tile_wanted = Vector2(0,0)):
+    return Level.get_tile_name(pos,use_half_offset_map(),tile_wanted) in ["wall","gh_barrier"]
 
 
 func try_dir(_wanted_dir, delta):
-    if tile_is_wall(position + 16*_wanted_dir):
+    if tile_is_wall(position, _wanted_dir):
         return false
 
     var new_pos = position + _wanted_dir * speed * delta
-    var new_pos_adj = Level.adjust_pos(new_pos, _wanted_dir)
+    var new_pos_adj = adjust_pos(new_pos, _wanted_dir)
     return (new_pos - new_pos_adj).length() <= speed * delta
 
-
-#func adjust_pos(pos, direction=Vector2(1, 1), half_offset = false):
-    #return GlobalPlayer.level.adjust_pos(pos, direction, half_offset)
-    #var tile_size = GlobalPlayer.level.tile_size
-    #var size_adjust = tile_size / 2
-
-    #var grid_pos = GlobalPlayer.level.grid_pos_half if half_offset else GlobalPlayer.level.grid_pos
-
-    #if direction.x != 0:
-    #    pos.y = stepify(pos.y - grid_pos.y - size_adjust, tile_size) + grid_pos.y + size_adjust
-    #if direction.y != 0:
-    #    pos.x = stepify(pos.x - grid_pos.x - size_adjust, tile_size) + grid_pos.x + size_adjust
-    #return pos
-
-
-func adjust_by_half():
-    return false
 
 
 func pick_wanted_dir(_delta):
     pass
 
 
-func teleport():
-    if Level.get_tile_name(position) == "teleport":
-            #print("tp",Level.tp_dict)
-            var pos_on_grid = Level.pos_to_pos_on_grid(position)
-            position += Level.pos_on_grid_to_center_pos(Level.tp_dict[pos_on_grid] - pos_on_grid)
+func stop_if_wall():
+    #BUGGGGGGGGGGGGGGGGGGG
+    if tile_is_wall(position, current_dir/2):
+        current_dir = Vector2(0, 0)
+        var new_position = adjust_pos(position, Vector2(1, 1))
+        if new_position != position:
+            print("wall wall", new_position, "  ", position)
+        position = adjust_pos(position, Vector2(1, 1))
 
+
+func _move(delta):
+    position += current_dir * speed * delta
+    var new_position = adjust_pos(position, current_dir)
+    if new_position != position:
+        print("well ", new_position, "  ", position)
+    position = adjust_pos(position, current_dir)
 
 
 func _process(delta):
@@ -92,15 +92,12 @@ func _process(delta):
     teleport()
 
 
-func stop_if_wall():
-    if tile_is_wall(position + 8*current_dir):
-        current_dir = Vector2(0, 0)
-        position = Level.adjust_pos(position, Vector2(1, 1))
-
-
-func _move(delta):
-    position += current_dir * speed * delta
-    position = Level.adjust_pos(position, current_dir)
+func teleport():
+    if Level.get_tile_name(position) == "teleport":
+            #print("tp",Level.tp_dict)
+            var pos_on_grid = Level.pos_to_pos_on_grid(position)
+            position += Level.pos_on_grid_to_center_pos(Level.tp_dict[pos_on_grid]) \
+                        - Level.pos_on_grid_to_center_pos(pos_on_grid)
 
 
 func update_speed():

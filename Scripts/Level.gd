@@ -35,6 +35,10 @@ func set_render_param():
     VisualServer.set_default_clear_color(000000)
 
 
+func choose_vmap(tilemap):
+    return virtual_map if tilemap.position == Vector2(0,0) else off_by_half_map
+
+
 func _ready():
     set_render_param()
 
@@ -48,9 +52,10 @@ func _ready():
     add_child(entities_controller)
 
     for tilemap in get_tilemaps():
-        read_tilemap(tilemap, entities_controller, virtual_map)
+        read_tilemap(tilemap, entities_controller, choose_vmap(tilemap))
 
     entities_controller._on_map_loaded()
+    print("off_by_half_map : ",off_by_half_map)
 
 
 func pos_to_pos_on_grid(pos, _tilemap = main_tilemap):
@@ -65,7 +70,7 @@ func get_tile_name(pos, half_offset = false, tile_wanted = Vector2(0,0)): #vmap=
     var tilemap = off_by_half_tilemap if half_offset else main_tilemap
     var vmap = off_by_half_map if half_offset else virtual_map
 
-    var pos_on_grid = pos_to_pos_on_grid(pos,tilemap) + tile_wanted
+    var pos_on_grid = pos_to_pos_on_grid(pos + tilemap.cell_size * tile_wanted, tilemap)
     if pos_on_grid in vmap:
         return vmap[pos_on_grid]
     else :
@@ -75,7 +80,10 @@ func get_tile_name(pos, half_offset = false, tile_wanted = Vector2(0,0)): #vmap=
 func adjust_pos(pos, direction=Vector2(1, 1), half_offset = false):
     var tilemap = off_by_half_tilemap if half_offset else main_tilemap
 
-    var center_pos = GlobalPlayer.level.pos_on_grid_to_center_pos(GlobalPlayer.level.pos_to_pos_on_grid(pos, tilemap))
+    var center_pos = pos_on_grid_to_center_pos(pos_to_pos_on_grid(pos, tilemap), tilemap)
+
+    if direction.x != 0 and pos!=center_pos :
+        pass
 
     if direction.x != 0:
         pos.y = center_pos.y
@@ -98,6 +106,9 @@ func read_tilemap(_tilemap, _entities_controller, _virtual_map):
         if _tilemap != get_node("Background"):
             print(_tilemap, " ", pos, " ", tile)
         if tile in ["ground","wall","slow","no_up","teleport","tp_exit","gh_barrier"] :
+            _virtual_map[pos] = tile
+
+        if tile in ["red_placeholder","gh_1","gh_2"] :
             _virtual_map[pos] = tile
 
         match tile :
@@ -126,7 +137,7 @@ func read_tilemap(_tilemap, _entities_controller, _virtual_map):
             "fruit":
                 _entities_controller.fruit_spawn.append(pos_on_grid_to_center_pos(pos, _tilemap))
             "invisible_wall":
-                virtual_map[pos] = "wall"
+                _virtual_map[pos] = "wall"
                 _tilemap.set_cellv(pos, 1)
 
             "tp_exit":
@@ -150,8 +161,7 @@ func read_tilemap(_tilemap, _entities_controller, _virtual_map):
             "gh_1":
                 _entities_controller.gh_1 = pos_on_grid_to_center_pos(pos, _tilemap)
 
-        if tile in ["red_placeholder","gh_1","gh_2"] :
-            off_by_half_map[pos] = tile
+
 
     for pos in _tilemap.get_used_cells():
         var tile = ts.tile_get_name(_tilemap.get_cell(pos.x, pos.y))

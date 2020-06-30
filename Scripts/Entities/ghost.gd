@@ -42,17 +42,18 @@ func target_tile():
 
 var frame_count_post_turn = 0
 
-func adjust_by_half():
+func use_half_offset_map():
     return state == State.lockedin or state == State.leavinggh_1 or state == State.leavinggh_2
 
-
+var test
 func liberate():
+    test = use_half_offset_map()
     if state == State.lockedin:
         state = State.leavinggh_1
 
 
 func chase_target():
-    return Level.adjust_pos(GlobalPlayer.Player.position)
+    return adjust_pos(GlobalPlayer.Player.position)
 
 
 var chase_or_scatter_timer = chase_scatter_times[0]
@@ -60,7 +61,7 @@ var chase_or_scatter_index = 0
 
 
 func pls_reverse_upon_leaving():
-    reverse_upon_leaving = [true, Level.adjust_pos(position)]
+    reverse_upon_leaving = [true, adjust_pos(position)]
 
 
 func chase_or_scatter(delta):
@@ -100,7 +101,7 @@ func update_mode(delta):
             state = State.leavinggh_2
             print("wesh ça marche du premier coup")
     if state == State.leavinggh_2:
-        if Level.get_tile_name(position, true)=="gh_1":
+        if Level.get_tile_name(position)=="gh_1":
             state = State.free
 
 
@@ -124,7 +125,7 @@ func pick_wanted_dir(delta):
             frame_count_post_turn = (frame_count_post_turn + 1) % 10
             return
 
-        if reverse_upon_leaving[0] and reverse_upon_leaving[1] != Level.adjust_pos(position):
+        if reverse_upon_leaving[0] and reverse_upon_leaving[1] != adjust_pos(position):
             wanted_dir = - current_dir
             reverse_upon_leaving = [false, Vector2(0, 0)]
 
@@ -198,14 +199,15 @@ func shade(delta):
     #yield(get_tree(), "idle_frame")
 
 
-func tile_is_wall(pos):
-    if state == State.free or state == State.lockedin:
-        return Level.get_tile_name(pos) in ["wall","gh_barrier"]
-    else :
-        return Level.get_tile_name(pos) == "wall"
+#func tile_is_wall(pos):
+#    if state == State.free or state == State.lockedin:
+#        return Level.get_tile_name(pos) in ["wall","gh_barrier"]
+#    else :
+#        return Level.get_tile_name(pos) == "wall"
 
 
-func stop_if_wall():
-    if tile_is_wall(position + 8*current_dir) and true: #get_tile_name(pos):
-        current_dir = Vector2(0, 0)
-        position = Level.adjust_pos(position, Vector2(1, 1))
+
+
+#func _move(delta):
+#    position += current_dir * speed * delta
+#    position = adjust_pos(position, current_dir)
