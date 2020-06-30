@@ -4,7 +4,6 @@ extends Entity
 
 var target_pos = Vector2(-10, 5)
 var scatter_target = Vector2(-10, 5)
-var not_snapped = true
 enum State {free, lockedin, leavinggh_1, leavinggh_2, dead}
 var state = State.lockedin
 enum Mode {scatter, chase, frightened}
@@ -12,6 +11,7 @@ var mode = Mode.scatter
 var reverse_upon_leaving = [false, Vector2(0,0)]
 var scatter_timer = 0
 var gh_1 = Vector2(0,0)
+var gh_2 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
 var blink_amount = 3
 
@@ -24,8 +24,10 @@ func _ready():
     randomize()
     self.connect("body_entered", GlobalPlayer.e_controller, "_on_ghost_body_entered", [])
 
+
 func _process(delta):
     shade(delta)
+
 
 func target_tile():
     match state :
@@ -38,16 +40,16 @@ func target_tile():
         State.leavinggh_1 :
                 target_pos = gh_entrance
         State.leavinggh_2 :
-                target_pos = gh_1
+                target_pos = gh_2 if reverse_upon_leaving[0] else gh_1
+
 
 var frame_count_post_turn = 0
 
 func use_half_offset_map():
     return state == State.lockedin or state == State.leavinggh_1 or state == State.leavinggh_2
 
-var test
+
 func liberate():
-    test = use_half_offset_map()
     if state == State.lockedin:
         state = State.leavinggh_1
 
@@ -101,14 +103,12 @@ func update_mode(delta):
             state = State.leavinggh_2
             print("wesh ça marche du premier coup")
     if state == State.leavinggh_2:
-        if Level.get_tile_name(position)=="gh_1":
+        if Level.get_tile_name(position)=="gh_1" or Level.get_tile_name(position)=="gh_2":
             state = State.free
+            reverse_upon_leaving = [false, Vector2(0, 0)]
 
 
 func pick_wanted_dir(delta):
-    #if not_snapped:
-    #    position = adjust_pos(position)
-    #    not_snapped = false
 
     update_mode(delta)
     target_tile()
@@ -147,10 +147,6 @@ func pick_wanted_dir(delta):
 
         if wanted_dir != current_dir:
             frame_count_post_turn += 1
-
-
-#func _process(delta):
-#    pass
 
 
 func update_speed():
@@ -198,16 +194,3 @@ func shade(delta):
                 blinking = false
     #yield(get_tree(), "idle_frame")
 
-
-#func tile_is_wall(pos):
-#    if state == State.free or state == State.lockedin:
-#        return Level.get_tile_name(pos) in ["wall","gh_barrier"]
-#    else :
-#        return Level.get_tile_name(pos) == "wall"
-
-
-
-
-#func _move(delta):
-#    position += current_dir * speed * delta
-#    position = adjust_pos(position, current_dir)

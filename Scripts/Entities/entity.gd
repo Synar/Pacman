@@ -18,60 +18,6 @@ var vect_to_dir = {
 }
 
 
-#func get_tile_coord(pos, tilemap=GlobalPlayer.level.main_tilemap): #position_to_pos_on_grid
-#    return GlobalPlayer.level.pos_to_pos_on_grid(pos,tilemap)
-
-
-#func get_tile_name(pos, vmap=GlobalPlayer.level.virtual_map, tilemap=GlobalPlayer.level.main_tilemap):
-#    var pos_on_grid = get_tile_coord(pos,tilemap)
-#    if pos_on_grid in vmap:
-#        return vmap[pos_on_grid]
-#    else :
-#        return "ground" #"empty"?
-
-func use_half_offset_map():
-    return false
-
-
-func adjust_pos(pos, direction=Vector2(1, 1)):
-    return Level.adjust_pos(pos, direction, use_half_offset_map())
-
-
-func tile_is_wall(pos, tile_wanted = Vector2(0,0)):#, half_offset = false, tile_wanted = Vector2(0,0)):
-    return Level.get_tile_name(pos,use_half_offset_map(),tile_wanted) in ["wall","gh_barrier"]
-
-
-func try_dir(_wanted_dir, delta):
-    if tile_is_wall(position, _wanted_dir):
-        return false
-
-    var new_pos = position + _wanted_dir * speed * delta
-    var new_pos_adj = adjust_pos(new_pos, _wanted_dir)
-    return (new_pos - new_pos_adj).length() <= speed * delta
-
-
-
-func pick_wanted_dir(_delta):
-    pass
-
-
-func stop_if_wall():
-    #BUGGGGGGGGGGGGGGGGGGG
-    if tile_is_wall(position, current_dir/2):
-        current_dir = Vector2(0, 0)
-        var new_position = adjust_pos(position, Vector2(1, 1))
-        if new_position != position:
-            print("wall wall", new_position, "  ", position)
-        position = adjust_pos(position, Vector2(1, 1))
-
-
-func _move(delta):
-    position += current_dir * speed * delta
-    var new_position = adjust_pos(position, current_dir)
-    if new_position != position:
-        print("well ", new_position, "  ", position)
-    position = adjust_pos(position, current_dir)
-
 
 func _process(delta):
     update_speed()
@@ -90,6 +36,43 @@ func _process(delta):
     entity_rotate()
     _move(delta)
     teleport()
+
+
+
+func use_half_offset_map():
+    return false
+
+
+func adjust_pos(pos, direction=Vector2(1, 1)):
+    return Level.adjust_pos(pos, direction, use_half_offset_map())
+
+
+func tile_is_wall(pos, tile_wanted = Vector2(0,0)):#, half_offset = false, tile_wanted = Vector2(0,0)):
+    return Level.get_tile_name(pos,use_half_offset_map(),tile_wanted) in ["wall","gh_barrier"]
+
+
+func pick_wanted_dir(_delta):
+    pass
+
+
+func try_dir(_wanted_dir, delta):
+    if tile_is_wall(position, _wanted_dir):
+        return false
+
+    var new_pos = position + _wanted_dir * speed * delta
+    var new_pos_adj = adjust_pos(new_pos, _wanted_dir)
+    return (new_pos - new_pos_adj).length() <= speed * delta
+
+
+func stop_if_wall():
+    if tile_is_wall(position, current_dir/2):
+        current_dir = Vector2(0, 0)
+        position = adjust_pos(position, Vector2(1, 1))
+
+
+func _move(delta):
+    position += current_dir * speed * delta
+    position = adjust_pos(position, current_dir)
 
 
 func teleport():

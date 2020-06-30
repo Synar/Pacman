@@ -29,14 +29,15 @@ func get_tilemaps():
     return L
 
 
+func choose_vmap(tilemap):
+    return virtual_map if tilemap.position == Vector2(0,0) else off_by_half_map
+
+
+#TODO : work on resolution
 func set_render_param():
     OS.set_window_size(Vector2(520, 610))
     #OS.set_window_position(screen_size*0.5 - window_size*0.5)
     VisualServer.set_default_clear_color(000000)
-
-
-func choose_vmap(tilemap):
-    return virtual_map if tilemap.position == Vector2(0,0) else off_by_half_map
 
 
 func _ready():
@@ -56,6 +57,7 @@ func _ready():
 
     entities_controller._on_map_loaded()
     print("off_by_half_map : ",off_by_half_map)
+
 
 
 func pos_to_pos_on_grid(pos, _tilemap = main_tilemap):
@@ -105,10 +107,8 @@ func read_tilemap(_tilemap, _entities_controller, _virtual_map):
         var tile = ts.tile_get_name(_tilemap.get_cell(pos.x, pos.y))
         if _tilemap != get_node("Background"):
             print(_tilemap, " ", pos, " ", tile)
-        if tile in ["ground","wall","slow","no_up","teleport","tp_exit","gh_barrier"] :
-            _virtual_map[pos] = tile
-
-        if tile in ["red_placeholder","gh_1","gh_2"] :
+        if tile in ["ground","wall","slow","no_up","teleport","tp_exit",
+                    "gh_barrier","red_placeholder","gh_1","gh_2"] :
             _virtual_map[pos] = tile
 
         match tile :
@@ -160,6 +160,9 @@ func read_tilemap(_tilemap, _entities_controller, _virtual_map):
 
             "gh_1":
                 _entities_controller.gh_1 = pos_on_grid_to_center_pos(pos, _tilemap)
+
+            "gh_2":
+                _entities_controller.gh_2 = pos_on_grid_to_center_pos(pos, _tilemap)
 
 
 

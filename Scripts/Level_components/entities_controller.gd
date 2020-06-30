@@ -23,6 +23,7 @@ var clyde_target = Vector2(0,0)
 var blinky_target = Vector2(0,0)
 var pinky_target = Vector2(0,0)
 var gh_1 = Vector2(0,0)
+var gh_2 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
 
 enum State {free, lockedin, leavinggh_1, leavinggh_2, dead}
@@ -92,6 +93,7 @@ func _on_map_loaded():
 
     for ghost in ghosts:
         ghost.gh_1 = gh_1
+        ghost.gh_2 = gh_2
         ghost.gh_entrance = gh_entrance
         ghost.blink_amount = blink_amount
         match level_prog:

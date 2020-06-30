@@ -57,6 +57,3 @@ func frighten(_fright_time):
 func calm():
     ghosts_frightened = false
 
-
-func adjust_pos(pos, direction=Vector2(1, 1)):
-    return Level.adjust_pos(pos, direction, true)
