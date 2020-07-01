@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/siren_4.wav-12fbf704b50a90f53de11ddb6168539f.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/Pac-Man/siren_4.wav"
+dest_files=[ "res://.import/siren_4.wav-12fbf704b50a90f53de11ddb6168539f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

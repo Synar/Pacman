@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/munch_2.wav-13f93e40d5927ae2dbf13c2ae9a5486c.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/Pac-Man/munch_2.wav"
+dest_files=[ "res://.import/munch_2.wav-13f93e40d5927ae2dbf13c2ae9a5486c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

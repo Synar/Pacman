@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/eat_fruit.wav-6e315b5cde68df31356ccca562bc27a6.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/Pac-Man/eat_fruit.wav"
+dest_files=[ "res://.import/eat_fruit.wav-6e315b5cde68df31356ccca562bc27a6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
