@@ -54,8 +54,9 @@ GlobalPlayer="*res://Scripts/GlobalPlayer.gd"
 
 [display]
 
-window/size/test_width=522
-window/size/test_height=622
+window/size/width=800
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [input]
 
@@ -89,4 +90,5 @@ move_down={
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"

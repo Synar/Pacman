@@ -2,7 +2,7 @@ extends CanvasLayer
 
 
 func _ready():
-    OS.set_window_size(Vector2(640, 480))
+    #OS.set_window_size(Vector2(640, 480))
     VisualServer.set_default_clear_color(000000)
     pass
 

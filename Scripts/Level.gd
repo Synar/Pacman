@@ -35,7 +35,7 @@ func choose_vmap(tilemap):
 
 #TODO : work on resolution
 func set_render_param():
-    OS.set_window_size(Vector2(520, 610))
+    #OS.set_window_size(Vector2(520, 610))
     #OS.set_window_position(screen_size*0.5 - window_size*0.5)
     VisualServer.set_default_clear_color(000000)
 
