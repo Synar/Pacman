@@ -87,7 +87,7 @@ resource_name = "intermission1"
 length = 10.0
 step = 0.025
 tracks/0/type = "value"
-tracks/0/path = NodePath("pacman:position")
+tracks/0/path = NodePath("Viewport/pacman:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -99,7 +99,7 @@ tracks/0/keys = {
 "values": [ Vector2( 300, 0 ), Vector2( -238, 0 ), Vector2( -430, 0 ), Vector2( 350, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("pacman:rotation_degrees")
+tracks/1/path = NodePath("Viewport/pacman:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -111,7 +111,7 @@ tracks/1/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("pacman:scale")
+tracks/2/path = NodePath("Viewport/pacman:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -123,7 +123,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 4, 4 ), Vector2( 4, 4 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("pacman:animation")
+tracks/3/path = NodePath("Viewport/pacman:animation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -135,7 +135,7 @@ tracks/3/keys = {
 "values": [ "left", "left", "right", "right" ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("red_ghost:position")
+tracks/4/path = NodePath("Viewport/red_ghost:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -147,7 +147,7 @@ tracks/4/keys = {
 "values": [ Vector2( 360, 0 ), Vector2( -220, 0 ), Vector2( -220, 0 ), Vector2( 380, 0 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("red_ghost:rotation_degrees")
+tracks/5/path = NodePath("Viewport/red_ghost:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -159,7 +159,7 @@ tracks/5/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("red_ghost:scale")
+tracks/6/path = NodePath("Viewport/red_ghost:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -171,7 +171,7 @@ tracks/6/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("red_ghost:animation")
+tracks/7/path = NodePath("Viewport/red_ghost:animation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -336,11 +336,13 @@ transform = Transform2D( 1, 0, 0, 1, 200, 200 )
 follow_viewport_enable = true
 script = ExtResource( 3 )
 
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 400, 600 )
+
 [node name="pacman" type="AnimatedSprite" parent="."]
 position = Vector2( 300, 0 )
 frames = SubResource( 13 )
 animation = "left"
-frame = 1
 playing = true
 offset = Vector2( -0.5, 0.5 )
 
