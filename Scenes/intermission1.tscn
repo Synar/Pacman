@@ -96,7 +96,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 4, 5.35, 9.975 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 300, 0 ), Vector2( -238, 0 ), Vector2( -430, 0 ), Vector2( 350, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( -238, 0 ), Vector2( -430, 0 ), Vector2( 350, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Viewport/pacman:rotation_degrees")
@@ -343,6 +343,7 @@ size = Vector2( 400, 600 )
 position = Vector2( 300, 0 )
 frames = SubResource( 13 )
 animation = "left"
+frame = 1
 playing = true
 offset = Vector2( -0.5, 0.5 )
 
@@ -355,6 +356,7 @@ material = SubResource( 15 )
 position = Vector2( 350, 0 )
 frames = SubResource( 36 )
 animation = "normal_left"
+frame = 1
 playing = true
 offset = Vector2( 0, 0.5 )
 
