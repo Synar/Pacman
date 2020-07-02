@@ -6,88 +6,12 @@
 [ext_resource path="res://Assets/Sounds/Pac-Man/intermission.wav" type="AudioStream" id=4]
 [ext_resource path="res://Scenes/AudioStreamPlayer.gd" type="Script" id=5]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 336, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 352, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 400, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 416, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 368, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 384, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 432, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 448, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 368, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 1 )
-region = Rect2( 336, 16, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 1 )
-region = Rect2( 368, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 1 )
-region = Rect2( 384, 0, 16, 16 )
-
-[sub_resource type="SpriteFrames" id=13]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
-"loop": true,
-"name": "right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
-"name": "left",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 5 ), SubResource( 6 ) ],
-"loop": true,
-"name": "up",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
-"loop": true,
-"name": "down",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
-"loop": true,
-"name": "up_long",
-"speed": 5.0
-} ]
-
 [sub_resource type="Animation" id=14]
 resource_name = "intermission1"
 length = 10.0
 step = 0.025
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/pacman:position")
+tracks/0/path = NodePath("ViewportContainer/Viewport/pacman:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -96,10 +20,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 4, 5.35, 9.975 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -238, 0 ), Vector2( -430, 0 ), Vector2( 350, 0 ) ]
+"values": [ Vector2( 300, 300 ), Vector2( -238, 0 ), Vector2( -430, 0 ), Vector2( 350, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/pacman:rotation_degrees")
+tracks/1/path = NodePath("ViewportContainer/Viewport/pacman:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -111,7 +35,7 @@ tracks/1/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/pacman:scale")
+tracks/2/path = NodePath("ViewportContainer/Viewport/pacman:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -123,7 +47,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 4, 4 ), Vector2( 4, 4 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Viewport/pacman:animation")
+tracks/3/path = NodePath("ViewportContainer/Viewport/pacman:animation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -135,7 +59,7 @@ tracks/3/keys = {
 "values": [ "left", "left", "right", "right" ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Viewport/red_ghost:position")
+tracks/4/path = NodePath("ViewportContainer/Viewport/red_ghost:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -147,7 +71,7 @@ tracks/4/keys = {
 "values": [ Vector2( 360, 0 ), Vector2( -220, 0 ), Vector2( -220, 0 ), Vector2( 380, 0 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Viewport/red_ghost:rotation_degrees")
+tracks/5/path = NodePath("ViewportContainer/Viewport/red_ghost:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -159,7 +83,7 @@ tracks/5/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Viewport/red_ghost:scale")
+tracks/6/path = NodePath("ViewportContainer/Viewport/red_ghost:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -171,7 +95,7 @@ tracks/6/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Viewport/red_ghost:animation")
+tracks/7/path = NodePath("ViewportContainer/Viewport/red_ghost:animation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -330,36 +254,122 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 336, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 352, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 400, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 416, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 368, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 384, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 432, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 448, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 368, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 336, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 368, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 384, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "right",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "left",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "up",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "down",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "up_long",
+"speed": 5.0
+} ]
+
 [node name="CanvasLayer" type="CanvasLayer"]
-offset = Vector2( 200, 200 )
-transform = Transform2D( 1, 0, 0, 1, 200, 200 )
 follow_viewport_enable = true
 script = ExtResource( 3 )
-
-[node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 400, 600 )
-
-[node name="pacman" type="AnimatedSprite" parent="."]
-position = Vector2( 300, 0 )
-frames = SubResource( 13 )
-animation = "left"
-frame = 1
-playing = true
-offset = Vector2( -0.5, 0.5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "intermission1"
 anims/intermission1 = SubResource( 14 )
 
-[node name="red_ghost" type="AnimatedSprite" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -300.0
+margin_right = 300.0
+margin_bottom = 300.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 400, 600 )
+
+[node name="red_ghost" type="AnimatedSprite" parent="ViewportContainer/Viewport"]
 material = SubResource( 15 )
-position = Vector2( 350, 0 )
+position = Vector2( 360, 0 )
 frames = SubResource( 36 )
 animation = "normal_left"
 frame = 1
 playing = true
 offset = Vector2( 0, 0.5 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
-script = ExtResource( 5 )
+[node name="pacman" type="AnimatedSprite" parent="ViewportContainer/Viewport"]
+position = Vector2( 300, 0 )
+frames = SubResource( 13 )
+animation = "left"
+playing = true
+offset = Vector2( -0.5, 0.5 )
