@@ -137,6 +137,8 @@ func pick_wanted_dir(delta):
             for dir in potentialDir.duplicate():
                 if tile_is_wall(position + 16*dir):
                     potentialDir.erase(dir)
+            if potentialDir.size() == 0:
+                potentialDir = [-current_dir]
             if mode == Mode.frightened and potentialDir.size() > 1:
                 wanted_dir = potentialDir[randi()%potentialDir.size()]
             else:

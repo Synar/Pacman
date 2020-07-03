@@ -72,9 +72,17 @@ func _on_map_loaded():
     elroy2_coins = [10, 15, 20, 20, 20, 25, 25, 25, 30, 30,
                         30, 40, 40, 40, 50, 50, 50, 50] [level_prog-1] if level_prog < 19 else 60
 
+    _spawn_entities()
+
+    print("coins_remaining", coins_remaining)
+
+
+func _spawn_entities():
     var pacman = pacmanScene.instance()
     add_child(pacman)
     pacman.position = pacman_spawn #tilemap.map_to_world(pos) + tilemap.position + Vector2(8, 8)
+
+    ghosts = []
 
     var ghost = _spawn_ghost(ghostScene, ghost_spawn)
     ghost.state = State.free
@@ -103,8 +111,6 @@ func _on_map_loaded():
 
     for entity in entities:
         entity.level_prog = level_prog
-
-    print("coins_remaining", coins_remaining)
 
 
 func _spawn_fruits():
@@ -146,11 +152,20 @@ func frighten():
 
 
 func _on_ghost_body_entered(_body):
-    print('loooooooooooooooooooooooooooooooooooooooooooool')
-    #global_counter_activated
+    if frightened_timer == -1:
+        GlobalPlayer.lives -= 1
+        for entity in entities:
+            entity.queue_free()
+        $pause_controller.freeze_timer = 3
+        get_tree().paused = true
+        _spawn_entities()
+    else:
+        pass
 
 
 func _process(delta):
+    process_input(delta)
+
     if fruit_timer != -1 :
         fruit_timer -= delta
         if fruit_timer < 0 :
@@ -220,3 +235,9 @@ func _on_clyde_liberated():
     elif coins_remaining > elroy1_coins:
         blinky.elroy1 = true
 
+
+func process_input(delta):
+    pass
+    #if Input.is_action_pressed("god_mode"):
+    #    god_mode = true
+    #    GlobalPlayer.anticheat = true

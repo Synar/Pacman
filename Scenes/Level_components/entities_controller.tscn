@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Level_components/entities_controller.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Level_components/pause_controller.gd" type="Script" id=2]
 
 [node name="entities_controller" type="Node"]
 script = ExtResource( 1 )
+
+[node name="pause_controller" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 2 )
