@@ -25,6 +25,7 @@ var pinky_target = Vector2(0,0)
 var gh_1 = Vector2(0,0)
 var gh_2 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
+var god_mode = false
 
 enum State {free, lockedin, leavinggh_1, leavinggh_2, dead}
 
@@ -152,15 +153,20 @@ func frighten():
 
 
 func _on_ghost_body_entered(_body):
+    #globalcounter
     if frightened_timer == -1:
-        GlobalPlayer.lives -= 1
-        for entity in entities:
-            entity.queue_free()
-        $pause_controller.freeze_timer = 3
-        get_tree().paused = true
-        _spawn_entities()
+        if !god_mode :
+            GlobalPlayer.lives -= 1
+            GlobalPlayer.Player._on_death()
+            $pause_controller.pc_death_freeze(3)
     else:
         pass
+
+
+func pc_respawn():
+        for entity in entities:
+            entity.queue_free()
+        call_deferred("_spawn_entities")
 
 
 func _process(delta):
@@ -237,7 +243,6 @@ func _on_clyde_liberated():
 
 
 func process_input(delta):
-    pass
-    #if Input.is_action_pressed("god_mode"):
-    #    god_mode = true
-    #    GlobalPlayer.anticheat = true
+    if Input.is_action_just_pressed("god_mode"):
+        god_mode = !god_mode
+        GlobalPlayer.anticheat = true

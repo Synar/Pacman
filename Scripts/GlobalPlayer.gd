@@ -7,6 +7,7 @@ export var lives = 3
 var e_controller
 var Player
 var level
+var anticheat = false
 
 var score = 0
 var highscore
@@ -45,6 +46,6 @@ func next_level():
 
 func score_increase(score_value):
     score += score_value
-    if score > highscore:
+    if !anticheat and score > highscore:
         highscore = score
         _read_write_score(File.WRITE)

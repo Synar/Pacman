@@ -4,7 +4,7 @@ extends Entity
 
 var target_pos = Vector2(-10, 5)
 var scatter_target = Vector2(-10, 5)
-enum State {free, lockedin, leavinggh_1, leavinggh_2, dead}
+enum State {free, lockedin, leavinggh_1, leavinggh_2, dead1, dead2}
 var state = State.lockedin
 enum Mode {scatter, chase, frightened}
 var mode = Mode.scatter
@@ -171,7 +171,7 @@ func entity_rotate():
         anim_name_end = ("right")
         rotation = past_dir.angle()
         print("WTF")
-    if state == State.dead:
+    if state == State.dead1 or state == State.dead2:
         anim_name_start = "dead"
     elif mode == Mode.frightened:
         anim_name_start = "fright" # needs flashing before return to normal

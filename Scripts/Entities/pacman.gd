@@ -2,7 +2,7 @@ class_name Pacman
 extends Entity
 
 var ghosts_frightened = false
-
+var PacmanDeathScene = load("res://Scenes/Animations/pacman_death.tscn")
 
 func _ready():
     test_id = 1
@@ -57,3 +57,11 @@ func frighten(_fright_time):
 func calm():
     ghosts_frightened = false
 
+var pacman_death
+func _on_death():
+    $AnimatedSprite.hide()
+    pacman_death = PacmanDeathScene.instance()
+    add_child(pacman_death)
+    #pacman_death.position = Vector2(0,0)#position
+    #print(pacman_death.position, "  ", position)
+    #print(" jfezojfzjfze ",pacman_death.position)
