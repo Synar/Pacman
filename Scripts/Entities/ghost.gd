@@ -1,6 +1,8 @@
 class_name Ghost
 extends Entity
 
+signal ghost_eaten
+signal pacman_eaten
 
 var target_pos = Vector2(-10, 5)
 var scatter_target = Vector2(-10, 5)
@@ -22,7 +24,7 @@ var chase_scatter_times = [7, 20, 7, 20, 5, 20, 5, -1] #[1, 1, 70, 20, 5, 20, 5,
 func _ready():
     z_index = 3
     randomize()
-    self.connect("body_entered", GlobalPlayer.e_controller, "_on_ghost_body_entered", [])
+    self.connect("body_entered", self, "_on_ghost_body_entered", [])
 
 
 func _process(delta):
@@ -41,12 +43,16 @@ func target_tile():
                 target_pos = gh_entrance
         State.leavinggh_2 :
                 target_pos = gh_2 if reverse_upon_leaving[0] else gh_1
+        State.dead1 :
+                target_pos = gh_entrance
+        State.dead2 :
+                target_pos = gh_entrance#gh_2 if reverse_upon_leaving[0] else gh_1
 
 
 var frame_count_post_turn = 0
 
 func use_half_offset_map():
-    return state == State.lockedin or state == State.leavinggh_1 or state == State.leavinggh_2
+    return state == State.lockedin or state == State.leavinggh_1 or state == State.leavinggh_2 or state == State.dead2
 
 
 func liberate():
@@ -95,6 +101,14 @@ func calm():
     print("mc 3 : ", mode)
 
 
+func _on_ghost_body_entered(_body):
+    if state == State.free and mode == Mode.frightened:
+        state = State.dead1
+        emit_signal("ghost_eaten")
+    elif state!= State.dead1 and state!= State.dead2:
+        emit_signal("pacman_eaten")
+
+
 func update_mode(delta):
     if mode == Mode.scatter or mode == Mode.chase:
         chase_or_scatter(delta)
@@ -104,6 +118,14 @@ func update_mode(delta):
             print("wesh ça marche du premier coup")
     if state == State.leavinggh_2:
         if Level.get_tile_name(position)=="gh_1" or Level.get_tile_name(position)=="gh_2":
+            state = State.free
+            reverse_upon_leaving = [false, Vector2(0, 0)]
+    if state == State.dead1:
+        if Level.get_tile_name(position)=="gh_1" or Level.get_tile_name(position)=="gh_2":
+            state = State.dead2
+            print("wesh ça aussi ça marche du premier coup")
+    if state == State.dead2:
+        if Level.get_tile_name(position, true)=="red_placeholder":
             state = State.free
             reverse_upon_leaving = [false, Vector2(0, 0)]
 
@@ -125,21 +147,21 @@ func pick_wanted_dir(delta):
             frame_count_post_turn = (frame_count_post_turn + 1) % 10
             return
 
-        if reverse_upon_leaving[0] and reverse_upon_leaving[1] != adjust_pos(position):
-            wanted_dir = - current_dir
-            reverse_upon_leaving = [false, Vector2(0, 0)]
+        if state == State.free and reverse_upon_leaving[0] and reverse_upon_leaving[1] != adjust_pos(position):
+                wanted_dir = - current_dir
+                reverse_upon_leaving = [false, Vector2(0, 0)]
 
         else:
             var potentialDir = [Vector2(0, 1), Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0)]
             potentialDir.erase(-current_dir)
-            if Level.get_tile_name(position) == "no_up":
+            if state == State.free and Level.get_tile_name(position) == "no_up":
                 potentialDir.erase(Vector2(0, -1))
             for dir in potentialDir.duplicate():
                 if tile_is_wall(position + 16*dir):
                     potentialDir.erase(dir)
             if potentialDir.size() == 0:
                 potentialDir = [-current_dir]
-            if mode == Mode.frightened and potentialDir.size() > 1:
+            if state == State.free and mode == Mode.frightened and potentialDir.size() > 1:
                 wanted_dir = potentialDir[randi()%potentialDir.size()]
             else:
                 wanted_dir = potentialDir[0] #Bug!
@@ -185,14 +207,15 @@ var blink_duration = 0.25#0.166
 var blinking = false
 
 func shade(delta):
-    blink_timer -= delta
-    if blink_timer != -1 and blink_timer < (2*blink_amount + 1) * blink_duration:
-        if fmod(blink_timer, (2*blink_duration)) > blink_duration:
-            if !blinking :
-                $AnimatedSprite.material.set_shader_param("blink_shade", true)
-                blinking = true
-        elif blinking :
-                $AnimatedSprite.material.set_shader_param("blink_shade", false)
-                blinking = false
+    if state != State.dead1 and state != State.dead2:
+        blink_timer -= delta
+        if blink_timer != -1 and blink_timer < (2*blink_amount + 1) * blink_duration:
+            if fmod(blink_timer, (2*blink_duration)) > blink_duration:
+                if !blinking :
+                    $AnimatedSprite.material.set_shader_param("blink_shade", true)
+                    blinking = true
+            elif blinking :
+                    $AnimatedSprite.material.set_shader_param("blink_shade", false)
+                    blinking = false
     #yield(get_tree(), "idle_frame")
 

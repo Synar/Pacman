@@ -58,6 +58,8 @@ func _spawn_ghost(_ghostScene,_ghost_spawn,_scatter_target = false):
     var ghost = _ghostScene.instance()
     add_child(ghost)
     ghost.position = _ghost_spawn
+    ghost.connect("ghost_eaten", self, "_on_ghost_eaten", [])
+    ghost.connect("pacman_eaten", self, "_on_pacman_eaten", [])
     if _scatter_target:
         ghost.scatter_target = _scatter_target
     ghosts.append(ghost)
@@ -160,7 +162,19 @@ func _on_ghost_body_entered(_body):
             GlobalPlayer.Player._on_death()
             $pause_controller.pc_death_freeze(3)
     else:
-        pass
+        GlobalPlayer.score_increase(100)
+
+
+func _on_ghost_eaten():
+    GlobalPlayer.score_increase(100)
+    $pause_controller.gh_death_freeze(0.5)#(50)
+
+
+func _on_pacman_eaten():
+    if !god_mode :
+        GlobalPlayer.lives -= 1
+        GlobalPlayer.Player._on_death()
+        $pause_controller.pc_death_freeze(3)
 
 
 func pc_respawn():

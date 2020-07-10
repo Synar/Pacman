@@ -41,13 +41,15 @@ func check_pause():
         if node is Pacman_death :
             node.pause_mode =  Node.PAUSE_MODE_PROCESS if pc_death_freeze_on and !input_pause_on else Node.PAUSE_MODE_INHERIT
         if node is Ghost:
-            if node.mode == Ghost.State.dead1 or node.mode == Ghost.State.dead2:
+            if node.state == Ghost.State.dead1 or node.state == Ghost.State.dead2:
                 node.pause_mode = Node.PAUSE_MODE_PROCESS if gh_death_freeze_on and !input_pause_on else Node.PAUSE_MODE_INHERIT
+
 
 func gh_death_freeze(duration):
     gh_death_freeze_on = true
     check_pause()
     gh_freeze_timer = duration
+
 
 func pc_death_freeze(duration):
     pc_death_freeze_on = true
