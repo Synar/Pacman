@@ -261,5 +261,3 @@ func process_input():
     if Input.is_action_just_pressed("god_mode"):
         god_mode = !god_mode
         GlobalPlayer.anticheat = true
-    if Input.is_action_just_pressed("break"):
-        pass

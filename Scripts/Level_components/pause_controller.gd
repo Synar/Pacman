@@ -71,3 +71,5 @@ func pause_input():
 func process_input():
     if Input.is_action_just_pressed("pause"):
         pause_input()
+    if Input.is_action_just_pressed("break"):
+        pass
