@@ -16,6 +16,8 @@ var gh_1 = Vector2(0,0)
 var gh_2 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
 var blink_amount = 3
+var respawn_point = Vector2(0,0)
+var respawn_tile = "ghostspawn"
 
 var chase_scatter_times = [7, 20, 7, 20, 5, 20, 5, -1] #[1, 1, 70, 20, 5, 20, 5, -1]
 
@@ -46,7 +48,7 @@ func target_tile():
         State.dead1 :
                 target_pos = gh_entrance
         State.dead2 :
-                target_pos = gh_entrance#gh_2 if reverse_upon_leaving[0] else gh_1
+                target_pos = respawn_point#gh_2 if reverse_upon_leaving[0] else gh_1
 
 
 var frame_count_post_turn = 0
@@ -125,8 +127,8 @@ func update_mode(delta):
             state = State.dead2
             print("wesh ça aussi ça marche du premier coup")
     if state == State.dead2:
-        if Level.get_tile_name(position, true)=="red_placeholder":
-            state = State.free
+        if Level.get_tile_name(position, true)==respawn_tile:
+            state = State.lockedin
             reverse_upon_leaving = [false, Vector2(0, 0)]
 
 

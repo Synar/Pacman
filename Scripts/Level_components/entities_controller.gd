@@ -54,12 +54,13 @@ func _ready():
     randomize()
 
 
-func _spawn_ghost(_ghostScene,_ghost_spawn,_scatter_target = false):
+func _spawn_ghost(_ghostScene,_ghost_spawn,_scatter_target = false, _ghost_respawn = false):
     var ghost = _ghostScene.instance()
     add_child(ghost)
     ghost.position = _ghost_spawn
     ghost.connect("ghost_eaten", self, "_on_ghost_eaten", [])
     ghost.connect("pacman_eaten", self, "_on_pacman_eaten", [])
+    ghost.respawn_point = _ghost_respawn if _ghost_respawn else _ghost_spawn
     if _scatter_target:
         ghost.scatter_target = _scatter_target
     ghosts.append(ghost)
@@ -90,7 +91,7 @@ func _spawn_entities():
     var ghost = _spawn_ghost(ghostScene, ghost_spawn)
     ghost.state = State.free
 
-    blinky = _spawn_ghost(blinkyScene, blinky_spawn, blinky_target)
+    blinky = _spawn_ghost(blinkyScene, blinky_spawn, blinky_target, inky_spawn)
 
     inky = _spawn_ghost(inkyScene, inky_spawn, inky_target)
     inky.blinky = blinky
@@ -184,7 +185,7 @@ func pc_respawn():
 
 
 func _process(delta):
-    process_input(delta)
+    process_input()
 
     if fruit_timer != -1 :
         fruit_timer -= delta
@@ -256,7 +257,9 @@ func _on_clyde_liberated():
         blinky.elroy1 = true
 
 
-func process_input(delta):
+func process_input():
     if Input.is_action_just_pressed("god_mode"):
         god_mode = !god_mode
         GlobalPlayer.anticheat = true
+    if Input.is_action_just_pressed("break"):
+        pass

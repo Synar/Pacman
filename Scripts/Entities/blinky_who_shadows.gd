@@ -14,6 +14,7 @@ func _on_death():
 
 
 func _ready():
+    respawn_tile = "inky"
     state = State.free
 
 
