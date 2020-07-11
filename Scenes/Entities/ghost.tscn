@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://Assets/Sprites/ghost_blink.shader" type="Shader" id=1]
+[ext_resource path="res://Shaders/ghost_blink.shader" type="Shader" id=1]
 [ext_resource path="res://Scripts/Entities/ghost.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Sprites/BigSpriteSheet.png" type="Texture" id=3]
 
@@ -13,144 +13,144 @@ shader_param/blink_shade = null
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
-region = Rect2( 336, 80, 16, 16 )
+region = Rect2( 432, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
-region = Rect2( 352, 80, 16, 16 )
+region = Rect2( 448, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 3 )
-region = Rect2( 416, 144, 16, 16 )
+region = Rect2( 368, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 3 )
-region = Rect2( 400, 80, 16, 16 )
+region = Rect2( 336, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 3 )
-region = Rect2( 416, 80, 16, 16 )
+region = Rect2( 352, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 3 )
-region = Rect2( 368, 80, 16, 16 )
+region = Rect2( 416, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 3 )
-region = Rect2( 384, 80, 16, 16 )
+region = Rect2( 336, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 3 )
-region = Rect2( 336, 144, 16, 16 )
+region = Rect2( 352, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 3 )
-region = Rect2( 352, 144, 16, 16 )
+region = Rect2( 336, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
-region = Rect2( 336, 144, 16, 16 )
+region = Rect2( 352, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 3 )
-region = Rect2( 352, 144, 16, 16 )
+region = Rect2( 336, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 3 )
-region = Rect2( 368, 144, 16, 16 )
+region = Rect2( 352, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 3 )
-region = Rect2( 336, 144, 16, 16 )
+region = Rect2( 400, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 3 )
-region = Rect2( 352, 144, 16, 16 )
+region = Rect2( 416, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 3 )
-region = Rect2( 384, 144, 16, 16 )
+region = Rect2( 368, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 3 )
-region = Rect2( 336, 144, 16, 16 )
+region = Rect2( 384, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 3 )
-region = Rect2( 352, 144, 16, 16 )
+region = Rect2( 384, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 3 )
-region = Rect2( 432, 80, 16, 16 )
+region = Rect2( 400, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 3 )
-region = Rect2( 448, 80, 16, 16 )
+region = Rect2( 336, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 3 )
-region = Rect2( 400, 144, 16, 16 )
+region = Rect2( 352, 80, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=23]
 animations = [ {
 "frames": [ SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
-"name": "normal_right",
+"name": "normal_down",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 5 ) ],
 "loop": true,
-"name": "dead_down",
+"name": "dead_right",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
-"name": "normal_up",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 8 ), SubResource( 9 ) ],
-"loop": true,
-"name": "normal_left",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 10 ), SubResource( 11 ) ],
-"loop": true,
-"name": "fright_right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 12 ), SubResource( 13 ) ],
-"loop": true,
 "name": "fright_down",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 14 ) ],
+"frames": [ SubResource( 8 ) ],
 "loop": true,
-"name": "dead_right",
+"name": "dead_down",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 15 ), SubResource( 16 ) ],
-"loop": true,
-"name": "fright_up",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 17 ) ],
-"loop": true,
-"name": "dead_left",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "fright_left",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 20 ), SubResource( 21 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
-"name": "normal_down",
+"name": "fright_right",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 22 ) ],
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "fright_up",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "normal_up",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "normal_left",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ) ],
+"loop": true,
+"name": "dead_left",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 20 ) ],
 "loop": true,
 "name": "dead_up",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "normal_right",
 "speed": 5.0
 } ]
 

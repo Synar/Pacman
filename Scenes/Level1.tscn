@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
+[ext_resource path="res://Scenes/GUI/PauseMenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Tiles/LevelMapEdit.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Level_components/fps_counter.gd" type="Script" id=4]
@@ -478,6 +479,9 @@ tile_data = PoolIntArray( -1310722, 13, 0, -1310721, 13, 0, -1376256, 13, 0, -12
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -256 )
 current = true
+
+[node name="PauseMenu" parent="." instance=ExtResource( 1 )]
+layer = 10
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]
 

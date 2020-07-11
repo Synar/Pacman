@@ -4,7 +4,8 @@
 [ext_resource path="res://Scenes/Animations/IntermissionMusic.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Sprites/BigSpriteSheet.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Sounds/Pac-Man/intermission.wav" type="AudioStream" id=4]
-[ext_resource path="res://Assets/Sprites/ghost_blink.shader" type="Shader" id=5]
+[ext_resource path="res://Shaders/ghost_blink.shader" type="Shader" id=5]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "intermission1"

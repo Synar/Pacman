@@ -73,17 +73,17 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="LivesBox"]
-margin_right = 1024.0
+margin_right = 600.0
 margin_bottom = 14.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LivesBox"]
-margin_right = 1024.0
+margin_right = 600.0
 margin_bottom = 14.0
 alignment = 1
 
 [node name="Label" type="Label" parent="LivesBox/HBoxContainer"]
-margin_left = 477.0
-margin_right = 518.0
+margin_left = 265.0
+margin_right = 306.0
 margin_bottom = 14.0
 text = "Lives :"
 __meta__ = {
@@ -91,7 +91,7 @@ __meta__ = {
 }
 
 [node name="Score" type="Label" parent="LivesBox/HBoxContainer"]
-margin_left = 522.0
-margin_right = 546.0
+margin_left = 310.0
+margin_right = 334.0
 margin_bottom = 14.0
 text = "100"
