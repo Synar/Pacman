@@ -17,9 +17,8 @@ var gh_freeze_timer = -1
 
 
 func _process(delta):
-    process_input()
 
-    if pc_freeze_timer != -1 :
+    if pc_freeze_timer != -1 and !input_pause_on and !menu_pause_on:
         pc_freeze_timer -= delta
         if pc_freeze_timer <= 0 :
             pc_freeze_timer = -1
@@ -27,7 +26,7 @@ func _process(delta):
             check_pause()
             entities_controller.pc_respawn()
 
-    if gh_freeze_timer != -1 :
+    if gh_freeze_timer != -1 and !input_pause_on and !menu_pause_on:
         gh_freeze_timer -= delta
         if gh_freeze_timer <= 0 :
             gh_freeze_timer = -1
@@ -39,8 +38,10 @@ func check_pause():
     get_tree().paused = pc_death_freeze_on or gh_death_freeze_on or input_pause_on or menu_pause_on
 
     for node in entities_controller.get_children():
-        if node is Pacman_death :
-            unpause_node_if(node, pc_death_freeze_on and !input_pause_on and !menu_pause_on)
+        if node is Pacman :
+            for snode in node.get_children():
+                if snode is Pacman_death :
+                    unpause_node_if(snode, pc_death_freeze_on and !input_pause_on and !menu_pause_on)
         if node is Ghost:
             if node.state == Ghost.State.dead1 or node.state == Ghost.State.dead2:
                 unpause_node_if(node, gh_death_freeze_on and !input_pause_on and !menu_pause_on)
@@ -68,8 +69,8 @@ func pause_input():
     check_pause()
 
 
-func process_input():
-    if Input.is_action_just_pressed("pause"):
+func _input(event):
+    if event.is_action_pressed("pause"):
         pause_input()
-    if Input.is_action_just_pressed("break"):
+    if event.is_action_pressed("break"):
         pass
