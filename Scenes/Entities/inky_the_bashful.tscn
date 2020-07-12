@@ -4,6 +4,38 @@
 [ext_resource path="res://Assets/Sprites/BigSpriteSheet.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Entities/inky_the_bashful.gd" type="Script" id=3]
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 432, 112, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 448, 112, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 368, 144, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 336, 144, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 352, 144, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 416, 144, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 336, 144, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 352, 144, 16, 16 )
+
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
 region = Rect2( 336, 144, 16, 16 )
@@ -20,75 +52,68 @@ region = Rect2( 336, 144, 16, 16 )
 atlas = ExtResource( 2 )
 region = Rect2( 352, 144, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 2 )
-region = Rect2( 432, 112, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 2 )
-region = Rect2( 448, 112, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 2 )
-region = Rect2( 368, 144, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
-region = Rect2( 336, 144, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
-region = Rect2( 352, 144, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 2 )
-region = Rect2( 384, 144, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 2 )
-region = Rect2( 336, 144, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 2 )
-region = Rect2( 352, 144, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 2 )
-region = Rect2( 400, 144, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 2 )
-region = Rect2( 416, 144, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 2 )
-region = Rect2( 336, 112, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 2 )
-region = Rect2( 352, 112, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 2 )
-region = Rect2( 368, 112, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 2 )
-region = Rect2( 384, 112, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=29]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 2 )
 region = Rect2( 400, 112, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=30]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 2 )
 region = Rect2( 416, 112, 16, 16 )
 
-[sub_resource type="SpriteFrames" id=31]
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 2 )
+region = Rect2( 368, 112, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 112, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 144, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 400, 144, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 336, 112, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 352, 112, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "normal_down",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ) ],
+"loop": true,
+"name": "dead_right",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "fright_down",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "dead_down",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "fright_left",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "fright_right",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 11 ), SubResource( 12 ) ],
@@ -96,54 +121,29 @@ animations = [ {
 "name": "fright_up",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 23 ), SubResource( 24 ) ],
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
-"name": "normal_down",
+"name": "normal_up",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 15 ) ],
-"loop": true,
-"name": "dead_right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 16 ), SubResource( 17 ) ],
-"loop": true,
-"name": "fright_right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 18 ) ],
-"loop": true,
-"name": "dead_left",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 19 ), SubResource( 20 ) ],
-"loop": true,
-"name": "fright_left",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 21 ) ],
-"loop": true,
-"name": "dead_up",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 22 ) ],
-"loop": true,
-"name": "dead_down",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 25 ), SubResource( 26 ) ],
-"loop": true,
-"name": "normal_right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 27 ), SubResource( 28 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "normal_left",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 29 ), SubResource( 30 ) ],
+"frames": [ SubResource( 17 ) ],
 "loop": true,
-"name": "normal_up",
+"name": "dead_left",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 18 ) ],
+"loop": true,
+"name": "dead_up",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "normal_right",
 "speed": 5.0
 } ]
 
@@ -152,5 +152,5 @@ script = ExtResource( 3 )
 speed = 20.0
 
 [node name="AnimatedSprite" parent="." index="1"]
-frames = SubResource( 31 )
+frames = SubResource( 21 )
 animation = "normal_down"

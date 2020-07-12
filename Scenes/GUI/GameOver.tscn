@@ -21,13 +21,13 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-margin_right = 984.0
+margin_right = 560.0
 margin_bottom = 570.0
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 343.0
-margin_right = 641.0
+margin_left = 131.0
+margin_right = 429.0
 margin_bottom = 570.0
 alignment = 1
 

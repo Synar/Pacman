@@ -14,6 +14,8 @@ var highscore
 var highscore_dir = "res://SaveFiles"
 var highscore_path = highscore_dir + "/highscore.txt"
 
+signal lives_set
+
 
 func _read_write_score(mode):
     var _highscore = 0
@@ -37,6 +39,7 @@ func _read_write_score(mode):
 
 func _ready():
     highscore = _read_write_score(File.READ)
+    emit_signal("lives_set", lives)
 
 
 func next_level():
@@ -49,3 +52,8 @@ func score_increase(score_value):
     if !anticheat and score > highscore:
         highscore = score
         _read_write_score(File.WRITE)
+
+
+func life_loss(count=1):
+    lives -= count
+    emit_signal("lives_set", lives)

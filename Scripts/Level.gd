@@ -56,7 +56,7 @@ func _ready():
         read_tilemap(tilemap, entities_controller, choose_vmap(tilemap))
 
     entities_controller._on_map_loaded()
-    print("off_by_half_map : ",off_by_half_map)
+    #print("off_by_half_map : ",off_by_half_map)
 
 
 
@@ -106,7 +106,7 @@ func read_tilemap(_tilemap, _entities_controller, _virtual_map):
     for pos in _tilemap.get_used_cells():
         var tile = ts.tile_get_name(_tilemap.get_cell(pos.x, pos.y))
         if _tilemap != get_node("Background"):
-            print(_tilemap, " ", pos, " ", tile)
+            pass#print(_tilemap, " ", pos, " ", tile)
         if tile in ["ground","wall","slow","no_up","teleport","tp_exit",
                     "gh_barrier","red_placeholder","gh_1","gh_2"] :
             _virtual_map[pos] = tile

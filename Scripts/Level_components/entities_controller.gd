@@ -173,7 +173,7 @@ func _on_ghost_eaten():
 
 func _on_pacman_eaten():
     if !god_mode :
-        GlobalPlayer.lives -= 1
+        GlobalPlayer.life_loss()
         GlobalPlayer.Player._on_death()
         $pause_controller.pc_death_freeze(3)
 

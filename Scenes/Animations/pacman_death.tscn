@@ -74,6 +74,6 @@ animations = [ {
 [node name="pacman_death" type="AnimatedSprite"]
 pause_mode = 2
 frames = SubResource( 16 )
-frame = 5
+frame = 7
 playing = true
 script = ExtResource( 2 )
