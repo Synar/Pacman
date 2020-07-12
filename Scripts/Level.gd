@@ -14,7 +14,7 @@ var pelletScene = load("res://Scenes/pickup/pellet.tscn")
 var darkTileScene = load("res://Scenes/Level_components/dark_tile.tscn")
 var entitiesControllerScene = load("res://Scenes/Level_components/entities_controller.tscn")
 
-onready var main_tilemap = $"Background"
+onready var main_tilemap = $SpecialTiles#$"Background"
 onready var off_by_half_tilemap = $"Offbyhalf"
 var virtual_map = {}
 var off_by_half_map = {}
@@ -56,6 +56,7 @@ func _ready():
         read_tilemap(tilemap, entities_controller, choose_vmap(tilemap))
 
     entities_controller._on_map_loaded()
+    GlobalPlayer._on_level_loaded()
     #print("off_by_half_map : ",off_by_half_map)
 
 

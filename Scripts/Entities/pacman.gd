@@ -57,6 +57,7 @@ func frighten(_fright_time):
 func calm():
     ghosts_frightened = false
 
+
 var pacman_death
 func _on_death():
     $AnimatedSprite.hide()

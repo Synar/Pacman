@@ -39,7 +39,10 @@ func _read_write_score(mode):
 
 func _ready():
     highscore = _read_write_score(File.READ)
-    emit_signal("lives_set", lives)
+
+
+func _on_level_loaded():
+        emit_signal("lives_set", lives)
 
 
 func next_level():
@@ -57,3 +60,4 @@ func score_increase(score_value):
 func life_loss(count=1):
     lives -= count
     emit_signal("lives_set", lives)
+

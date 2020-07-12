@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/GUI/HUD.gd" type="Script" id=1]
 [ext_resource path="res://iconSmall.png" type="Texture" id=2]
+[ext_resource path="res://Assets/fonts/HUDfont.tres" type="DynamicFont" id=3]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -22,41 +23,45 @@ margin_bottom = 54.0
 alignment = 1
 
 [node name="VBox" type="VBoxContainer" parent="ScoreBox/HBoxContainer"]
-margin_left = 420.0
-margin_right = 520.0
+margin_left = 406.0
+margin_right = 506.0
 margin_bottom = 54.0
 alignment = 1
 
 [node name="empty_label" type="Label" parent="ScoreBox/HBoxContainer/VBox"]
-margin_top = 11.0
+margin_top = 2.0
 margin_right = 100.0
 margin_bottom = 25.0
+custom_fonts/font = ExtResource( 3 )
 text = " "
 align = 1
 
 [node name="Score" type="Label" parent="ScoreBox/HBoxContainer/VBox"]
 margin_top = 29.0
 margin_right = 100.0
-margin_bottom = 43.0
+margin_bottom = 52.0
 rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 3 )
 text = "100"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScoreBox/HBoxContainer"]
-margin_left = 524.0
-margin_right = 604.0
+margin_left = 510.0
+margin_right = 618.0
 margin_bottom = 54.0
 alignment = 1
 
 [node name="Highscore_Label" type="Label" parent="ScoreBox/HBoxContainer/VBoxContainer"]
-margin_top = 11.0
-margin_right = 80.0
+margin_top = 2.0
+margin_right = 108.0
 margin_bottom = 25.0
+custom_fonts/font = ExtResource( 3 )
 text = "HIGH SCORE"
 
 [node name="Highscore" type="Label" parent="ScoreBox/HBoxContainer/VBoxContainer"]
 margin_top = 29.0
-margin_right = 80.0
-margin_bottom = 43.0
+margin_right = 108.0
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 3 )
 text = "100"
 align = 1
 
@@ -71,56 +76,139 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NumericLives" type="HBoxContainer" parent="LivesBox"]
-margin_right = 83.0
+[node name="NumericLives" type="Control" parent="LivesBox"]
 margin_bottom = 20.0
-alignment = 1
 
 [node name="Label" type="Label" parent="LivesBox/NumericLives"]
-margin_top = 3.0
-margin_right = 41.0
-margin_bottom = 17.0
-text = "Lives :"
+margin_left = 25.5
+margin_top = 2.86469
+margin_right = 38.5
+margin_bottom = 25.8647
+custom_fonts/font = ExtResource( 3 )
+text = "X"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Score" type="Label" parent="LivesBox/NumericLives"]
-margin_left = 45.0
-margin_top = 3.0
-margin_right = 69.0
-margin_bottom = 17.0
+margin_left = 39.0
+margin_top = 2.86469
+margin_right = 72.0
+margin_bottom = 25.8647
+custom_fonts/font = ExtResource( 3 )
 text = "100"
-
-[node name="TextureRect" type="TextureRect" parent="LivesBox/NumericLives"]
-margin_left = 73.0
-margin_right = 83.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 10, 0 )
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 6
-
-[node name="SpritesLives" type="HBoxContainer" parent="LivesBox"]
-margin_right = 83.0
-margin_bottom = 20.0
-alignment = 1
-
-[node name="Label" type="Label" parent="LivesBox/SpritesLives"]
-margin_left = 14.0
-margin_top = 3.0
-margin_right = 55.0
-margin_bottom = 17.0
-text = "Lives :"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="LivesBox/SpritesLives"]
-margin_left = 59.0
-margin_right = 69.0
-margin_bottom = 20.0
+[node name="TextureRect" type="TextureRect" parent="LivesBox/NumericLives"]
+margin_left = -7.0644
+margin_top = 0.191284
+margin_right = 17.9356
+margin_bottom = 25.1913
 rect_min_size = Vector2( 10, 0 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpritesLives" type="Control" parent="LivesBox"]
+visible = false
+margin_bottom = 20.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LivesBox/SpritesLives"]
+margin_left = -7.0
+margin_top = -7.0
+margin_right = 134.0
+margin_bottom = 33.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect1" type="TextureRect" parent="LivesBox/SpritesLives/HBoxContainer"]
+margin_right = 25.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 25, 25 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="LivesBox/SpritesLives/HBoxContainer"]
+margin_left = 29.0
+margin_right = 54.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 25, 25 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="LivesBox/SpritesLives/HBoxContainer"]
+margin_left = 58.0
+margin_right = 83.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 25, 25 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect4" type="TextureRect" parent="LivesBox/SpritesLives/HBoxContainer"]
+margin_left = 87.0
+margin_right = 112.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 25, 25 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect5" type="TextureRect" parent="LivesBox/SpritesLives/HBoxContainer"]
+margin_left = 116.0
+margin_right = 141.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 25, 25 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebugDisp" type="VBoxContainer" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 32.0
+margin_bottom = 52.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="DebugDisp"]
+margin_right = 30.0
+margin_bottom = 14.0
+text = "test"
+
+[node name="OS" type="Label" parent="DebugDisp"]
+margin_top = 18.0
+margin_right = 30.0
+margin_bottom = 32.0
+text = "test"
+
+[node name="Engine" type="Label" parent="DebugDisp"]
+visible = false
+margin_top = 36.0
+margin_right = 30.0
+margin_bottom = 50.0
+text = "test"
