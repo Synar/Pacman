@@ -3,7 +3,7 @@ extends Ghost
 var blinky
 
 
-func ready():
+func _ready():
     respawn_tile = "inky"
 
 

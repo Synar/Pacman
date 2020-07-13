@@ -15,6 +15,7 @@ var scatter_timer = 0
 var gh_1 = Vector2(0,0)
 var gh_2 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
+#var gh_entrance_front = Vector2(0,0)
 var blink_amount = 3
 var respawn_point = Vector2(0,0)
 var respawn_tile = "ghostspawn"
@@ -33,28 +34,12 @@ func _process(delta):
     shade(delta)
 
 
-func target_tile():
-    match state :
-        State.free :
-            match mode :
-                Mode.chase:
-                    target_pos = chase_target()
-                Mode.scatter:
-                    target_pos = scatter_target
-        State.leavinggh_1 :
-                target_pos = gh_entrance
-        State.leavinggh_2 :
-                target_pos = gh_2 if reverse_upon_leaving[0] else gh_1
-        State.dead1 :
-                target_pos = gh_entrance
-        State.dead2 :
-                target_pos = respawn_point#gh_2 if reverse_upon_leaving[0] else gh_1
-
-
 var frame_count_post_turn = 0
 
 func use_half_offset_map():
-    return state == State.lockedin or state == State.leavinggh_1 or state == State.leavinggh_2 or state == State.dead2
+    return state != State.free and state != State.dead1
+    #return state == State.lockedin or state == State.leavinggh_1 or state == State.leavinggh_2 \
+    #                or state == State.dead2
 
 
 func liberate():
@@ -111,6 +96,24 @@ func _on_ghost_body_entered(_body):
         emit_signal("pacman_eaten")
 
 
+func target_tile():
+    match state :
+        State.free :
+            match mode :
+                Mode.chase:
+                    target_pos = chase_target()
+                Mode.scatter:
+                    target_pos = scatter_target
+        State.leavinggh_1 :
+                target_pos = gh_entrance
+        State.leavinggh_2 :
+                target_pos = gh_2 if reverse_upon_leaving[0] else gh_1
+        State.dead1 :
+                target_pos = gh_entrance#gh_entrance_front
+        State.dead2 :
+                target_pos = respawn_point#gh_2 if reverse_upon_leaving[0] else gh_1
+
+
 func update_mode(delta):
     if mode == Mode.scatter or mode == Mode.chase:
         chase_or_scatter(delta)
@@ -127,6 +130,7 @@ func update_mode(delta):
             state = State.dead2
             print("wesh ça aussi ça marche du premier coup")
     if state == State.dead2:
+        #print(Level.get_tile_name(position, true))
         if Level.get_tile_name(position, true)==respawn_tile:
             state = State.lockedin
             reverse_upon_leaving = [false, Vector2(0, 0)]

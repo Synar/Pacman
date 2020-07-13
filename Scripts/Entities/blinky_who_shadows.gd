@@ -19,11 +19,13 @@ func _ready():
 
 
 func target_tile():
-    if elroy1 or mode == Mode.chase:
-        target_pos = chase_target()
-    elif mode == Mode.scatter:
-        target_pos = scatter_target
-    #TODO : add behavior in other states
+    if state == State.free :
+            if elroy1 or mode == Mode.chase:
+                target_pos = chase_target()
+            elif mode == Mode.scatter:
+                target_pos = scatter_target
+    else :
+        .target_tile()
 
 
 func update_speed():

@@ -1,7 +1,7 @@
 extends Ghost
 
 
-func ready():
+func _ready():
     respawn_tile = "clyde"
 
 

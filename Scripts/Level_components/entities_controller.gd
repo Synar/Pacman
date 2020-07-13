@@ -107,6 +107,7 @@ func _spawn_entities():
         ghost.gh_1 = gh_1
         ghost.gh_2 = gh_2
         ghost.gh_entrance = gh_entrance
+        #ghost.gh_entrance_front = blinky_spawn
         ghost.blink_amount = blink_amount
         match level_prog:
             1 : ghost.chase_scatter_times = [7, 20, 7, 20, 5, 20, 5, -1]
