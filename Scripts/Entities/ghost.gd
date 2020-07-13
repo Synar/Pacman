@@ -28,7 +28,8 @@ func _ready():
     z_index = 3
     randomize()
     self.connect("body_entered", self, "_on_ghost_body_entered", [])
-
+    var shade = $AnimatedSprite.get_material().duplicate(true)
+    $AnimatedSprite.set_material(shade)
 
 func _process(delta):
     shade(delta)
@@ -126,7 +127,7 @@ func update_mode(delta):
             state = State.free
             reverse_upon_leaving = [false, Vector2(0, 0)]
     if state == State.dead1:
-        if Level.get_tile_name(position)=="gh_1" or Level.get_tile_name(position)=="gh_2":
+        if Level.get_tile_name(position)=="gh_?":# or Level.get_tile_name(position)=="gh_2":
             state = State.dead2
             print("wesh ça aussi ça marche du premier coup")
     if state == State.dead2:
@@ -223,5 +224,8 @@ func shade(delta):
             elif blinking :
                     $AnimatedSprite.material.set_shader_param("blink_shade", false)
                     blinking = false
+    elif blinking:
+        $AnimatedSprite.material.set_shader_param("blink_shade", false)
+        blinking = false
     #yield(get_tree(), "idle_frame")
 

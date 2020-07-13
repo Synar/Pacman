@@ -109,7 +109,7 @@ func read_tilemap(_tilemap, _entities_controller, _virtual_map):
         if _tilemap != get_node("Background"):
             pass#print(_tilemap, " ", pos, " ", tile)
         if tile in ["ground","wall","slow","no_up","teleport","tp_exit","gh_barrier","red_placeholder",
-                    "gh_1","gh_2", "inky", "blinky", "clyde", "pinky", "ghost_spawn"] :
+                    "gh_1","gh_2", "gh_?", "inky", "blinky", "clyde", "pinky", "ghost_spawn"] :
             _virtual_map[pos] = tile
 
         match tile :

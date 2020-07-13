@@ -14,8 +14,15 @@ func _on_death():
 
 
 func _ready():
-    respawn_tile = "inky"
+    respawn_tile = "pinky"
     state = State.free
+
+
+func update_mode(delta):
+    if state == State.lockedin :
+            state = State.free
+    else :
+        .update_mode(delta)
 
 
 func target_tile():
