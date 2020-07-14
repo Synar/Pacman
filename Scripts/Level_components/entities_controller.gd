@@ -50,7 +50,7 @@ var fruit_timer = -1
 
 
 func _ready():
-    GlobalPlayer.e_controller = self
+    #GlobalPlayer.e_controller = self
     randomize()
 
 
@@ -147,6 +147,8 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
             if coins_eaten == 70 or coins_eaten == 170:
                 call_deferred ("_spawn_fruits")
             dot_eaten_lib()
+        fruit :
+            GlobalPlayer.fruit_collected([id])
 
 
 func frighten():

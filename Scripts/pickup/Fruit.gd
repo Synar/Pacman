@@ -15,6 +15,7 @@ func set_attributes():
         "key": 5000,
         }[fruit]
     pickup_type = Type.fruit
+    id = fruit
 
 
 func fruit_from_level(level_prog):

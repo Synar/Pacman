@@ -4,18 +4,19 @@ export var basespeed = 75
 export var level_prog = 1
 export var lives = 3
 
-var e_controller
+#var e_controller
 var Player
 var level
 var anticheat = false
 
+var fruits_eaten = []
 var score = 0
 var highscore
 var highscore_dir = "res://SaveFiles"
 var highscore_path = highscore_dir + "/highscore.txt"
 
 signal lives_set
-
+signal fruit_collected
 
 func _read_write_score(mode):
     var _highscore = 0
@@ -42,7 +43,8 @@ func _ready():
 
 
 func _on_level_loaded():
-        emit_signal("lives_set", lives)
+    emit_signal("lives_set", lives)
+    emit_signal("fruit_collected",fruits_eaten)
 
 
 func next_level():
@@ -60,4 +62,9 @@ func score_increase(score_value):
 func life_loss(count=1):
     lives -= count
     emit_signal("lives_set", lives)
+
+
+func fruit_collected(fruits):
+    fruits_eaten += fruits
+    emit_signal("fruit_collected",fruits)
 

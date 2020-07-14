@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/GUI/HUD.gd" type="Script" id=1]
 [ext_resource path="res://iconSmall.png" type="Texture" id=2]
 [ext_resource path="res://Assets/fonts/HUDfont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scenes/pickup/FruitSprite.tscn" type="PackedScene" id=4]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -186,6 +187,58 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FruitCollected" type="MarginContainer" parent="."]
+anchor_left = 0.9
+anchor_top = 1.0
+anchor_right = 0.9
+anchor_bottom = 1.0
+margin_top = -40.0
+margin_bottom = -20.0
+grow_horizontal = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="FruitCollected"]
+margin_bottom = 20.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FruitCollected/Control"]
+margin_left = -7.0
+margin_top = -7.0
+margin_right = 18.0
+margin_bottom = 33.0
+grow_horizontal = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="old" type="HBoxContainer" parent="FruitCollected/Control"]
+visible = false
+margin_left = -7.0
+margin_top = -7.0
+margin_right = 18.0
+margin_bottom = 33.0
+grow_horizontal = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Center2" type="CenterContainer" parent="FruitCollected/Control/old"]
+margin_right = 25.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 22, 0 )
+
+[node name="Control" type="Control" parent="FruitCollected/Control/old/Center2"]
+margin_left = 12.0
+margin_top = 20.0
+margin_right = 12.0
+margin_bottom = 20.0
+
+[node name="AnimatedSprite" parent="FruitCollected/Control/old/Center2/Control" instance=ExtResource( 4 )]
+scale = Vector2( 1.5, 1.5 )
+animation = "galaxian"
+
 [node name="DebugDisp" type="VBoxContainer" parent="."]
 margin_left = 2.0
 margin_top = 2.0
@@ -212,3 +265,13 @@ margin_top = 36.0
 margin_right = 30.0
 margin_bottom = 50.0
 text = "test"
+
+[node name="MouseCross" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.936523
+margin_bottom = -0.936523
+mouse_default_cursor_shape = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
