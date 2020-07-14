@@ -90,10 +90,10 @@ func calm():
 
 
 func _on_ghost_body_entered(_body):
-    if state == State.free and mode == Mode.frightened:
+    if (state == State.free and mode == Mode.frightened) or (GlobalPlayer.debug_mode and GlobalPlayer.true_god_mode):
         state = State.dead1
         emit_signal("ghost_eaten")
-    elif state!= State.dead1 and state!= State.dead2:
+    elif state!= State.dead1 and state!= State.dead2 and !(GlobalPlayer.debug_mode and GlobalPlayer.god_mode):
         emit_signal("pacman_eaten")
 
 

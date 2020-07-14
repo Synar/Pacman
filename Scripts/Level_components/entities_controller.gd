@@ -25,9 +25,8 @@ var pinky_target = Vector2(0,0)
 var gh_1 = Vector2(0,0)
 var gh_2 = Vector2(0,0)
 var gh_entrance = Vector2(0,0)
-var god_mode = false
 
-enum State {free, lockedin, leavinggh_1, leavinggh_2, dead}
+enum State {free, lockedin, leavinggh_1, leavinggh_2, dead1, dead2}
 
 var inky
 var blinky
@@ -158,27 +157,15 @@ func frighten():
     frightened_timer = fright_time
 
 
-func _on_ghost_body_entered(_body):
-    #globalcounter
-    if frightened_timer == -1:
-        if !god_mode :
-            GlobalPlayer.lives -= 1
-            GlobalPlayer.Player._on_death()
-            $pause_controller.pc_death_freeze(3)
-    else:
-        GlobalPlayer.score_increase(100)
-
-
 func _on_ghost_eaten():
     GlobalPlayer.score_increase(100)
     $pause_controller.gh_death_freeze(0.5)#(50)
 
 
 func _on_pacman_eaten():
-    if !god_mode :
-        GlobalPlayer.life_loss()
-        GlobalPlayer.Player._on_death()
-        $pause_controller.pc_death_freeze(3)
+    GlobalPlayer.life_loss()
+    GlobalPlayer.Player._on_death()
+    $pause_controller.pc_death_freeze(3)
 
 
 func pc_respawn():
@@ -261,6 +248,22 @@ func _on_clyde_liberated():
 
 
 func process_input():
-    if Input.is_action_just_pressed("god_mode"):
-        god_mode = !god_mode
-        GlobalPlayer.anticheat = true
+    if GlobalPlayer.debug_mode:
+
+        if Input.is_action_just_pressed("fruit_spawn"):
+            GlobalPlayer.anticheat = true
+            _spawn_fruits()
+
+        if Input.is_action_just_pressed("kill_ghosts"):
+            GlobalPlayer.anticheat = true
+            for ghost in ghosts:
+                ghost.state = State.dead1
+                ghost.emit_signal("ghost_eaten")
+
+        if Input.is_action_just_pressed("suicide"):
+            GlobalPlayer.anticheat = true
+            _on_pacman_eaten()
+
+        if Input.is_action_just_pressed("next_level"):
+            GlobalPlayer.anticheat = true
+            GlobalPlayer.next_level()

@@ -9,8 +9,9 @@ func set_attributes():
         "cherries": 100,
         "strawberry": 300,
         "peach": 500,
-        "grapes": 700,
-        "galaxian": 1000,
+        "apple": 700,
+        "grapes": 1000,
+        "galaxian": 2000,
         "bell": 3000,
         "key": 5000,
         }[fruit]

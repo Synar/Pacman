@@ -74,3 +74,17 @@ func _input(event):
         pause_input()
     if event.is_action_pressed("break"):
         pass
+    if !menu_pause_on:
+        if event.is_action_pressed("debug_mode"):
+            GlobalPlayer.debug_mode = !GlobalPlayer.debug_mode
+            GlobalPlayer.anticheat = true
+        if GlobalPlayer.debug_mode:
+            if event.is_action_pressed("god_mode"):
+                GlobalPlayer.god_mode = !GlobalPlayer.god_mode
+                GlobalPlayer.anticheat = true
+            if event.is_action_pressed("infinite_lives"):
+                GlobalPlayer.infinite_lives = !GlobalPlayer.infinite_lives
+                GlobalPlayer.anticheat = true
+            if event.is_action_pressed("true_god_mode"):
+                GlobalPlayer.true_god_mode = !GlobalPlayer.true_god_mode
+                GlobalPlayer.anticheat = true

@@ -15,6 +15,11 @@ var highscore
 var highscore_dir = "res://SaveFiles"
 var highscore_path = highscore_dir + "/highscore.txt"
 
+var debug_mode = true
+var god_mode = false
+var true_god_mode = false
+var infinite_lives = false
+
 signal lives_set
 signal fruit_collected
 

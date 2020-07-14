@@ -11,7 +11,6 @@ func _ready():
     $DebugDisp/Engine.text = "Godot v :" + Engine.get_version_info()["string"]
 
 
-
 func _process(_delta):
     $ScoreBox/HBoxContainer/VBox/Score.text = str(GlobalPlayer.score)
     $ScoreBox/HBoxContainer/VBoxContainer/Highscore.text = str(GlobalPlayer.highscore)
@@ -30,6 +29,7 @@ func _on_lives_set(lives):
         $LivesBox/SpritesLives.hide()
         $LivesBox/NumericLives.show()
         $LivesBox/NumericLives/Score.text = str(lives)
+
 
 func _on_fruit_collected(fruits):
     for fruit in fruits:
