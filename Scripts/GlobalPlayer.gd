@@ -15,13 +15,16 @@ var highscore
 var highscore_dir = "res://SaveFiles"
 var highscore_path = highscore_dir + "/highscore.txt"
 
-var debug_mode = true
-var god_mode = false
-var true_god_mode = false
-var infinite_lives = false
+var debug_mode = true setget set_debug_mode
+var god_mode = false setget set_god_mode
+var true_god_mode = false setget set_true_god_mode
+var infinite_lives = false setget set_infinite_lives
+var menu_pause_on = false
 
 signal lives_set
 signal fruit_collected
+signal modes_changed
+
 
 func _read_write_score(mode):
     var _highscore = 0
@@ -50,6 +53,7 @@ func _ready():
 func _on_level_loaded():
     emit_signal("lives_set", lives)
     emit_signal("fruit_collected",fruits_eaten)
+    emit_signal("modes_changed")
 
 
 func next_level():
@@ -73,3 +77,22 @@ func fruit_collected(fruits):
     fruits_eaten += fruits
     emit_signal("fruit_collected",fruits)
 
+
+func set_debug_mode(value):
+    debug_mode = value
+    emit_signal("modes_changed")
+
+
+func set_god_mode(value):
+    god_mode = value
+    emit_signal("modes_changed")
+
+
+func set_infinite_lives(value):
+    infinite_lives = value
+    emit_signal("modes_changed")
+
+
+func set_true_god_mode(value):
+    true_god_mode = value
+    emit_signal("modes_changed")
