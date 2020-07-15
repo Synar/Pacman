@@ -6,13 +6,12 @@
 [ext_resource path="res://Assets/Sounds/Pac-Man/intermission.wav" type="AudioStream" id=4]
 [ext_resource path="res://Shaders/ghost_blink.shader" type="Shader" id=5]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "intermission1"
 length = 10.0
 step = 0.025
 tracks/0/type = "value"
-tracks/0/path = NodePath("ViewportContainer/Viewport/pacman:position")
+tracks/0/path = NodePath("ViewportContainer/Control/pacman:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -24,7 +23,7 @@ tracks/0/keys = {
 "values": [ Vector2( 415, 300 ), Vector2( -25, 300 ), Vector2( -300, 300 ), Vector2( 430, 300 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ViewportContainer/Viewport/pacman:rotation_degrees")
+tracks/1/path = NodePath("ViewportContainer/Control/pacman:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -36,7 +35,7 @@ tracks/1/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("ViewportContainer/Viewport/pacman:scale")
+tracks/2/path = NodePath("ViewportContainer/Control/pacman:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -48,7 +47,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 4, 4 ), Vector2( 4, 4 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("ViewportContainer/Viewport/pacman:animation")
+tracks/3/path = NodePath("ViewportContainer/Control/pacman:animation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -60,7 +59,7 @@ tracks/3/keys = {
 "values": [ "left", "left", "right", "right" ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("ViewportContainer/Viewport/red_ghost:position")
+tracks/4/path = NodePath("ViewportContainer/Control/red_ghost:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -72,7 +71,7 @@ tracks/4/keys = {
 "values": [ Vector2( 450, 300 ), Vector2( -12, 300 ), Vector2( -20, 300 ), Vector2( 450, 300 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("ViewportContainer/Viewport/red_ghost:rotation_degrees")
+tracks/5/path = NodePath("ViewportContainer/Control/red_ghost:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -84,7 +83,7 @@ tracks/5/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("ViewportContainer/Viewport/red_ghost:scale")
+tracks/6/path = NodePath("ViewportContainer/Control/red_ghost:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -96,7 +95,7 @@ tracks/6/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("ViewportContainer/Viewport/red_ghost:animation")
+tracks/7/path = NodePath("ViewportContainer/Control/red_ghost:animation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -114,15 +113,15 @@ shader_param/blink_shade = null
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
-region = Rect2( 336, 144, 16, 16 )
+region = Rect2( 432, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
-region = Rect2( 352, 144, 16, 16 )
+region = Rect2( 448, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 3 )
-region = Rect2( 384, 144, 16, 16 )
+region = Rect2( 368, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 3 )
@@ -138,11 +137,11 @@ region = Rect2( 416, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 3 )
-region = Rect2( 336, 80, 16, 16 )
+region = Rect2( 336, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 3 )
-region = Rect2( 352, 80, 16, 16 )
+region = Rect2( 352, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 3 )
@@ -162,46 +161,46 @@ region = Rect2( 352, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 3 )
-region = Rect2( 400, 144, 16, 16 )
+region = Rect2( 400, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 3 )
-region = Rect2( 400, 80, 16, 16 )
+region = Rect2( 416, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 3 )
-region = Rect2( 416, 80, 16, 16 )
+region = Rect2( 368, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 3 )
-region = Rect2( 368, 80, 16, 16 )
+region = Rect2( 384, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 3 )
-region = Rect2( 384, 80, 16, 16 )
+region = Rect2( 384, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 3 )
-region = Rect2( 368, 144, 16, 16 )
+region = Rect2( 400, 144, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 3 )
-region = Rect2( 432, 80, 16, 16 )
+region = Rect2( 336, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 3 )
-region = Rect2( 448, 80, 16, 16 )
+region = Rect2( 352, 80, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=23]
 animations = [ {
 "frames": [ SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
-"name": "fright_up",
+"name": "normal_down",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 5 ) ],
 "loop": true,
-"name": "dead_left",
+"name": "dead_right",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 6 ), SubResource( 7 ) ],
@@ -216,7 +215,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
-"name": "normal_right",
+"name": "fright_left",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 11 ), SubResource( 12 ) ],
@@ -226,32 +225,32 @@ animations = [ {
 }, {
 "frames": [ SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
-"name": "fright_left",
+"name": "fright_up",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 15 ) ],
-"loop": true,
-"name": "dead_up",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 16 ), SubResource( 17 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "normal_up",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 17 ), SubResource( 18 ) ],
 "loop": true,
 "name": "normal_left",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 19 ) ],
+"loop": true,
+"name": "dead_left",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 20 ) ],
 "loop": true,
-"name": "dead_right",
+"name": "dead_up",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 21 ), SubResource( 22 ) ],
 "loop": true,
-"name": "normal_down",
+"name": "normal_right",
 "speed": 5.0
 } ]
 
@@ -281,11 +280,11 @@ region = Rect2( 384, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 3 )
-region = Rect2( 368, 0, 16, 16 )
+region = Rect2( 432, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 3 )
-region = Rect2( 336, 16, 16, 16 )
+region = Rect2( 448, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 3 )
@@ -293,15 +292,15 @@ region = Rect2( 368, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 3 )
-region = Rect2( 384, 0, 16, 16 )
+region = Rect2( 336, 16, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 3 )
-region = Rect2( 432, 0, 16, 16 )
+region = Rect2( 368, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 3 )
-region = Rect2( 448, 0, 16, 16 )
+region = Rect2( 384, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=36]
 animations = [ {
@@ -320,14 +319,14 @@ animations = [ {
 "name": "up",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
-"loop": true,
-"name": "up_long",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 34 ), SubResource( 35 ) ],
+"frames": [ SubResource( 30 ), SubResource( 31 ) ],
 "loop": true,
 "name": "down",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ) ],
+"loop": true,
+"name": "up_long",
 "speed": 5.0
 } ]
 
@@ -362,19 +361,23 @@ handle_input_locally = false
 disable_3d = true
 render_target_update_mode = 3
 
-[node name="red_ghost" type="AnimatedSprite" parent="ViewportContainer/Viewport"]
+[node name="Control" type="Control" parent="ViewportContainer"]
+rect_min_size = Vector2( 400, 600 )
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="red_ghost" type="AnimatedSprite" parent="ViewportContainer/Control"]
 material = SubResource( 2 )
-position = Vector2( -12, 300 )
+position = Vector2( 450, 300 )
 frames = SubResource( 23 )
 animation = "normal_left"
-frame = 1
 playing = true
 offset = Vector2( 0, 0.5 )
 
-[node name="pacman" type="AnimatedSprite" parent="ViewportContainer/Viewport"]
-position = Vector2( -25, 300 )
+[node name="pacman" type="AnimatedSprite" parent="ViewportContainer/Control"]
+position = Vector2( 415, 300 )
 frames = SubResource( 36 )
 animation = "left"
-frame = 1
 playing = true
 offset = Vector2( -0.5, 0.5 )
