@@ -1,0 +1,135 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/GUI/EscapeMenu.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sounds/Pac-Man/siren_1.wav" type="AudioStream" id=3]
+
+[node name="EscapeMenuLayer" type="CanvasLayer"]
+pause_mode = 2
+
+[node name="EscapeMenu" type="Control" parent="."]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.75192
+margin_top = -0.583984
+margin_right = -1.75195
+margin_bottom = -0.583984
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="EscapeMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0, 0, 0, 0.313726 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="EscapeMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="EscapeMenu/CenterContainer"]
+margin_right = 162.0
+margin_bottom = 118.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="EscapeMenu/CenterContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 155.0
+margin_bottom = 111.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2"]
+margin_right = 148.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "Escape Menu"
+align = 1
+valign = 2
+
+[node name="HSeparator" type="HSeparator" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2"]
+margin_top = 24.0
+margin_right = 148.0
+margin_bottom = 28.0
+
+[node name="debug_mode" type="HBoxContainer" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2"]
+margin_top = 32.0
+margin_right = 148.0
+margin_bottom = 62.0
+rect_clip_content = true
+
+[node name="Label" type="Label" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2/debug_mode"]
+margin_top = 8.0
+margin_right = 74.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Be an eagle"
+
+[node name="Control" type="Control" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2/debug_mode"]
+margin_left = 78.0
+margin_right = 148.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 70, 30 )
+
+[node name="CheckButton" type="CheckButton" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2/debug_mode/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -38.0
+margin_top = -20.0
+margin_right = 38.0
+margin_bottom = 20.0
+focus_mode = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="god_mode4" type="HBoxContainer" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2"]
+margin_top = 66.0
+margin_right = 148.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 18 )
+rect_clip_content = true
+
+[node name="Label" type="Label" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2/god_mode4"]
+margin_top = 2.0
+margin_right = 148.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+text = "Master sound volume"
+
+[node name="HSlider" type="HSlider" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2"]
+margin_top = 88.0
+margin_right = 148.0
+margin_bottom = 104.0
+max_value = 1.0
+step = 0.001
+value = 0.2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+[connection signal="value_changed" from="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2/HSlider" to="EscapeMenu" method="_on_HSlider_value_changed"]

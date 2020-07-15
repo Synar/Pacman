@@ -19,11 +19,13 @@ var debug_mode = true setget set_debug_mode
 var god_mode = false setget set_god_mode
 var true_god_mode = false setget set_true_god_mode
 var infinite_lives = false setget set_infinite_lives
-var menu_pause_on = false
 
 signal lives_set
 signal fruit_collected
 signal modes_changed
+
+var menu_pause_on = false
+var sound_volume = 1
 
 
 func _read_write_score(mode):

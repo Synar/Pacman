@@ -249,15 +249,21 @@ __meta__ = {
 }
 
 [node name="FPS" type="Label" parent="DebugDisp"]
-margin_right = 30.0
+margin_right = 134.0
 margin_bottom = 14.0
 text = "test"
 
 [node name="OS" type="Label" parent="DebugDisp"]
 margin_top = 18.0
-margin_right = 30.0
+margin_right = 134.0
 margin_bottom = 32.0
 text = "test"
+
+[node name="Label" type="Label" parent="DebugDisp"]
+margin_top = 36.0
+margin_right = 134.0
+margin_bottom = 50.0
+text = "Debug help : Press H"
 
 [node name="Engine" type="Label" parent="DebugDisp"]
 visible = false

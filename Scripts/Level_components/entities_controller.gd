@@ -248,7 +248,7 @@ func _on_clyde_liberated():
 
 
 func process_input():
-    if GlobalPlayer.debug_mode:
+    if GlobalPlayer.debug_mode and !GlobalPlayer.menu_pause_on:
 
         if Input.is_action_just_pressed("fruit_spawn"):
             GlobalPlayer.anticheat = true
