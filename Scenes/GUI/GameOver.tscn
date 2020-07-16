@@ -33,21 +33,29 @@ margin_bottom = 570.0
 alignment = 1
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 230.0
+margin_top = 229.0
 margin_right = 298.0
-margin_bottom = 305.0
+margin_bottom = 304.0
 custom_fonts/font = SubResource( 1 )
 text = "Game over"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 309.0
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 308.0
 margin_right = 298.0
 margin_bottom = 340.0
 alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 83.0
-margin_right = 215.0
-margin_bottom = 31.0
-text = "
-Press any key to exit"
+margin_left = 24.0
+margin_right = 274.0
+margin_bottom = 14.0
+size_flags_horizontal = 4
+text = "Insert coin and press enter to continue"
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 64.0
+margin_top = 18.0
+margin_right = 234.0
+margin_bottom = 32.0
+size_flags_horizontal = 4
+text = "Press any other key to exit"
