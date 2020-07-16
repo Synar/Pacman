@@ -37,15 +37,17 @@ func _process(delta):
 func check_pause():
     get_tree().paused = pc_death_freeze_on or gh_death_freeze_on or input_pause_on or GlobalPlayer.menu_pause_on
 
+    var force_pause = input_pause_on or GlobalPlayer.menu_pause_on
     for node in entities_controller.get_children():
         if node is Pacman :
             for snode in node.get_children():
                 if snode is Pacman_death :
-                    unpause_node_if(snode, pc_death_freeze_on and !input_pause_on and !GlobalPlayer.menu_pause_on)
+                    unpause_node_if(snode, pc_death_freeze_on and !force_pause)
         if node is Ghost:
             if node.state == Ghost.State.dead1 or node.state == Ghost.State.dead2:
-                unpause_node_if(node, gh_death_freeze_on and !input_pause_on and !GlobalPlayer.menu_pause_on)
-            unpause_node_if(node.get_node("AnimatedSprite"),!input_pause_on and !GlobalPlayer.menu_pause_on)
+                unpause_node_if(node, gh_death_freeze_on and !force_pause)
+            unpause_node_if(node.get_node("AnimatedSprite"),!force_pause)
+    unpause_node_if($"../sound_controller",!force_pause)
 
 
 func unpause_node_if(node, condition):

@@ -8,6 +8,20 @@ var pinkyScene = load("res://Scenes/Entities/pinky_the_ambusher.tscn")
 var blinkyScene = load("res://Scenes/Entities/blinky_who_shadows.tscn")
 var clydeScene = load("res://Scenes/Entities/clyde_who_feigns_ignorance.tscn")
 
+var munch1Sound = load("res://Assets/Sounds/Pac-Man/munch_1.wav")
+var munch2Sound = load("res://Assets/Sounds/Pac-Man/munch_2.wav")
+var eatGhostSound = load("res://Assets/Sounds/Pac-Man/eat_ghost.wav")
+var eatFruitSound = load("res://Assets/Sounds/Pac-Man/eat_fruit.wav")
+var death1Sound = load("res://Assets/Sounds/Pac-Man/death_1.wav")
+var death2Sound = load("res://Assets/Sounds/Pac-Man/death_2.wav")
+var frightSound = load("res://Assets/Sounds/Pac-Man/power_pellet.wav")
+var deadGhostSound = load("res://Assets/Sounds/Pac-Man/retreating.wav")
+var siren1Sound = load("res://Assets/Sounds/Pac-Man/siren_1.wav")
+var siren2Sound = load("res://Assets/Sounds/Pac-Man/siren_2.wav")
+var siren3Sound = load("res://Assets/Sounds/Pac-Man/siren_3.wav")
+var siren4Sound = load("res://Assets/Sounds/Pac-Man/siren_4.wav")
+var siren5Sound = load("res://Assets/Sounds/Pac-Man/siren_5.wav")
+
 var level_prog
 
 var pacman_spawn = Vector2(0,0)
@@ -146,8 +160,13 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
             if coins_eaten == 70 or coins_eaten == 170:
                 call_deferred ("_spawn_fruits")
             dot_eaten_lib()
+            if coins_eaten%2 == 1:
+                $sound_controller.play_sfx(munch1Sound)
+            else:
+                $sound_controller.play_sfx(munch2Sound)
         fruit :
             GlobalPlayer.fruit_collected([id])
+            $sound_controller.play_sfx(eatFruitSound)
 
 
 func frighten():
@@ -159,12 +178,14 @@ func frighten():
 
 func _on_ghost_eaten():
     GlobalPlayer.score_increase(100)
+    $sound_controller.play_sfx(eatGhostSound)
     $pause_controller.gh_death_freeze(0.5)#(50)
 
 
 func _on_pacman_eaten():
     GlobalPlayer.life_loss()
     GlobalPlayer.Player._on_death()
+    $sound_controller.play_sfx_queue([death1Sound,death2Sound,death2Sound])
     $pause_controller.pc_death_freeze(3)
 
 
@@ -176,6 +197,7 @@ func pc_respawn():
 
 func _process(delta):
     process_input()
+    choose_music()
 
     if fruit_timer != -1 :
         fruit_timer -= delta
@@ -267,3 +289,10 @@ func process_input():
         if Input.is_action_just_pressed("next_level"):
             GlobalPlayer.anticheat = true
             GlobalPlayer.next_level()
+
+
+func choose_music():
+    if frightened_timer != -1:
+        $sound_controller.play_music_once(frightSound)
+    else :
+        $sound_controller.play_music_once(siren1Sound)
