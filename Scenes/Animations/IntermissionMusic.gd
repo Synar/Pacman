@@ -17,3 +17,5 @@ func _process(delta):
         if loop_count < 2:
             loop_count += 1
             self.play()
+        else:
+            $"..".emit_signal("animation_end")

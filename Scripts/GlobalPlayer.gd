@@ -60,6 +60,14 @@ func _on_level_loaded():
 
 func next_level():
     level_prog += 1
+    if level_prog == 2:
+        get_tree().change_scene("res://Scenes/Animations/intermission1.tscn")
+        yield(get_tree(),"idle_frame")
+        yield(get_tree().get_root().get_child(1), "animation_end")
+    #print("here :")
+    #print(get_tree().get_root().get_child(1))
+    #print(get_tree().get_root().get_child(1).filename)
+    #print(": here")
     get_tree().change_scene("res://Scenes/Level1.tscn")
 
 
