@@ -183,16 +183,17 @@ func _on_ghost_eaten():
 
 
 func _on_pacman_eaten():
-    GlobalPlayer.life_loss()
+    #GlobalPlayer.life_loss()
     GlobalPlayer.Player._on_death()
     $sound_controller.play_sfx_queue([death1Sound,death2Sound,death2Sound])
     $pause_controller.pc_death_freeze(3)
 
 
 func pc_respawn():
-        for entity in entities:
-            entity.queue_free()
-        call_deferred("_spawn_entities")
+    GlobalPlayer.life_loss()
+    for entity in entities:
+        entity.queue_free()
+    call_deferred("_spawn_entities")
 
 
 func _process(delta):

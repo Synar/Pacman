@@ -80,6 +80,8 @@ func score_increase(score_value):
 
 func life_loss(count=1):
     lives -= count
+    if lives <= 0 and !infinite_lives:
+        get_tree().change_scene("res://Scenes/GUI/GameOver.tscn")
     emit_signal("lives_set", lives)
 
 
