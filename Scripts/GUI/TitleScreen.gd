@@ -11,9 +11,21 @@ func _ready():
 #    pass
 
 
-func _on_LinkButton_pressed():
+func _on_quick_play_pressed():
     GlobalPlayer.new_game()
 
 
-func _on_LinkButton2_pressed():
-    pass
+func _on_continue_pressed():
+    pass # Replace with function body.
+
+
+func _on_choose_mode_pressed():
+    pass # Replace with function body.
+
+
+func _on_settings_pressed():
+    pass # Replace with function body.
+
+
+func _on_exit_game_pressed():
+    get_tree().quit()
