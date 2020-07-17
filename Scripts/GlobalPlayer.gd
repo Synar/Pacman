@@ -108,3 +108,16 @@ func set_infinite_lives(value):
 func set_true_god_mode(value):
     true_god_mode = value
     emit_signal("modes_changed")
+
+
+func quit_to_title():
+    menu_pause_on = false
+    get_tree().paused = false
+    get_tree().change_scene("res://Scenes/GUI/TitleScreen.tscn")
+
+
+func new_game():
+    level_prog = 1
+    lives = 3
+    score = 0
+    get_tree().change_scene("res://Scenes/Level1.tscn")

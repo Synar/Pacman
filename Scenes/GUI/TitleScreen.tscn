@@ -10,6 +10,7 @@ size = 65
 font_data = ExtResource( 1 )
 
 [node name="Node" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -33,68 +34,79 @@ size_flags_vertical = 0
 custom_fonts/font = SubResource( 1 )
 text = "Pacman ™ "
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_top = 85.0
 margin_right = 550.0
-margin_bottom = 308.0
+margin_bottom = 116.0
+text = "
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 550.0
+margin_bottom = 364.0
 size_flags_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 261.0
-margin_bottom = 223.0
+margin_bottom = 238.0
 size_flags_horizontal = 2
 size_flags_vertical = 4
 custom_constants/separation = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_right = 261.0
-margin_bottom = 31.0
-text = "
-"
-
 [node name="LinkButton" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 33.0
 margin_right = 217.0
-margin_bottom = 79.0
+margin_bottom = 46.0
 size_flags_horizontal = 2
 custom_fonts/font = ExtResource( 4 )
 text = "  Quick Play"
 underline = 2
 
 [node name="LinkButton3" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 81.0
+margin_top = 48.0
 margin_right = 185.0
-margin_bottom = 127.0
+margin_bottom = 94.0
 size_flags_horizontal = 2
 custom_fonts/font = ExtResource( 4 )
 text = "  Continue"
 underline = 2
 
 [node name="LinkButton2" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 129.0
+margin_top = 96.0
 margin_right = 261.0
-margin_bottom = 175.0
+margin_bottom = 142.0
 size_flags_horizontal = 2
 custom_fonts/font = ExtResource( 4 )
 text = "  Choose Mode"
 underline = 2
 
 [node name="LinkButton4" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 177.0
+margin_top = 144.0
 margin_right = 157.0
-margin_bottom = 223.0
+margin_bottom = 190.0
 size_flags_horizontal = 2
 custom_fonts/font = ExtResource( 4 )
 text = "  Settings"
 underline = 2
 
+[node name="LinkButton5" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 192.0
+margin_right = 195.0
+margin_bottom = 238.0
+size_flags_horizontal = 2
+custom_fonts/font = ExtResource( 4 )
+text = "  Exit game"
+underline = 2
+
 [node name="Sprite" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 328.0
 margin_right = 499.0
-margin_bottom = 223.0
+margin_bottom = 171.0
 size_flags_horizontal = 6
+size_flags_vertical = 0
 texture = ExtResource( 2 )
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/LinkButton3" to="." method="_on_LinkButton2_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/LinkButton2" to="." method="_on_LinkButton2_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/LinkButton4" to="." method="_on_LinkButton2_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/LinkButton5" to="." method="_on_LinkButton2_pressed"]

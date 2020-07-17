@@ -20,8 +20,9 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="EscapeMenu"]
+anchor_top = 0.000486654
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 1.00049
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -48,13 +49,13 @@ __meta__ = {
 
 [node name="PanelContainer" type="PanelContainer" parent="EscapeMenu/CenterContainer"]
 margin_right = 162.0
-margin_bottom = 118.0
+margin_bottom = 166.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="EscapeMenu/CenterContainer/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 155.0
-margin_bottom = 111.0
+margin_bottom = 159.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -130,6 +131,20 @@ max_value = 1.0
 step = 0.001
 value = 0.2
 
+[node name="Quit to title" type="Button" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2"]
+margin_top = 108.0
+margin_right = 148.0
+margin_bottom = 128.0
+text = "Quit to title"
+
+[node name="Exit game" type="Button" parent="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2"]
+margin_top = 132.0
+margin_right = 148.0
+margin_bottom = 152.0
+text = "Exit game"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 [connection signal="value_changed" from="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2/HSlider" to="EscapeMenu" method="_on_HSlider_value_changed"]
+[connection signal="pressed" from="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2/Quit to title" to="EscapeMenu" method="_on_Quit_to_title_pressed"]
+[connection signal="pressed" from="EscapeMenu/CenterContainer/PanelContainer/VBoxContainer2/Exit game" to="EscapeMenu" method="_on_Exit_game_pressed"]

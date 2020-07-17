@@ -19,3 +19,12 @@ func _on_HSlider_value_changed(value):
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(value))
     sound_volume = value
     print(linear2db(value), "   ", value)
+
+
+func _on_Quit_to_title_pressed():
+    GlobalPlayer.quit_to_title()
+
+
+func _on_Exit_game_pressed():
+    get_tree().quit()
+

@@ -12,7 +12,7 @@ func _ready():
 
 
 func _on_LinkButton_pressed():
-    get_tree().change_scene("res://Scenes/Level1.tscn")
+    GlobalPlayer.new_game()
 
 
 func _on_LinkButton2_pressed():

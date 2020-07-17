@@ -13,8 +13,5 @@ func _input(event):
             get_tree().change_scene("res://Scenes/Level1.tscn")
     elif event is InputEventKey:
         if event.pressed:
-            get_tree().change_scene("res://Scenes/GUI/TitleScreen.tscn")
+            GlobalPlayer.quit_to_title()
 
-
-#func _process(delta):
-#    pass
