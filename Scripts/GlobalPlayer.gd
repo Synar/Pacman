@@ -121,3 +121,25 @@ func new_game():
     lives = 3
     score = 0
     get_tree().change_scene("res://Scenes/Level1.tscn")
+
+
+var packed_scene = PackedScene.new()
+
+func save_game():
+    #packed_scene.pack(get_tree().get_current_scene())
+    var scene_root = level
+    _set_owner(scene_root, scene_root)
+    packed_scene.pack(scene_root)
+    ResourceSaver.save("res://my_scene.tscn", packed_scene)
+
+
+func _set_owner(node, root): #credit to Justo Delgado
+    if node != root:
+        node.owner = root
+    for child in node.get_children():
+        _set_owner(child, root)
+
+
+func load_game():
+    #level = load("res://my_scene.tscn").instance()
+    get_tree().change_scene("res://my_scene.tscn")

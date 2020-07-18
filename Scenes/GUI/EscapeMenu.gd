@@ -22,9 +22,11 @@ func _on_HSlider_value_changed(value):
 
 
 func _on_Quit_to_title_pressed():
+    GlobalPlayer.save_game()
     GlobalPlayer.quit_to_title()
 
 
 func _on_Exit_game_pressed():
+    GlobalPlayer.save_game()
     get_tree().quit()
 

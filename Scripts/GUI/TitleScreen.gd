@@ -16,7 +16,7 @@ func _on_quick_play_pressed():
 
 
 func _on_continue_pressed():
-    pass # Replace with function body.
+    GlobalPlayer.load_game()
 
 
 func _on_choose_mode_pressed():
