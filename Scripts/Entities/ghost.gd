@@ -188,6 +188,7 @@ func update_speed():
         speed = (0.5 + level_multiplier)*GlobalPlayer.basespeed
     else :
         speed = (0.75 + 2*level_multiplier)*GlobalPlayer.basespeed
+    #dead ghosts get faster?
 
 
 func entity_rotate():

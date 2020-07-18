@@ -20,7 +20,7 @@ func _ready():
 
 func update_mode(delta):
     if state == State.lockedin :
-            state = State.free
+            state = State.leavinggh_1
     else :
         .update_mode(delta)
 
