@@ -49,6 +49,7 @@ var clyde
 var ghosts = []
 var entities = []
 
+var max_coins = 0
 var coins_remaining = 0 # set to 240 in base levels on ready
 var coins_eaten = 0
 
@@ -81,6 +82,7 @@ func _spawn_ghost(_ghostScene,_ghost_spawn,_scatter_target = false, _ghost_respa
 
 
 func _on_map_loaded():
+    max_coins = coins_remaining
     fright_time = [6, 5, 4, 3, 2, 5, 2, 2, 1, 5, 2, 1, 1, 3, 1, 1, 0, 1][level_prog-1] if level_prog < 19 else 0
     blink_amount = 3 if fright_time==1 else 5
 
@@ -293,7 +295,22 @@ func process_input():
 
 
 func choose_music():
-    if frightened_timer != -1:
+    var ghost_dead = false
+    for ghost in ghosts:
+        if ghost.state == State.dead1 or ghost.state == State.dead2:
+            ghost_dead = true
+            break
+    if ghost_dead:
         $sound_controller.play_music_once(frightSound)
-    else :
+    elif frightened_timer != -1:
+        $sound_controller.play_music_once(frightSound)
+    elif coins_remaining < max_coins/10:
+        $sound_controller.play_music_once(siren5Sound)
+    elif coins_remaining < max_coins/5:
+        $sound_controller.play_music_once(siren4Sound)
+    elif coins_remaining < max_coins/3:
+        $sound_controller.play_music_once(siren3Sound)
+    elif coins_remaining < max_coins*0.6:
+        $sound_controller.play_music_once(siren2Sound)
+    else:
         $sound_controller.play_music_once(siren1Sound)
