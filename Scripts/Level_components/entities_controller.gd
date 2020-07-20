@@ -155,8 +155,10 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
                 0 :
                     GlobalPlayer.next_level()
                 elroy1_coins :
+                    print("elroy1_coins", coins_remaining)
                     blinky.elroy1 = true
                 elroy2_coins :
+                    print("elroy2_coins", coins_remaining)
                     blinky.elroy2 = true
             coins_eaten += 1
             if coins_eaten == 70 or coins_eaten == 170:
@@ -266,9 +268,9 @@ func liberate_trigger(delta):
 
 
 func _on_clyde_liberated():
-    if coins_remaining > elroy2_coins:
+    if coins_remaining < elroy2_coins:
         blinky.elroy2 = true
-    elif coins_remaining > elroy1_coins:
+    elif coins_remaining < elroy1_coins:
         blinky.elroy1 = true
 
 
