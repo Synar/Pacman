@@ -28,28 +28,38 @@ var menu_pause_on = false
 var sound_volume = 1
 
 
-func _read_write_score(mode):
-    var _highscore = 0
+func _read_write_data(mode, path, data = 0):
     var dir = Directory.new( )
-    if !dir.dir_exists(highscore_dir):
-        dir.make_dir(highscore_dir)
-    var highscore_file = File.new()
-    var err = highscore_file.open(highscore_path, mode)
-    # If the file does not exist, create it
+    if !dir.dir_exists(path.get_base_dir()):
+        #dir.open(base directory for user, else it won't work after import)
+        dir.make_dir_recursive(path.get_base_dir())
+    var file = File.new()
+    var err = file.open(path, mode)
     if err == ERR_FILE_NOT_FOUND:
-        err = highscore_file.open(highscore_path, File.WRITE_READ)
+        err = file.open(path, File.WRITE_READ)
+        mode = File.WRITE
     if err != OK:
-        return _highscore
+        print ("err :", err)
+        return err
     if mode == File.READ:
-        _highscore = int(highscore_file.get_as_text())
+        data = parse_json(file.get_as_text())
     if mode == File.WRITE:
-        highscore_file.store_string(str(score))
-    highscore_file.close()
-    return _highscore
+        file.store_line(to_json(data))
+    file.close()
+    return data
+
+
+func _read_write_score(mode):
+    return _read_write_data(mode, highscore_path, score)
 
 
 func _ready():
     highscore = _read_write_score(File.READ)
+    var a = 1
+    print("test reading :")
+    print( _read_write_data(File.WRITE,highscore_dir + "/test.txt",{0:10,1:[{1: 32}, "er", ['1', 4]]}))
+    print( _read_write_data(File.READ,highscore_dir + "/test.txt",1))
+    print(a)
 
 
 func _on_level_loaded():
@@ -123,21 +133,27 @@ func new_game():
     get_tree().change_scene("res://Scenes/Level1.tscn")
 
 
-var packed_scene = PackedScene.new()
 
 func save_game():
-    #packed_scene.pack(get_tree().get_current_scene())
-    var scene_root = level
-    _set_owner(scene_root, scene_root)
-    packed_scene.pack(scene_root)
-    ResourceSaver.save("res://my_scene.tscn", packed_scene)
+    save_node(level)
 
 
-func _set_owner(node, root): #credit to Justo Delgado
-    if node != root:
-        node.owner = root
+func save_node(node):
+    if node.has_method("save_node"):
+        node.call("save_node")
+        return
     for child in node.get_children():
-        _set_owner(child, root)
+        save_node(child)
+    #print(filter(get_script().get_script_property_list()))
+    print(filter(get_property_list ()))
+
+
+func filter(l):
+    var r = []
+    for d in l:
+        r.append(d["name"])
+    return r
+
 
 
 func load_game():

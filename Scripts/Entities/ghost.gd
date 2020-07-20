@@ -31,6 +31,7 @@ func _ready():
     var shade = $AnimatedSprite.get_material().duplicate(true)
     $AnimatedSprite.set_material(shade)
 
+
 func _process(delta):
     shade(delta)
 
