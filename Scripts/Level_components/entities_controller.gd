@@ -103,8 +103,8 @@ func _spawn_entities():
 
     ghosts = []
 
-    var ghost = _spawn_ghost(ghostScene, ghost_spawn)
-    ghost.state = State.free
+    #var ghost = _spawn_ghost(ghostScene, ghost_spawn)
+    #ghost.state = State.free
 
     blinky = _spawn_ghost(blinkyScene, blinky_spawn, blinky_target, inky_spawn)
 
