@@ -26,7 +26,7 @@ signal modes_changed
 
 var menu_pause_on = false
 var sound_volume = 1
-
+var level_autoload = true
 
 func _read_write_data(mode, path, data = 0):
     var dir = Directory.new( )
@@ -135,15 +135,23 @@ func new_game():
 
 
 func save_game():
-    save_node(level)
-
+    _read_write_data(File.READ, highscore_dir + "/testsave3.txt", save_node(level))
 
 func save_node(node):
     if node.has_method("save_node"):
         node.call("save_node")
         return
+    var children_name = []
     for child in node.get_children():
-        save_node(child)
+        children_name.append(child.get_name())
+    var var_dict = {}
+    for variable in filter(node.get_property_list ()):
+        var_dict[variable] = node.get(variable)
+    var children_var_dict = {}
+    for child in node.get_children():
+        children_var_dict[child.get_name()] = save_node(child)
+    var data = {"name": node.get_name(), "children_name": children_name, "var_dict": var_dict, "children_var_dict": children_var_dict}
+    return data
     #print(filter(get_script().get_script_property_list()))
     print(filter(get_property_list ()))
 
