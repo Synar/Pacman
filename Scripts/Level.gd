@@ -52,8 +52,8 @@ func _ready():
     entities_controller.level_prog = level_prog
     add_child(entities_controller)
 
-    for tilemap in get_tilemaps():
-        read_tilemap(tilemap, entities_controller, choose_vmap(tilemap))
+    if GlobalPlayer.level_autoload:
+        load_map()
 
     entities_controller._on_map_loaded()
     GlobalPlayer._on_level_loaded()
@@ -100,6 +100,10 @@ func add_black_foreground(pos, _tilemap = main_tilemap):
     add_child(tp)
     tp.position = pos_on_grid_to_center_pos(pos, _tilemap)
 
+
+func load_map():
+    for tilemap in get_tilemaps():
+        read_tilemap(tilemap, entities_controller, choose_vmap(tilemap))
 
 
 func read_tilemap(_tilemap, _entities_controller, _virtual_map):
