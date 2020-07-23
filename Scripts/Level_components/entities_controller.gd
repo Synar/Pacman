@@ -132,6 +132,11 @@ func _spawn_entities():
     for entity in entities:
         entity.level_prog = level_prog
 
+    dots_eaten_since_ghost_activated = {pinky:0, inky:0, clyde:0}
+    ghosts_activation_thresholds = {pinky : 0, inky : 0 if level_prog > 1 else 30, clyde : 0 if level_prog > 2 else 50}
+    if level_prog == 0 :
+        ghosts_activation_thresholds[clyde] = 60
+
 
 func _spawn_fruits():
         for id in fruit_spawn.size():
@@ -197,6 +202,8 @@ func pc_respawn():
     GlobalPlayer.life_loss()
     for entity in entities:
         entity.queue_free()
+    global_counter_activated = true
+    dots_eaten_since_death = 0
     call_deferred("_spawn_entities")
 
 
@@ -223,11 +230,12 @@ func _process(delta):
 
 
 var time_since_dot_eaten = 0
+onready var max_time_after_dot_eaten = 4 if level_prog <= 5 else 3
 var dots_eaten_since_death = 0
-var dots_eaten_since_ghost_activated = [0, 0, 0]
 var global_counter_activated = false
-var ghost_activated = 0
-var ghosts_activation_thresholds = [0, 30, 60]
+var ghost_activated = null
+var dots_eaten_since_ghost_activated
+var ghosts_activation_thresholds
 
 
 func dot_eaten_lib():
@@ -240,31 +248,29 @@ func dot_eaten_lib():
             inky.liberate()
         if dots_eaten_since_death == 32:
             if clyde.state == State.lockedin:
-                ghost_activated = 0
-            clyde.liberate()
+                global_counter_activated = false
     else:
-        if ghost_activated != 3:
+        ghost_activated = null
+        for ghost in [pinky,inky,clyde]:
+            if ghost.state == State.lockedin:
+                ghost_activated = ghost
+                break
+        if ghost_activated != null:
             dots_eaten_since_ghost_activated[ghost_activated] += 1
+            for ghost in [pinky,inky,clyde]:
+                if dots_eaten_since_ghost_activated[ghost] >= ghosts_activation_thresholds[ghost]:
+                    if ghost.state == State.lockedin:
+                        ghost.liberate()
 
 
 func liberate_trigger(delta):
     time_since_dot_eaten += delta
-    if time_since_dot_eaten > 4:
+    if time_since_dot_eaten > max_time_after_dot_eaten:
         for ghost in [pinky,inky,clyde]:
             if ghost.state == State.lockedin:
                 ghost.liberate()
                 time_since_dot_eaten = 0
                 break
-
-    if ghost_activated != 3:
-        if dots_eaten_since_ghost_activated[ghost_activated] == ghosts_activation_thresholds[ghost_activated]:
-            ghost_activated += 1
-
-    for i in range(3):
-        if dots_eaten_since_ghost_activated[i] >= ghosts_activation_thresholds[i]:
-            var ghost = [pinky,inky,clyde][i]
-            if ghost.state == State.lockedin:
-                ghost.liberate()
 
 
 func _on_clyde_liberated():
