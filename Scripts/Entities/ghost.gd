@@ -147,7 +147,8 @@ func pick_wanted_dir(delta):
         var potentialDir = [Vector2(0, 1),Vector2(0, -1)]
         if not current_dir in potentialDir:
             wanted_dir = potentialDir[0]
-        if tile_is_wall(position + 8*wanted_dir):
+        var next_tile_pos = position + 8*wanted_dir
+        if tile_is_wall(next_tile_pos) or Level.get_tile_name(next_tile_pos, true)=="red_placeholder":
             wanted_dir = -wanted_dir
 
     else :
