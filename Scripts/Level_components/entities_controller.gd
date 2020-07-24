@@ -64,7 +64,7 @@ var fruit_timer = -1
 
 
 func _ready():
-    #GlobalPlayer.e_controller = self
+    #Globals.e_controller = self
     randomize()
 
 
@@ -150,7 +150,7 @@ func _spawn_fruits():
 
 enum {generic_pickup, pellet, fruit, coin}
 func _on_pickup_body_entered(_body, score_value, pickup_type, id):
-    GlobalPlayer.score_increase(score_value)
+    Globals.score_increase(score_value)
     match pickup_type :
         pellet :
             frighten()
@@ -158,7 +158,7 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
             coins_remaining -= 1
             match coins_remaining:
                 0 :
-                    GlobalPlayer.next_level()
+                    Globals.next_level()
                 elroy1_coins :
                     print("elroy1_coins", coins_remaining)
                     blinky.elroy1 = true
@@ -174,7 +174,7 @@ func _on_pickup_body_entered(_body, score_value, pickup_type, id):
             else:
                 $sound_controller.play_sfx(munch2Sound)
         fruit :
-            GlobalPlayer.fruit_collected([id])
+            Globals.fruit_collected([id])
             $sound_controller.play_sfx(eatFruitSound)
 
 
@@ -186,20 +186,20 @@ func frighten():
 
 
 func _on_ghost_eaten():
-    GlobalPlayer.score_increase(100)
+    Globals.score_increase(100)
     $sound_controller.play_sfx(eatGhostSound)
     $pause_controller.gh_death_freeze(0.5)#(50)
 
 
 func _on_pacman_eaten():
-    #GlobalPlayer.life_loss()
-    GlobalPlayer.Player._on_death()
+    #Globals.life_loss()
+    Globals.Player._on_death()
     $sound_controller.play_sfx_queue([death1Sound,death2Sound,death2Sound])
     $pause_controller.pc_death_freeze(3)
 
 
 func pc_respawn():
-    GlobalPlayer.life_loss()
+    Globals.life_loss()
     for entity in entities:
         entity.queue_free()
     global_counter_activated = true
@@ -281,25 +281,25 @@ func _on_clyde_liberated():
 
 
 func process_input():
-    if GlobalPlayer.debug_mode and !GlobalPlayer.menu_pause_on:
+    if Globals.debug_mode and !Globals.menu_pause_on:
 
         if Input.is_action_just_pressed("fruit_spawn"):
-            GlobalPlayer.anticheat = true
+            Globals.anticheat = true
             _spawn_fruits()
 
         if Input.is_action_just_pressed("kill_ghosts"):
-            GlobalPlayer.anticheat = true
+            Globals.anticheat = true
             for ghost in ghosts:
                 ghost.state = State.dead1
                 ghost.emit_signal("ghost_eaten")
 
         if Input.is_action_just_pressed("suicide"):
-            GlobalPlayer.anticheat = true
+            Globals.anticheat = true
             _on_pacman_eaten()
 
         if Input.is_action_just_pressed("next_level"):
-            GlobalPlayer.anticheat = true
-            GlobalPlayer.next_level()
+            Globals.anticheat = true
+            Globals.next_level()
 
 
 func choose_music():

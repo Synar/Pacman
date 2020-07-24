@@ -7,7 +7,7 @@ var PacmanDeathScene = load("res://Scenes/Animations/pacman_death.tscn")
 func _ready():
     test_id = 1
     z_index = 2
-    GlobalPlayer.Player = self
+    Globals.Player = self
 
 
 func entity_rotate():
@@ -37,17 +37,17 @@ func pick_wanted_dir(_delta):
 func update_speed():
     if level_prog == 1:
         if ghosts_frightened:
-            speed = 0.9*GlobalPlayer.basespeed
+            speed = 0.9*Globals.basespeed
         else:
-            speed = 0.8*GlobalPlayer.basespeed
+            speed = 0.8*Globals.basespeed
 
     elif level_prog < 4 or level_prog > 21:
         if ghosts_frightened:
-            speed = 0.95*GlobalPlayer.basespeed
+            speed = 0.95*Globals.basespeed
         else:
-            speed = 0.9*GlobalPlayer.basespeed
+            speed = 0.9*Globals.basespeed
     else:
-        speed = GlobalPlayer.basespeed
+        speed = Globals.basespeed
 
 
 func frighten(_fright_time):

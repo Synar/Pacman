@@ -16,7 +16,7 @@ func _ready():
     set_attributes()
     z_index = 1
     self.connect("body_entered", self, "_on_pickup_body_entered")
-    self.connect("body_entered", GlobalPlayer.level.get_node("entities_controller"),
+    self.connect("body_entered", Globals.level.get_node("entities_controller"),
                  "_on_pickup_body_entered", [score_value, pickup_type, id])
 
 

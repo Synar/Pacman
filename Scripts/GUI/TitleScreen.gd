@@ -12,11 +12,11 @@ func _ready():
 
 
 func _on_quick_play_pressed():
-    GlobalPlayer.new_game()
+    Globals.new_game()
 
 
 func _on_continue_pressed():
-    GlobalPlayer.load_game()
+    Globals.load_game()
 
 
 func _on_choose_mode_pressed():

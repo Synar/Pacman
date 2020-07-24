@@ -56,7 +56,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GlobalPlayer="*res://Scripts/GlobalPlayer.gd"
+Globals="*res://Scripts/Globals.gd"
 
 [display]
 

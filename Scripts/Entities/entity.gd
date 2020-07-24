@@ -4,7 +4,7 @@ extends Node2D
 export(int) var test_id = 0
 export(bool) var smooth_game_control = true
 var level_prog = 1
-onready var Level = GlobalPlayer.level
+onready var Level = Globals.level
 
 export(float) var speed = 20
 var current_dir = Vector2(0, 0)

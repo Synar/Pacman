@@ -18,7 +18,7 @@ var gh_freeze_timer = -1
 
 func _process(delta):
 
-    if pc_freeze_timer != -1 and !input_pause_on and !GlobalPlayer.menu_pause_on:
+    if pc_freeze_timer != -1 and !input_pause_on and !Globals.menu_pause_on:
         pc_freeze_timer -= delta
         if pc_freeze_timer <= 0 :
             pc_freeze_timer = -1
@@ -26,7 +26,7 @@ func _process(delta):
             check_pause()
             entities_controller.pc_respawn()
 
-    if gh_freeze_timer != -1 and !input_pause_on and !GlobalPlayer.menu_pause_on:
+    if gh_freeze_timer != -1 and !input_pause_on and !Globals.menu_pause_on:
         gh_freeze_timer -= delta
         if gh_freeze_timer <= 0 :
             gh_freeze_timer = -1
@@ -36,7 +36,7 @@ func _process(delta):
 
 func check_pause():
 
-    var force_pause = input_pause_on or GlobalPlayer.menu_pause_on
+    var force_pause = input_pause_on or Globals.menu_pause_on
     for node in entities_controller.get_children():
         if node is Pacman :
             for snode in node.get_children():
@@ -48,7 +48,7 @@ func check_pause():
             unpause_node_if(node.get_node("AnimatedSprite"),!force_pause)
     unpause_node_if($"../sound_controller",!force_pause)
 
-    get_tree().paused = pc_death_freeze_on or gh_death_freeze_on or input_pause_on or GlobalPlayer.menu_pause_on
+    get_tree().paused = pc_death_freeze_on or gh_death_freeze_on or input_pause_on or Globals.menu_pause_on
 
 
 func unpause_node_if(node, condition):
@@ -73,28 +73,28 @@ func pause_input():
 
 
 func escape_pause_input():
-    GlobalPlayer.menu_pause_on = !GlobalPlayer.menu_pause_on
+    Globals.menu_pause_on = !Globals.menu_pause_on
     check_pause()
 
 
 func _input(event):
     if event.is_action_pressed("escape_menu"):
         escape_pause_input()
-    if !GlobalPlayer.menu_pause_on:
+    if !Globals.menu_pause_on:
         if event.is_action_pressed("pause"):
             pause_input()
         if event.is_action_pressed("break"):
             pass
         if event.is_action_pressed("debug_mode"):
-            GlobalPlayer.debug_mode = !GlobalPlayer.debug_mode
-            GlobalPlayer.anticheat = true
-        if GlobalPlayer.debug_mode:
+            Globals.debug_mode = !Globals.debug_mode
+            Globals.anticheat = true
+        if Globals.debug_mode:
             if event.is_action_pressed("god_mode"):
-                GlobalPlayer.god_mode = !GlobalPlayer.god_mode
-                GlobalPlayer.anticheat = true
+                Globals.god_mode = !Globals.god_mode
+                Globals.anticheat = true
             if event.is_action_pressed("infinite_lives"):
-                GlobalPlayer.infinite_lives = !GlobalPlayer.infinite_lives
-                GlobalPlayer.anticheat = true
+                Globals.infinite_lives = !Globals.infinite_lives
+                Globals.anticheat = true
             if event.is_action_pressed("true_god_mode"):
-                GlobalPlayer.true_god_mode = !GlobalPlayer.true_god_mode
-                GlobalPlayer.anticheat = true
+                Globals.true_god_mode = !Globals.true_god_mode
+                Globals.anticheat = true

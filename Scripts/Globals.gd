@@ -1,19 +1,22 @@
 extends Node
 
 export var basespeed = 75
-export var level_prog = 1
-export var lives = 3
+export var first_level = 1
 
 #var e_controller
 var Player
 var level
 var anticheat = false
 
-var fruits_eaten = []
-var score = 0
 var highscore
-var highscore_dir = "res://SaveFiles"
-var highscore_path = highscore_dir + "/highscore.txt"
+var save_dir = "res://SaveFiles"
+var highscore_path = save_dir + "/highscore.txt"
+var settings_path = save_dir + "/settings.txt"
+var lives_at_the_beggininging_of_the_level
+var score_at_the_beggininging_of_the_level #for continuing, both when losing and quitting
+#check that level_prog doesn't increase
+#maybe make a copy of the game vars in an object or a dict?
+
 
 var debug_mode = true setget set_debug_mode
 var god_mode = false setget set_god_mode
@@ -27,6 +30,44 @@ signal modes_changed
 var menu_pause_on = false
 var sound_volume = 1
 var level_autoload = true
+
+onready var settings = settings_class.new()
+onready var game_var = game_var_class.new()
+
+
+class settings_class:
+    var sound_volume = 0.2
+    var starting_lives = 3
+
+    func _init():
+        var var_dict = Globals._read_write_data(File.READ, Globals.settings_path, {})
+        for var_name in var_dict:
+            self.set(var_name, var_dict[var_name])
+        save()
+
+    func save():
+        var var_dict = {}
+        for var_name in Globals.filter(self.get_script().get_script_property_list()):
+            var_dict[var_name] = self.get(var_name)
+            print(var_name, " ", self.get(var_name))
+        Globals._read_write_data(File.WRITE, Globals.settings_path, var_dict)
+
+
+class game_var_class:
+    func _init():
+        lives = Globals.settings.starting_lives
+    var fruits_eaten = []
+    var score = 0
+    var level_prog = Globals.first_level
+    var lives = Globals.settings.starting_lives
+
+
+
+
+class dbg_settings:
+    var placeholder
+
+
 
 func _read_write_data(mode, path, data = 0):
     var dir = Directory.new( )
@@ -50,27 +91,28 @@ func _read_write_data(mode, path, data = 0):
 
 
 func _read_write_score(mode):
-    return _read_write_data(mode, highscore_path, score)
+    return _read_write_data(mode, highscore_path, game_var.score)
 
 
+var test = 30
 func _ready():
+    test = 20
     highscore = _read_write_score(File.READ)
-    var a = 1
     print("test reading :")
-    print( _read_write_data(File.WRITE,highscore_dir + "/test.txt",{0:10,1:[{1: 32}, "er", ['1', 4]]}))
-    print( _read_write_data(File.READ,highscore_dir + "/test.txt",1))
-    print(a)
+    print( _read_write_data(File.WRITE,save_dir + "/test.txt",{0:10,1:[{1: 32}, "er", ['1', 4]]}))
+    print( _read_write_data(File.READ,save_dir + "/test.txt",1))
+    test = 10
 
 
 func _on_level_loaded():
-    emit_signal("lives_set", lives)
-    emit_signal("fruit_collected",fruits_eaten)
+    emit_signal("lives_set", game_var.lives)
+    emit_signal("fruit_collected", game_var.fruits_eaten)
     emit_signal("modes_changed")
 
 
 func next_level():
-    level_prog += 1
-    if level_prog == 2:
+    game_var.level_prog += 1
+    if game_var.level_prog == 2:
         get_tree().change_scene("res://Scenes/Animations/intermission1.tscn")
         yield(get_tree(),"idle_frame")
         yield(get_tree().get_root().get_child(1), "animation_end")
@@ -82,21 +124,21 @@ func next_level():
 
 
 func score_increase(score_value):
-    score += score_value
-    if !anticheat and score > highscore:
-        highscore = score
+    game_var.score += score_value
+    if !anticheat and game_var.score > highscore:
+        highscore = game_var.score
         _read_write_score(File.WRITE)
 
 
 func life_loss(count=1):
-    lives -= count
-    if lives <= 0 and !infinite_lives:
+    game_var.lives -= count
+    if game_var.lives <= 0 and !infinite_lives:
         get_tree().change_scene("res://Scenes/GUI/GameOver.tscn")
-    emit_signal("lives_set", lives)
+    emit_signal("lives_set", game_var.lives)
 
 
 func fruit_collected(fruits):
-    fruits_eaten += fruits
+    game_var.fruits_eaten += fruits
     emit_signal("fruit_collected",fruits)
 
 
@@ -127,15 +169,15 @@ func quit_to_title():
 
 
 func new_game():
-    level_prog = 1
-    lives = 3
-    score = 0
+    game_var.level_prog = 1
+    game_var.lives = 3
+    game_var.score = 0
     get_tree().change_scene("res://Scenes/Level1.tscn")
 
 
-
 func save_game():
-    _read_write_data(File.READ, highscore_dir + "/testsave3.txt", save_node(level))
+    _read_write_data(File.READ, save_dir + "/testsave3.txt", save_node(level))
+
 
 func save_node(node):
     if node.has_method("save_node"):

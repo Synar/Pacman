@@ -1,10 +1,13 @@
 extends Node
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+class game_var_class:
+    func _init():
+        lives = Globals.test
+    var fruits_eaten = []
+    var score = 0
+    var level_prog = 1
+    var lives = Globals.test + 10000
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,7 +27,12 @@ func _ready():
         print (Vector2(1,0))
     print(Vector2(1,2)*Vector2(10,100))
 
+    Globals.test = 100
+    var game_var = game_var_class.new()
+    Globals.test = 200
+    print("game_var.lives", game_var.lives)
+    game_var = game_var_class.new()
+    print("game_var.lives", game_var.lives)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #    pass

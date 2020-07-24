@@ -45,18 +45,18 @@ func _ready():
 
     grid_pos = main_tilemap.position
     grid_pos_half = off_by_half_tilemap.position
-    GlobalPlayer.level = self
-    level_prog = GlobalPlayer.level_prog
+    Globals.level = self
+    level_prog = Globals.game_var.level_prog
 
     entities_controller = entitiesControllerScene.instance()
     entities_controller.level_prog = level_prog
     add_child(entities_controller)
 
-    if GlobalPlayer.level_autoload:
+    if Globals.level_autoload:
         load_map()
 
     entities_controller._on_map_loaded()
-    GlobalPlayer._on_level_loaded()
+    Globals._on_level_loaded()
     #print("off_by_half_map : ",off_by_half_map)
 
 
@@ -69,7 +69,7 @@ func pos_on_grid_to_center_pos(pos, _tilemap = main_tilemap):
     return _tilemap.map_to_world(pos) + _tilemap.position + Vector2(8, 8)
 
 
-func get_tile_name(pos, half_offset = false, tile_wanted = Vector2(0,0)): #vmap=GlobalPlayer.level.virtual_map, tilemap=GlobalPlayer.level.main_tilemap):
+func get_tile_name(pos, half_offset = false, tile_wanted = Vector2(0,0)): #vmap=Globals.level.virtual_map, tilemap=Globals.level.main_tilemap):
     var tilemap = off_by_half_tilemap if half_offset else main_tilemap
     var vmap = off_by_half_map if half_offset else virtual_map
 

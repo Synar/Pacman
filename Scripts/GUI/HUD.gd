@@ -5,15 +5,15 @@ var fruitSpriteScene = load("res://Scenes/pickup/FruitSprite.tscn")
 
 
 func _ready():
-    GlobalPlayer.connect("lives_set",self,"_on_lives_set")
-    GlobalPlayer.connect("fruit_collected",self,"_on_fruit_collected")
+    Globals.connect("lives_set",self,"_on_lives_set")
+    Globals.connect("fruit_collected",self,"_on_fruit_collected")
     $DebugDisp/OS.text = "OS :" + OS.get_name()
     $DebugDisp/Engine.text = "Godot v :" + Engine.get_version_info()["string"]
 
 
 func _process(_delta):
-    $ScoreBox/HBoxContainer/VBox/Score.text = str(GlobalPlayer.score)
-    $ScoreBox/HBoxContainer/VBoxContainer/Highscore.text = str(GlobalPlayer.highscore)
+    $ScoreBox/HBoxContainer/VBox/Score.text = str(Globals.game_var.score)
+    $ScoreBox/HBoxContainer/VBoxContainer/Highscore.text = str(Globals.highscore)
     $DebugDisp/FPS.text = "FPS :" + str(Engine.get_frames_per_second())
 
 
