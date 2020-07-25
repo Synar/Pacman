@@ -9,9 +9,10 @@ var level
 var anticheat = false
 
 var highscore
-var save_dir = "res://SaveFiles"
-var highscore_path = save_dir + "/highscore.txt"
-var settings_path = save_dir + "/settings.txt"
+const save_dir = "res://SaveFiles"
+const highscore_path = save_dir + "/highscore.txt"
+const settings_path = save_dir + "/settings.txt"
+const ls_save_path = save_dir + "/ls_save.txt"
 var lives_at_the_beggininging_of_the_level
 var score_at_the_beggininging_of_the_level #for continuing, both when losing and quitting
 #check that level_prog doesn't increase
@@ -33,17 +34,38 @@ var level_autoload = true
 
 onready var settings = settings_class.new()
 onready var game_var = game_var_class.new()
+onready var level_start_game_var = game_var_class.new()
 
 
 class settings_class:
-    var sound_volume = 0.2
+    signal sound_volume_set
+    var master_volume = 0.2 setget set_master_volume
+    var sfx_volume = 0.2 setget set_sfx_volume
+    var music_volume = 0.2 setget set_music_volume
     var starting_lives = 3
+    var basespeed_factor = 1
+
+    var continue_not_new = false
+
+
+    func set_master_volume(value):
+        master_volume = value
+        emit_signal("sound_volume_set")
+        print("sound_volume_set")
+
+    func set_sfx_volume(value):
+        sfx_volume = value
+
+    func set_music_volume(value):
+        music_volume = value
 
     func _init():
         var var_dict = Globals._read_write_data(File.READ, Globals.settings_path, {})
         for var_name in var_dict:
             self.set(var_name, var_dict[var_name])
+        #continue_not_new = false #override save
         save()
+
 
     func save():
         var var_dict = {}
@@ -53,14 +75,24 @@ class settings_class:
         Globals._read_write_data(File.WRITE, Globals.settings_path, var_dict)
 
 
+
+
 class game_var_class:
-    func _init():
-        lives = Globals.settings.starting_lives
+    #func _init():
+    #    lives = Globals.settings.starting_lives
     var fruits_eaten = []
     var score = 0
+    var basespeed_factor = 1
     var level_prog = Globals.first_level
     var lives = Globals.settings.starting_lives
+    var starting_lives_factor = 1
 
+    func save():
+        var var_dict = {}
+        for var_name in Globals.filter(self.get_script().get_script_property_list()):
+            var_dict[var_name] = self.get(var_name)
+            print(var_name, " ", self.get(var_name))
+        Globals._read_write_data(File.WRITE, Globals.ls_save_path, var_dict)
 
 
 
@@ -94,14 +126,14 @@ func _read_write_score(mode):
     return _read_write_data(mode, highscore_path, game_var.score)
 
 
-var test = 30
+#var test = 30
 func _ready():
-    test = 20
+    #test = 20
     highscore = _read_write_score(File.READ)
-    print("test reading :")
-    print( _read_write_data(File.WRITE,save_dir + "/test.txt",{0:10,1:[{1: 32}, "er", ['1', 4]]}))
-    print( _read_write_data(File.READ,save_dir + "/test.txt",1))
-    test = 10
+    #print("test reading :")
+    #print( _read_write_data(File.WRITE,save_dir + "/test.txt",{0:10,1:[{1: 32}, "er", ['1', 4]]}))
+    #print( _read_write_data(File.READ,save_dir + "/test.txt",1))
+    #test = 10
 
 
 func _on_level_loaded():
@@ -124,7 +156,7 @@ func next_level():
 
 
 func score_increase(score_value):
-    game_var.score += score_value
+    game_var.score += score_value*game_var.basespeed_factor*game_var.starting_lives_factor
     if !anticheat and game_var.score > highscore:
         highscore = game_var.score
         _read_write_score(File.WRITE)
@@ -168,10 +200,16 @@ func quit_to_title():
     get_tree().change_scene("res://Scenes/GUI/TitleScreen.tscn")
 
 
+func copy_object(object, obj_class):
+    var object_copy = obj_class.new()#get_class().new()
+    for var_name in filter(object.get_script().get_script_property_list()):
+        object_copy.set(var_name, object.get(var_name))
+
+
+
 func new_game():
-    game_var.level_prog = 1
-    game_var.lives = 3
-    game_var.score = 0
+    game_var = game_var_class.new()
+    level_start_game_var = copy_object(game_var, game_var_class)
     get_tree().change_scene("res://Scenes/Level1.tscn")
 
 
@@ -205,7 +243,7 @@ func filter(l):
     return r
 
 
-
 func load_game():
     #level = load("res://my_scene.tscn").instance()
-    get_tree().change_scene("res://my_scene.tscn")
+    #get_tree().change_scene("res://my_scene.tscn")
+    level_start_game_var

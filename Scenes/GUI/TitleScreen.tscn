@@ -27,7 +27,7 @@ margin_right = 550.0
 margin_bottom = 530.0
 custom_constants/separation = 10
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_right = 550.0
 margin_bottom = 75.0
 size_flags_vertical = 0
@@ -62,31 +62,31 @@ custom_fonts/font = ExtResource( 4 )
 text = "  Quick Play"
 underline = 2
 
-[node name="continue" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 48.0
-margin_right = 185.0
-margin_bottom = 94.0
-size_flags_horizontal = 2
-custom_fonts/font = ExtResource( 4 )
-text = "  Continue"
-underline = 2
-
 [node name="choose_mode" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 96.0
+margin_top = 48.0
 margin_right = 261.0
-margin_bottom = 142.0
+margin_bottom = 94.0
 size_flags_horizontal = 2
 custom_fonts/font = ExtResource( 4 )
 text = "  Choose Mode"
 underline = 2
 
 [node name="settings" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 144.0
+margin_top = 96.0
 margin_right = 157.0
-margin_bottom = 190.0
+margin_bottom = 142.0
 size_flags_horizontal = 2
 custom_fonts/font = ExtResource( 4 )
 text = "  Settings"
+underline = 2
+
+[node name="credits" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 144.0
+margin_right = 148.0
+margin_bottom = 190.0
+size_flags_horizontal = 2
+custom_fonts/font = ExtResource( 4 )
+text = "  Credits"
 underline = 2
 
 [node name="exit_game" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -106,7 +106,7 @@ size_flags_horizontal = 6
 size_flags_vertical = 0
 texture = ExtResource( 2 )
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/quick_play" to="." method="_on_quick_play_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/choose_mode" to="." method="_on_choose_mode_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/exit_game" to="." method="_on_exit_game_pressed"]
