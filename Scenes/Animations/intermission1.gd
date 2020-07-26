@@ -9,6 +9,7 @@ func _ready():
     VisualServer.set_default_clear_color(000000)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#    pass
+func _input(event):
+    if !Globals.menu_pause_on:
+        if event.is_action_pressed("pause"):
+            get_tree().paused = !get_tree().paused
