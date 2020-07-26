@@ -1,5 +1,6 @@
-extends CanvasLayer
+extends Node
 
+var paused = false
 
 signal animation_end
 # Called when the node enters the scene tree for the first time.
@@ -10,6 +11,8 @@ func _ready():
 
 
 func _input(event):
-    if !Globals.menu_pause_on:
-        if event.is_action_pressed("pause"):
-            get_tree().paused = !get_tree().paused
+    if event.is_action_pressed("pause"):
+        paused = !paused
+        get_tree().paused = !get_tree().paused
+    if !paused and event.is_action_pressed("skip_animation"):
+        emit_signal("animation_end")
