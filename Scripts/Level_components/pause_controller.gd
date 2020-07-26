@@ -84,7 +84,7 @@ func _input(event):
         if event.is_action_pressed("pause"):
             pause_input()
         if event.is_action_pressed("break"):
-            pass
+            pass #add breakpoint if not there in order for the debug command to work
         if event.is_action_pressed("debug_mode"):
             Globals.debug_mode = !Globals.debug_mode
             Globals.anticheat = true

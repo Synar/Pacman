@@ -100,6 +100,26 @@ class dbg_settings:
     var placeholder
 
 
+func copy_object(object, obj_class):
+    var object_copy = obj_class.new()#get_class().new()
+    for var_name in filter(object.get_script().get_script_property_list()):
+        object_copy.set(var_name, object.get(var_name))
+
+
+func save_object(object, path):
+    var var_dict = {}
+    for var_name in filter(object.get_script().get_script_property_list()):
+        var_dict[var_name] = object.get(var_name)
+        #print(var_name, " ", object.get(var_name))
+    _read_write_data(File.WRITE, path, var_dict)
+
+
+func load_object(obj_class, path):
+    var loaded_object = obj_class.new()
+    var var_dict = _read_write_data(File.READ, path, {})
+    for var_name in var_dict:
+        loaded_object.set(var_name, var_dict[var_name])
+
 
 func _read_write_data(mode, path, data = 0):
     var dir = Directory.new( )
@@ -200,10 +220,6 @@ func quit_to_title():
     get_tree().change_scene("res://Scenes/GUI/TitleScreen.tscn")
 
 
-func copy_object(object, obj_class):
-    var object_copy = obj_class.new()#get_class().new()
-    for var_name in filter(object.get_script().get_script_property_list()):
-        object_copy.set(var_name, object.get(var_name))
 
 
 
