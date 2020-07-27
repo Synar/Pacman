@@ -1,16 +1,24 @@
 extends CanvasLayer
 
+var animationScene = load("res://Scenes/Animations/title_screen_animation.tscn")
 
 func _ready():
     #OS.set_window_size(Vector2(640, 480))
     VisualServer.set_default_clear_color(000000)
     $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/quick_play.text =  \
                                         "  Continue" if Globals.settings.continue_not_new else "  Quick Play"
-    print("  Continue" if Globals.settings.continue_not_new else "  Quick Play")
+    #print("  Continue" if Globals.settings.continue_not_new else "  Quick Play")
+    #print(Globals.settings.continue_not_new)
+    randomize()
+    yield(get_tree().create_timer(rand_range(0.2,0.5)), "timeout")
+    generate_anim()
 
-    print(Globals.settings.continue_not_new)
-#func _process(delta):
-#    pass
+
+func generate_anim():
+    var anim = animationScene.instance()
+    add_child(anim)
+    yield(get_tree().create_timer(rand_range(1,2.5)), "timeout")
+    generate_anim()
 
 
 func _on_quick_play_pressed():
