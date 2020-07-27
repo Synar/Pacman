@@ -13,5 +13,6 @@ func _input(event):
             get_tree().change_scene("res://Scenes/Level1.tscn")
     elif event is InputEventKey:
         if event.pressed:
+            Globals.settings.continue_not_new = false
             Globals.quit_to_title()
 

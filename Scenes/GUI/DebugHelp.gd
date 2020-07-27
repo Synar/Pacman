@@ -22,10 +22,10 @@ func _input(event):
 
 
 func _on_modes_changed():
-    debug_mode_button.pressed = Globals.debug_mode
-    god_mode_button.pressed = Globals.god_mode
-    infinite_lives_button.pressed = Globals.infinite_lives
-    true_god_mode_button.pressed = Globals.true_god_mode
+    debug_mode_button.pressed = Globals.dbg_settings.debug_mode
+    god_mode_button.pressed = Globals.dbg_settings.god_mode
+    infinite_lives_button.pressed = Globals.dbg_settings.infinite_lives
+    true_god_mode_button.pressed = Globals.dbg_settings.true_god_mode
 
 
 func switch(bool_var):
