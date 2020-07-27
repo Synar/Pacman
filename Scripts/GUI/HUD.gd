@@ -7,6 +7,7 @@ var fruitSpriteScene = load("res://Scenes/pickup/FruitSprite.tscn")
 func _ready():
     Globals.connect("lives_set",self,"_on_lives_set")
     Globals.connect("fruit_collected",self,"_on_fruit_collected")
+    $DebugDisp.visible = Globals.dbg_settings.debug_mode
     $DebugDisp/OS.text = "OS :" + OS.get_name()
     $DebugDisp/Engine.text = "Godot v :" + Engine.get_version_info()["string"]
 
@@ -44,3 +45,9 @@ func _on_fruit_collected(fruits):
         $FruitCollected/Control/HBoxContainer.add_child(center)
         $FruitCollected/Control/HBoxContainer.move_child(center, 0)
         print(fruit)
+
+
+func _input(event):
+    if !Globals.menu_pause_on:
+        if event.is_action_pressed("debug_mode"):
+            $DebugDisp.visible = Globals.dbg_settings.debug_mode
