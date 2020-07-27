@@ -210,8 +210,9 @@ func new_game():
     start_level()
 
 
-func load_game():
+func load_game(score_penalty = 0):
     game_var = load_object(game_var_class, ls_save_path)
+    score_increase(score_penalty)
     start_level()
 
 

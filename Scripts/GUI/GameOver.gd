@@ -9,8 +9,8 @@ func _ready():
 
 func _input(event):
     if event.is_action_pressed("insert_coin"):
-            Globals.score_increase(-1000)
-            get_tree().change_scene("res://Scenes/Level1.tscn")
+            #Globals.score_increase(-1000)
+            Globals.load_game(-101)
     elif event is InputEventKey:
         if event.pressed:
             Globals.settings.continue_not_new = false
