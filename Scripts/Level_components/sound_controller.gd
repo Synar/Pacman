@@ -4,7 +4,7 @@ extends Node
 func create_audio_stream_player(bus, stream, volume_db):
     var audio_stream_player = AudioStreamPlayer.new()
     self.add_child(audio_stream_player)
-    audio_stream_player.bus = "SFX"
+    audio_stream_player.bus = bus
     audio_stream_player.stream = stream
     audio_stream_player.volume_db = volume_db
     audio_stream_player.play()

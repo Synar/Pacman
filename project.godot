@@ -58,6 +58,10 @@ config/icon="res://icon.png"
 
 Globals="*res://Scripts/Globals.gd"
 
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/size/width=600
