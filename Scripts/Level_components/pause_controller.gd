@@ -87,14 +87,14 @@ func _input(event):
             pass #add breakpoint if not there in order for the debug command to work
         if event.is_action_pressed("debug_mode"):
             Globals.dbg_settings.debug_mode = !Globals.dbg_settings.debug_mode
-            Globals.anticheat = true
+            Globals.game_var.anticheat = true
         if Globals.dbg_settings.debug_mode:
             if event.is_action_pressed("god_mode"):
                 Globals.dbg_settings.god_mode = !Globals.dbg_settings.god_mode
-                Globals.anticheat = true
+                Globals.game_var.anticheat = true
             if event.is_action_pressed("infinite_lives"):
                 Globals.dbg_settings.infinite_lives = !Globals.dbg_settings.infinite_lives
-                Globals.anticheat = true
+                Globals.game_var.anticheat = true
             if event.is_action_pressed("true_god_mode"):
                 Globals.dbg_settings.true_god_mode = !Globals.dbg_settings.true_god_mode
-                Globals.anticheat = true
+                Globals.game_var.anticheat = true

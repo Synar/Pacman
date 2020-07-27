@@ -284,21 +284,21 @@ func process_input():
     if Globals.dbg_settings.debug_mode and !Globals.menu_pause_on:
 
         if Input.is_action_just_pressed("fruit_spawn"):
-            Globals.anticheat = true
+            Globals.game_var.anticheat = true
             _spawn_fruits()
 
         if Input.is_action_just_pressed("kill_ghosts"):
-            Globals.anticheat = true
+            Globals.game_var.anticheat = true
             for ghost in ghosts:
                 ghost.state = State.dead1
                 ghost.emit_signal("ghost_eaten")
 
         if Input.is_action_just_pressed("suicide"):
-            Globals.anticheat = true
+            Globals.game_var.anticheat = true
             _on_pacman_eaten()
 
         if Input.is_action_just_pressed("next_level"):
-            Globals.anticheat = true
+            Globals.game_var.anticheat = true
             Globals.next_level()
 
 

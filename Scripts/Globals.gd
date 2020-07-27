@@ -6,7 +6,6 @@ export var first_level = 1
 #var e_controller
 var Player
 var level
-var anticheat = false
 
 var highscore
 const save_dir = "res://SaveFiles"
@@ -76,7 +75,7 @@ class game_var_class:
     var level_prog = Globals.first_level
     var lives = Globals.settings.starting_lives
     var starting_lives_factor = 1
-
+    var anticheat = false
 
 class dbg_settings_class:
     var debug_mode = true setget set_debug_mode
@@ -154,7 +153,7 @@ func _read_write_score(mode):
 
 func score_increase(score_value):
     game_var.score += score_value*game_var.basespeed_factor*game_var.starting_lives_factor
-    if !anticheat and game_var.score > highscore:
+    if !game_var.anticheat and game_var.score > highscore:
         highscore = game_var.score
         _read_write_score(File.WRITE)
 
