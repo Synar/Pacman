@@ -3,8 +3,7 @@ extends Node
 export var basespeed = 75
 export var first_level = 1
 
-#var e_controller
-var Player
+var player
 var level
 
 var highscore
@@ -12,10 +11,7 @@ const save_dir = "res://SaveFiles"
 const highscore_path = save_dir + "/highscore.txt"
 const settings_path = save_dir + "/settings.txt"
 const ls_save_path = save_dir + "/ls_save.txt"
-var lives_at_the_beggininging_of_the_level
-var score_at_the_beggininging_of_the_level #for continuing, both when losing and quitting
 #check that level_prog doesn't increase
-#maybe make a copy of the game vars in an object or a dict?
 
 
 signal lives_set
@@ -191,6 +187,7 @@ func _on_level_loaded():
 
 
 #func _before_level_loading():
+
 func start_level():
     get_tree().change_scene("res://Scenes/Level1.tscn")
 

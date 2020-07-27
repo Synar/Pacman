@@ -6,9 +6,9 @@ func _ready():
 
 
 func chase_target():
-    if position.distance_to(Globals.Player.position) < 8*16:
+    if position.distance_to(Globals.player.position) < 8*16:
         return scatter_target
-    return Globals.Player.position
+    return Globals.player.position
 
 
 signal clyde_liberated

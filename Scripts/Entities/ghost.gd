@@ -50,7 +50,7 @@ func liberate():
 
 
 func chase_target():
-    return adjust_pos(Globals.Player.position)
+    return adjust_pos(Globals.player.position)
 
 
 var chase_or_scatter_timer = chase_scatter_times[0]

@@ -7,7 +7,7 @@ var PacmanDeathScene = load("res://Scenes/Animations/pacman_death.tscn")
 func _ready():
     test_id = 1
     z_index = 2
-    Globals.Player = self
+    Globals.player = self
 
 
 func entity_rotate():

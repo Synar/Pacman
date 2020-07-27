@@ -170,7 +170,6 @@ func read_tilemap(_tilemap, _entities_controller, _virtual_map):
                 _entities_controller.gh_2 = pos_on_grid_to_center_pos(pos, _tilemap)
 
 
-
     for pos in _tilemap.get_used_cells():
         var tile = ts.tile_get_name(_tilemap.get_cell(pos.x, pos.y))
 
