@@ -3,7 +3,7 @@ extends Node2D
 
 var vect_to_dir = {Vector2(1, 0): "right", Vector2(0, -1): "up", Vector2(-1, 0): "left", Vector2(0, 1): "down"}
 var dir_to_vect = {"right": Vector2(1, 0), "up": Vector2(0, -1), "left": Vector2(-1, 0), "down": Vector2(0, 1)}
-
+enum {SOLO_GHOST, SOLO_FRIGHT, SOLO_PACMAN, GH_CHASE, PC_CHASE,}
 
 func _ready():
     randomize()
@@ -16,27 +16,58 @@ func _ready():
     var end_pos = orth_pos + 350*(vdir.abs() + vdir) - 50*vdir.abs()
     print(orth_pos,init_pos,end_pos)
 
+    var animation = Animation.new()
+    animation.length = 8.5
+
+    var anim_type = pick_at_rand(range(5),[0.45,0.15,0.15,0.1,0.1])
     $pacman.play(dir)
     var ghost = pick_at_rand([$inky,$blinky,$pinky,$clyde])
     ghost.visible = true
-    if pick_at_rand([true, true, false]):
-        $pacman.visible = false
-    if pick_at_rand([true, true, false]):
-        ghost.play("normal_"+dir)
-        ghost.position -= 35*vdir
-    else:
-        ghost.play("fright_"+dir)
-        $pacman.position -= 20*vdir
+    match anim_type:
+        SOLO_GHOST:
+            $pacman.visible = false
+            ghost.play("normal_"+dir)
+        SOLO_FRIGHT:
+            $pacman.visible = false
+            ghost.play("fright_"+dir)
+        SOLO_PACMAN:
+            ghost.visible = false
+        GH_CHASE:
+            ghost.play("normal_"+dir)
+            var track_index = animation.add_track(Animation.TYPE_VALUE)
+            animation.track_set_path(track_index, str(ghost.get_path())+":position")
+            animation.track_insert_key(track_index, 0, ghost.position - 38*vdir)
+            animation.track_insert_key(track_index, 8, ghost.position - 18*vdir)
+        PC_CHASE:
+            ghost.play("fright_"+dir)
+            var track_index = animation.add_track(Animation.TYPE_VALUE)
+            animation.track_set_path(track_index, "pacman:position")
+            animation.track_insert_key(track_index, 0, $pacman.position - 30*vdir)
+            animation.track_insert_key(track_index, 8, $pacman.position - 15*vdir)
+#    if pick_at_rand([true, true, false]):
+#        $pacman.visible = false
+#    if pick_at_rand([true, true, false]):
+#        ghost.play("normal_"+dir)
+#        var track_index = animation.add_track(Animation.TYPE_VALUE)
+#        animation.track_set_path(track_index, str(ghost.get_path())+":position")
+#        animation.track_insert_key(track_index, 0, ghost.position - 38*vdir)
+#        animation.track_insert_key(track_index, 8, ghost.position - 18*vdir)
+#    else:
+#        ghost.play("fright_"+dir)
+#        var track_index = animation.add_track(Animation.TYPE_VALUE)
+#        animation.track_set_path(track_index, "pacman:position")
+#        animation.track_insert_key(track_index, 0, $pacman.position - 30*vdir)
+#        animation.track_insert_key(track_index, 8, $pacman.position - 15*vdir)
 
-    var animation = Animation.new()
+    #add random speed ?
     var track_index = animation.add_track(Animation.TYPE_VALUE)
-    animation.length = 8.5
     animation.track_set_path(track_index, ".:position")
     animation.track_insert_key(track_index, 0.0, init_pos)
     animation.track_insert_key(track_index, 8, end_pos)
+
     $AnimationPlayer.add_animation("animation", animation)
     $AnimationPlayer.play("animation")
-    print(pick_at_rand([0,10,100,21], [0.1,0.7,0.1,0.2]))
+    #print(pick_at_rand([0,10,100,21], [0.1,0.7,0.1,0.2]))
 
 
 func pick_at_rand(array, proba_array = false):
