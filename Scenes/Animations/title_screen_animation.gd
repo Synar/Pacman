@@ -19,7 +19,7 @@ func _ready():
     var animation = Animation.new()
     animation.length = 8.5
 
-    var anim_type = pick_at_rand(range(5),[0.45,0.15,0.15,0.1,0.1])
+    var anim_type = pick_at_rand(range(5),[0.7,0.1,0.1,0.05,0.05])
     $pacman.play(dir)
     var ghost = pick_at_rand([$inky,$blinky,$pinky,$clyde])
     ghost.visible = true
@@ -44,20 +44,6 @@ func _ready():
             animation.track_set_path(track_index, "pacman:position")
             animation.track_insert_key(track_index, 0, $pacman.position - 30*vdir)
             animation.track_insert_key(track_index, 8, $pacman.position - 15*vdir)
-#    if pick_at_rand([true, true, false]):
-#        $pacman.visible = false
-#    if pick_at_rand([true, true, false]):
-#        ghost.play("normal_"+dir)
-#        var track_index = animation.add_track(Animation.TYPE_VALUE)
-#        animation.track_set_path(track_index, str(ghost.get_path())+":position")
-#        animation.track_insert_key(track_index, 0, ghost.position - 38*vdir)
-#        animation.track_insert_key(track_index, 8, ghost.position - 18*vdir)
-#    else:
-#        ghost.play("fright_"+dir)
-#        var track_index = animation.add_track(Animation.TYPE_VALUE)
-#        animation.track_set_path(track_index, "pacman:position")
-#        animation.track_insert_key(track_index, 0, $pacman.position - 30*vdir)
-#        animation.track_insert_key(track_index, 8, $pacman.position - 15*vdir)
 
     #add random speed ?
     var track_index = animation.add_track(Animation.TYPE_VALUE)
@@ -85,5 +71,5 @@ func pick_at_rand(array, proba_array = false):
         return array[randi()%array.size()]
 
 
-func _on_AnimationPlayer_animation_finished(anim_name):
+func _on_AnimationPlayer_animation_finished(_anim_name):
     queue_free()

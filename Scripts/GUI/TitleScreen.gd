@@ -10,14 +10,14 @@ func _ready():
     #print("  Continue" if Globals.settings.continue_not_new else "  Quick Play")
     #print(Globals.settings.continue_not_new)
     randomize()
-    yield(get_tree().create_timer(rand_range(0.2,0.5)), "timeout")
+    yield(get_tree().create_timer(rand_range(1,2)), "timeout")
     generate_anim()
 
 
 func generate_anim():
     var anim = animationScene.instance()
     add_child(anim)
-    yield(get_tree().create_timer(rand_range(1,2.5)), "timeout")
+    yield(get_tree().create_timer(rand_range(0.2,3)), "timeout")
     generate_anim()
 
 
