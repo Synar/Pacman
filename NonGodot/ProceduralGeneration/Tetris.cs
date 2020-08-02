@@ -9,12 +9,13 @@ public class Tetris : TileMap
     private PackedScene lightTileScene = (PackedScene)ResourceLoader.Load("res://Scenes/Level_components/light_tile.tscn");
     private string a = "test";
     // Called when the node enters the scene tree for the first time.
+    private TetrisTile[,] test_map;
     public override void _Ready()
     {
         //this.set_cellv(new Vector2(-4,-4), 2);
         string a = "test";
-        c_array_to_tiles([1,2,1,3]);
-
+        c_array_to_tiles(new TetrisTile[] {new TetrisTile(1),new TetrisTile(1),new TetrisTile(1),new TetrisTile(1)});
+        //List<List<TetrisTile>> listijozerji = new List<List<TetrisTile>> {new List,}
     }
 
 
@@ -48,11 +49,29 @@ public class Tetris : TileMap
     public class TetrisTile
     {
         int test;
+        public TetrisTile(int i)
+        {
+            test = i;
+        }
     }
 
-    public void c_array_to_tiles(Array[] tile)
+    public class TetrisMap
     {
+        int test;
+        public TetrisMap(int i)
+        {
+            test = i;
+        }
 
+
+    }
+
+    public void c_array_to_tiles(TetrisTile[] tiles)
+    {
+        foreach (TetrisTile tile in tiles)
+        {
+
+        }
     }
 
 
