@@ -36,14 +36,15 @@ public class Tetris : TileMap
         for (int k = 0; k < 500; k += 1)
         {
             int i1 = rnd.Next(0,test_map.GetLength(0)), j1 = rnd.Next(0,test_map.GetLength(1));
-            (int i2, int j2) = new (int, int)[] { (i1 + 1, j1), (i1 - 1, j1), (i1, j1 + 1), (i1, j1 - 1) }[rnd.Next(0, 4)];
+            //(int i2, int j2) = new (int, int)[] { (i1 + 1, j1), (i1 - 1, j1), (i1, j1 + 1), (i1, j1 - 1) }[rnd.Next(0, 4)];
+            (int i12, int j12) = new (int, int)[] { (1, 0), (-1, 0), (0, 1), (0, -1) }[rnd.Next(0, 4)];
             //int i3 = (80,11,12,45)[rnd.Next(0, 4)];
             //(int i1 ,int j2) = (int, int)[] {(i1+1,j1), (i1-1,j1),
             //                                             (i1,j1+1), (i1,j1-1)}[rnd.Next(0,4)];
             //Tuple<int,int> i2j2 = new Tuple<int, int>[] {new Tuple<int,int>(i1+1,j1), new Tuple<int,int> (i1-1,j1),
             //                                             new Tuple<int,int>(i1,j1+1), new Tuple<int,int> (i1,j1-1)}[rnd.Next(0,4)];
             //int j1 = rnd.Next(0,test_map.GetLength(1)), j2 = rnd.Next(0,test_map.GetLength(1));
-            try_swap (test_map, i1, j1, i2, j2, false);
+            try_swap (test_map, i1, j1, i1 + i12, j1 + j12, false);
         }
 
         foreach (TetrisTile tile in test_map)
@@ -58,7 +59,7 @@ public class Tetris : TileMap
     }
 
 
-    public void _input(InputEvent Event)
+    public override void _Input(InputEvent Event)
     {
         if (Event.IsActionPressed("escape_menu"))
         {
